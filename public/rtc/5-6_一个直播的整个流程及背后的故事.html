@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5-6 一个直播的整个流程及背后的故事</title>
+    <link rel="stylesheet" href="rtc_styles.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 高亮当前活动的导航项
+            const currentHash = window.location.hash || '#collection';
+            const activeLink = document.querySelector(`a[href="${currentHash}"]`);
+            if (activeLink) activeLink.classList.add('active');
+            
+            // 点击导航项时添加高亮
+            const navLinks = document.querySelectorAll('.nav a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <nav class="nav">
+        <h2>直播流程</h2>
+        <ul>
+            <li><a href="#collection">采集与推流</a>
+                <ul style="margin-left: 15px">
+                    <li><a href="#collection">采集</a></li>
+                    <li><a href="#protocol-packaging">推流协议封装</a></li>
+                    <li><a href="#streaming">推流</a></li>
+                </ul>
+            </li>
+            <li><a href="#server-processing">服务器处理</a>
+                <ul style="margin-left: 15px">
+                    <li><a href="#unpacking">解封装</a></li>
+                    <li><a href="#index-server">通知索引服务器</a></li>
+                </ul>
+            </li>
+            <li><a href="#playback">播放与分发</a>
+                <ul style="margin-left: 15px">
+                    <li><a href="#playback">播放</a></li>
+                    <li><a href="#last-mile">最后一公里</a></li>
+                    <li><a href="#back-to-source">回源</a></li>
+                    <li><a href="#transit">中转</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <section id="collection">
+            <h1>采集</h1>
+            <p>一般通过手机摄像头或者采集卡采集到视频数据，原始数据是一幅幅的图片，通过硬件编码，编码成<span class="key-terms">H264/H265格式</span>的视频数据。</p>
+            <p>音频是通过麦克风采集，通过硬件编码，编码成<span class="key-terms">AAC格式</span>的音频数据。</p>
+        </section>
+
+        <section id="protocol-packaging">
+            <h1>推流协议封装</h1>
+            <p>直播APP根据使用的推流协议，把编码后的视频数据和音频数据封装成推流协议需要的格式。</p>
+        </section>
+
+        <section id="streaming">
+            <h1>推流</h1>
+            <p>直播APP通过推流域名获取到最优的推流服务器，使用推流协议连接上推流服务器，把封装好的数据推送到服务器。</p>
+            <p>一般云厂商会做DNS负载调度，根据访问DNS服务器的IP，选择<span class="highlight">相同运营商，距离最近，负载最轻</span>的服务器。</p>
+            <p>选择合适的推流协议，选择合适的推流服务器，都是为了解决第一公里的问题。</p>
+        </section>
+
+        <section id="unpacking">
+            <h1>解封装</h1>
+            <p>推流服务器根据推流协议，跟直播APP建立连接，接收推送过来的数据，并且<span class="key-terms">解封装</span>，得到音频和视频数据，以及Meta信息。</p>
+        </section>
+
+        <section id="index-server">
+            <h1>通知索引服务器</h1>
+            <p>推流服务器接收到一路推流后，会通知索引服务器，并带上流的各种信息。</p>
+            <p>索引服务器收到通知后，会记录这种流，以便其他服务器过来查寻时，能够返回正确的推流服务器地址。</p>
+            <p>索引服务器也可以通知业务服务器，新增加了一路直播流，直播APP就可以刷新看到这路新的流。</p>
+        </section>
+
+        <section id="playback">
+            <h1>播放</h1>
+            <p><span class="highlight">直播APP刷新后，出现了新推上来的直播流，点击播放，直播APP通过直播流的域名，获取到最优的播放服务器。</span></p>
+            <p>直播APP根据获取到的播放服务器地址，使用播放协议（HLS/RTMP/HTTP-FLV）建立连接，接收数据。</p>
+            <p>播放器接收到数据后，进行解封装，解编码格式，渲染输出画面，用户就能看到界面。</p>
+        </section>
+
+        <section id="last-mile">
+            <h1>最后一公里</h1>
+            <p>最后一公里是指播放服务器到用户端的过程。直播APP根据播放域名，从DNS服务器获取最优的播放服务器地址（也有可能是通过访问负载均衡服务器）进行播放；而DNS服务器（或者负载均衡服务器）需要从运营商，IP距离，负载情况等多方面考虑，选择最优的一个服务器。</p>
+            <p>同时，直播APP要根据业务需求，用户网络环境等选择合适的播放协议进行播放。最后一公里需要直播系统和直播APP，业务设计等多方面共同参与优化，给用户最好的体验。</p>
+        </section>
+
+        <section id="back-to-source">
+            <h1>回源</h1>
+            <p>当直播应用程序向边缘节点（DNS返回的播放服务器）请求直播流时，边缘节点会先检查本地是否已存储了这个特定的直播流；如果没有找到，则需进一步向回源服务器发起请求获取数据。</p>
+            <p>一旦边缘节点接收到回源的数据，它就会立即将其传回给直播应用程序。这种即时响应机制确保用户能迅速收看到画面内容，提升了直播体验的流畅性与稳定性。</p>
+        </section>
+
+        <section id="transit">
+            <h1>中转</h1>
+            <p>边缘节点的运营商，可能跟推流服务器的运营商不一样，这时候就需要中转服务器来处理。</p>
+            <p>首先，中转服务器都是<span class="key-terms">多线服务器</span>，即中转服务器有多个网卡，每个网卡接一个运营商。</p>
+            <p>其次，边缘节点向中转服务器请求，是从边缘节点相同的运营商的线路发起请求。</p>
+            <p>最后，中转服务器推流服务器拉流时，是从推流服务器相同的运营商线路发起拉流请求。</p>
+            <p>所以，通过中转服务器处理后，边缘节点和推流服务器的运营商差异就被屏蔽了，用户是无感知的。</p>
+            
+            <h2>总结</h2>
+            <p>一个直播，从终端到CDN，再从CDN到终端，每个环节都涉及很多技术，都是必不可少的。直播系统在这个过程中，提供了推流功能，CDN分发，CDN加速功能，以及播放功能。</p>
+            <p>如果主播还需要录视频，CDN还需要启动录制功能。直播平台需要对内容进行审查，则需要时移及其他定制的功能。</p>
+            <p>用户播放这个主播的流，手机屏幕不一样，手机芯片不一样，可能需要不一样的分辨率，不一样的编码格式，这时候直播CDN就需要为这个流提供转码的能力。</p>
+        </section>
+    </div>
+</body>
+</html>
+    

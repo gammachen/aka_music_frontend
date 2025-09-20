@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>srs_rtmp_distribution_deploy.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<p>以下是关于 <strong>使用开源的 <code>nginx-rtmp</code> 实现分布式部署</strong> 的详细说明，包括与 SRS 的对比、手动分发的必要性，以及 DNS 负载均衡的配置建议：</p>
+<hr>
+<h2 id="%E4%B8%80nginx-rtmp-%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2%E6%96%B9%E6%A1%88"><strong>一、nginx-rtmp 的分布式部署方案</strong></h2>
+<h3 id="1-%E6%A0%B8%E5%BF%83%E6%8C%91%E6%88%98"><strong>1. 核心挑战</strong></h3>
+<p><code>nginx-rtmp</code> 是一个轻量级的开源模块，<strong>本身不支持自动流分发</strong>（如 SRS 的集群功能）。因此，分布式部署需要通过以下方式手动实现：</p>
+<h4 id="1%E6%89%8B%E5%8A%A8%E5%88%86%E5%8F%91%E6%B5%81%E5%88%B0%E5%A4%9A%E4%B8%AA%E8%8A%82%E7%82%B9"><strong>（1）手动分发流到多个节点</strong></h4>
+<ul>
+<li>
+<p><strong>方式1：推流端同时推送到多个节点</strong>
+使用 <code>FFmpeg</code> 或推流工具同时将流推送到多个 <code>nginx-rtmp</code> 节点：</p>
+<pre class="hljs"><code><div>ffmpeg -re -i input.mp4 \
+  -c copy -f flv rtmp://node1_ip/live/stream_key \
+  -c copy -f flv rtmp://node2_ip/live/stream_key
+</div></code></pre>
+</li>
+<li>
+<p><strong>方式2：配置节点间流复制</strong>
+在 <code>nginx-rtmp</code> 的配置中，通过 <code>push</code> 指令将流从一个节点主动推送到其他节点：</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># 在 Node1 的配置中，将流推送到 Node2</span>
+<span class="hljs-attribute">application</span> live {
+    <span class="hljs-attribute">live</span> <span class="hljs-literal">on</span>;
+    <span class="hljs-attribute">push</span> rtmp://node2_ip/live/stream_key;  <span class="hljs-comment"># 自动推流到 Node2</span>
+}
+</div></code></pre>
+</li>
+</ul>
+<h4 id="2%E8%8A%82%E7%82%B9%E7%8B%AC%E7%AB%8B%E8%BF%90%E8%A1%8C"><strong>（2）节点独立运行</strong></h4>
+<p>每个 <code>nginx-rtmp</code> 节点需独立部署，各自监听 <code>1935</code> 端口，流数据需手动或通过脚本分发到所有节点。</p>
+<hr>
+<h3 id="2-%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AE%BF%E9%97%AE%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><strong>2. 客户端访问与负载均衡</strong></h3>
+<h4 id="1dns-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><strong>（1）DNS 负载均衡</strong></h4>
+<ul>
+<li><strong>作用</strong>：将客户端请求分发到多个 <code>nginx-rtmp</code> 节点，实现流量分摊。</li>
+<li><strong>配置方法</strong>：
+<ul>
+<li>使用 DNS 服务商（如 AWS Route 53、Cloudflare）设置 <strong>轮询（Round Robin）</strong> 或 <strong>地理位置（Geo-based）</strong> 负载均衡。</li>
+<li>将多个节点的 IP 地址绑定到同一个域名（如 <code>rtmp.example.com</code>），客户端通过域名访问，DNS 会自动分发请求。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2%E5%BA%94%E7%94%A8%E5%B1%82%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1nginx-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><strong>（2）应用层负载均衡（Nginx 反向代理）</strong></h4>
+<ul>
+<li><strong>场景</strong>：需要更精细的流量控制（如基于权重、健康检查）。</li>
+<li><strong>配置示例</strong>：<pre class="hljs"><code><div><span class="hljs-comment"># 在负载均衡服务器的 Nginx 配置中</span>
+<span class="hljs-attribute">upstream</span> rtmp_servers {
+    <span class="hljs-attribute">server</span> node1_ip:<span class="hljs-number">1935</span> weight=<span class="hljs-number">3</span>;
+    <span class="hljs-attribute">server</span> node2_ip:<span class="hljs-number">1935</span> weight=<span class="hljs-number">2</span>;
+    <span class="hljs-attribute">server</span> node3_ip:<span class="hljs-number">1935</span> backup;  <span class="hljs-comment"># 备用节点</span>
+}
+
+<span class="hljs-section">server</span> {
+    <span class="hljs-attribute">listen</span> <span class="hljs-number">1935</span>;
+    <span class="hljs-attribute">proxy_pass</span> rtmp://rtmp_servers;
+}
+</div></code></pre>
+</li>
+</ul>
+<hr>
+<h3 id="3-%E6%B5%81%E5%AA%92%E4%BD%93%E7%B4%A2%E5%BC%95%E6%9C%8D%E5%8A%A1%E5%99%A8"><strong>3. 流媒体索引服务器</strong></h3>
+<p>由于 <code>nginx-rtmp</code> 无法自动管理多节点流状态，需自行搭建索引服务器：</p>
+<ol>
+<li><strong>功能</strong>：聚合所有节点的流信息，提供统一的流列表和节点选择。</li>
+<li><strong>实现步骤</strong>：
+<ul>
+<li><strong>轮询所有节点</strong>：通过 <code>nginx-rtmp</code> 的统计接口（如 <code>/stat</code>）获取流状态。<pre class="hljs"><code><div>curl http://node1_ip:8080/<span class="hljs-built_in">stat</span>  <span class="hljs-comment"># 获取节点1的流信息</span>
+curl http://node2_ip:8080/<span class="hljs-built_in">stat</span>  <span class="hljs-comment"># 获取节点2的流信息</span>
+</div></code></pre>
+</li>
+<li><strong>聚合数据</strong>：用 Python 或其他语言编写服务，定期轮询所有节点并缓存流信息。</li>
+<li><strong>提供 API</strong>：客户端通过 API 获取流列表和可用节点地址（如 <code>rtmp://node1_ip/live/stream</code>）。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="%E4%BA%8C%E4%B8%8E-srs-%E7%9A%84%E5%AF%B9%E6%AF%94"><strong>二、与 SRS 的对比</strong></h2>
+<table>
+<thead>
+<tr>
+<th><strong>特性</strong></th>
+<th><strong>nginx-rtmp</strong></th>
+<th><strong>SRS</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>自动流分发</strong></td>
+<td>❌ 需手动配置或依赖外部工具</td>
+<td>✅ 内置集群功能，自动分发到 Edge 节点</td>
+</tr>
+<tr>
+<td><strong>负载均衡</strong></td>
+<td>需结合 DNS 或 Nginx 反向代理</td>
+<td>内置负载均衡逻辑，支持动态调度</td>
+</tr>
+<tr>
+<td><strong>流复制</strong></td>
+<td>通过 <code>push</code> 指令或 FFmpeg 手动实现</td>
+<td>自动跨节点复制流</td>
+</tr>
+<tr>
+<td><strong>复杂度</strong></td>
+<td>配置简单，但分布式管理需额外开发</td>
+<td>配置复杂，但集群功能开箱即用</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>小规模、低成本部署</td>
+<td>大规模、高并发、实时互动场景</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="%E4%B8%89%E5%AE%9E%E7%8E%B0%E6%AD%A5%E9%AA%A4%E6%80%BB%E7%BB%93"><strong>三、实现步骤总结</strong></h2>
+<h3 id="1-%E6%89%8B%E5%8A%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2%E6%AD%A5%E9%AA%A4"><strong>1. 手动分布式部署步骤</strong></h3>
+<h4 id="%E6%AD%A5%E9%AA%A41%E9%83%A8%E7%BD%B2%E5%A4%9A%E4%B8%AA-nginx-rtmp-%E8%8A%82%E7%82%B9"><strong>步骤1：部署多个 nginx-rtmp 节点</strong></h4>
+<ul>
+<li>在不同服务器上安装 <code>nginx-rtmp</code>（参考知识库中的配置示例[2][5]）。</li>
+<li>确保所有节点的 <code>rtmp</code> 配置一致，例如：<pre class="hljs"><code><div><span class="hljs-section">rtmp</span> {
+    <span class="hljs-section">server</span> {
+        <span class="hljs-attribute">listen</span> <span class="hljs-number">1935</span>;
+        <span class="hljs-attribute">application</span> live {
+            <span class="hljs-attribute">live</span> <span class="hljs-literal">on</span>;
+            <span class="hljs-comment"># 可选：将流推送到其他节点</span>
+            <span class="hljs-attribute">push</span> rtmp://node2_ip/live/<span class="hljs-variable">$name</span>;
+        }
+    }
+}
+</div></code></pre>
+</li>
+</ul>
+<h4 id="%E6%AD%A5%E9%AA%A42%E9%85%8D%E7%BD%AE%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><strong>步骤2：配置负载均衡</strong></h4>
+<ul>
+<li><strong>DNS 负载均衡</strong>：
+<ul>
+<li>将域名（如 <code>rtmp.example.com</code>）的 A 记录指向所有节点的 IP。</li>
+<li>使用 DNS 服务商的负载均衡策略（如轮询）。</li>
+</ul>
+</li>
+<li><strong>Nginx 反向代理</strong>：
+<ul>
+<li>在独立服务器上配置反向代理，将流量分发到后端节点。</li>
+</ul>
+</li>
+</ul>
+<h4 id="%E6%AD%A5%E9%AA%A43%E6%90%AD%E5%BB%BA%E7%B4%A2%E5%BC%95%E6%9C%8D%E5%8A%A1%E5%99%A8"><strong>步骤3：搭建索引服务器</strong></h4>
+<ul>
+<li><strong>代码示例（Python）</strong>：<pre class="hljs"><code><div><span class="hljs-keyword">import</span> requests
+<span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask, jsonify
+
+app = Flask(__name__)
+
+<span class="hljs-meta">@app.route('/api/streams', methods=['GET'])</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_streams</span><span class="hljs-params">()</span>:</span>
+    streams = []
+    nodes = [<span class="hljs-string">"node1_ip:8080"</span>, <span class="hljs-string">"node2_ip:8080"</span>]
+    <span class="hljs-keyword">for</span> node <span class="hljs-keyword">in</span> nodes:
+        <span class="hljs-keyword">try</span>:
+            res = requests.get(<span class="hljs-string">f"http://<span class="hljs-subst">{node}</span>/stat"</span>)
+            streams.extend(res.json().get(<span class="hljs-string">"streams"</span>, []))
+        <span class="hljs-keyword">except</span>:
+            <span class="hljs-keyword">pass</span>
+    <span class="hljs-keyword">return</span> jsonify(streams)
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">'__main__'</span>:
+    app.run(host=<span class="hljs-string">'0.0.0.0'</span>, port=<span class="hljs-number">8000</span>)
+</div></code></pre>
+</li>
+</ul>
+<h4 id="%E6%AD%A5%E9%AA%A44%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%9B%86%E6%88%90"><strong>步骤4：客户端集成</strong></h4>
+<ul>
+<li><strong>推流</strong>：<pre class="hljs"><code><div>ffmpeg -re -i input.mp4 -f flv rtmp://loadbalancer_ip/live/stream_key
+</div></code></pre>
+</li>
+<li><strong>拉流</strong>：<pre class="hljs"><code><div><span class="hljs-comment"># 通过索引服务器获取流地址</span>
+curl http://index_server_ip:8000/api/streams
+<span class="hljs-comment"># 根据返回的节点地址拉流</span>
+vlc rtmp://node1_ip/live/stream_key
+</div></code></pre>
+</li>
+</ul>
+<hr>
+<h3 id="2-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><strong>2. 注意事项</strong></h3>
+<ol>
+<li><strong>流一致性</strong>：
+<ul>
+<li>手动分发可能导致流延迟不一致，需确保所有节点的时钟同步（如使用 NTP）。</li>
+</ul>
+</li>
+<li><strong>故障恢复</strong>：
+<ul>
+<li>配置备用节点（如 <code>backup</code> 标签），并在索引服务器中过滤故障节点。</li>
+</ul>
+</li>
+<li><strong>性能监控</strong>：
+<ul>
+<li>使用 <code>nginx-rtmp</code> 的 <code>/stat</code> 接口监控节点负载，动态调整权重。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="%E5%9B%9B%E6%80%BB%E7%BB%93"><strong>四、总结</strong></h2>
+<ul>
+<li><strong>nginx-rtmp 的分布式部署</strong>：需手动配置流分发和负载均衡，适合对成本敏感、规模较小的场景。</li>
+<li><strong>自动分发替代方案</strong>：可通过 <code>FFmpeg</code> 多推流或 <code>push</code> 指令模拟分发，但复杂度较高。</li>
+<li><strong>DNS 负载均衡</strong>：是实现流量分发的核心手段，需结合应用层或 DNS 服务商的功能。</li>
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>猎人成长轨迹 - 热血时间线</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --fire-red: #FF4500;
+            --golden: #FFD700;
+            --deep-blue: #00008B;
+        }
+        body {
+            background: linear-gradient(45deg, #2c0d00 30%, #0a0011);
+            color: white;
+            font-family: 'Arial', sans-serif;
+        }
+        .timeline-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 20px;
+            position: relative;
+        }
+        .timeline-bar {
+            position: absolute;
+            left: 50%;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--fire-red), var(--golden));
+            height: 95%;
+            box-shadow: 0 0 20px var(--fire-red);
+        }
+        .timeline-item {
+            width: 45%;
+            margin: 40px 0;
+            padding: 25px;
+            border-radius: 15px;
+            position: relative;
+            background: rgba(0,0,0,0.7);
+            transition: transform 0.3s;
+        }
+        .timeline-item:hover {
+            transform: scale(1.02);
+        }
+        .left { float: left; border-left: 5px solid var(--fire-red); }
+        .right { float: right; border-right: 5px solid var(--deep-blue); }
+        .icon {
+            position: absolute;
+            font-size: 2em;
+            top: -15px;
+            text-shadow: 0 0 10px white;
+        }
+        .left .icon { right: -50px; }
+        .right .icon { left: -50px; }
+        .year {
+            font-size: 1.2em;
+            color: var(--golden);
+            margin-bottom: 10px;
+        }
+        .character-tag {
+            padding: 5px 10px;
+            border-radius: 15px;
+            margin: 5px;
+            display: inline-block;
+        }
+        .gon { background: #4CAF50; }
+        .killua { background: #2196F3; }
+        .kurapika { background: #E91E63; }
+        .leorio { background: #FF9800; }
+    </style>
+</head>
+<body>
+    <div class="timeline-container">
+        <div class="timeline-bar"></div>
+
+        <!-- 主要角色登场 -->
+        <div class="timeline-item left">
+            <i class="icon fas fa-users"></i>
+            <div class="year">1999 - 故事开端</div>
+            <span class="character-tag gon">小杰</span>
+            <span class="character-tag killua">奇犽</span>
+            <span class="character-tag kurapika">酷拉皮卡</span>
+            <span class="character-tag leorio">雷欧力</span>
+            <p>四位主角在287期猎人考试相遇，组成核心冒险团队‌:ml-citation{ref="2,4" data="citationList"}</p>
+        </div>
+
+        <!-- 天空斗技场 -->
+        <div class="timeline-item right">
+            <i class="icon fas fa-fist-raised"></i>
+            <div class="year">2001 - 念能力觉醒</div>
+            <span class="character-tag gon">猜猜拳开发</span>
+            <span class="character-tag killua">电光火石</span>
+            <p>小杰与奇犽在云古指导下掌握念能力基础‌:ml-citation{ref="2,5" data="citationList"}</p>
+        </div>
+
+        <!-- 友克鑫决战 -->
+        <div class="timeline-item left">
+            <i class="icon fas fa-skull"></i>
+            <div class="year">2003 - 幻影旅团</div>
+            <span class="character-tag kurapika">锁链杀手</span>
+            <span class="character-tag gon">西索对决</span>
+            <p>酷拉皮卡成功捕获窝金，小杰首次直面西索‌:ml-citation{ref="1,6" data="citationList"}</p>
+        </div>
+
+        <!-- 贪婪之岛 -->
+        <div class="timeline-item right">
+            <i class="icon fas fa-gamepad"></i>
+            <div class="year">2005 - 游戏试炼</div>
+            <span class="character-tag gon">同行卡</span>
+            <span class="character-tag killua">疾风迅雷</span>
+            <p>突破金设计的游戏，掌握磁力/漂流等特殊能力‌:ml-citation{ref="5,7" data="citationList"}</p>
+        </div>
+
+        <!-- 嵌合蚁篇 -->
+        <div class="timeline-item left">
+            <i class="icon fas fa-biohazard"></i>
+            <div class="year">2011 - 强制成长</div>
+            <span class="character-tag gon">大杰形态</span>
+            <span class="character-tag killua">神速觉醒</span>
+            <p>为救凯特突破身体极限，头发暴长进入狂暴状态‌:ml-citation{ref="1,3" data="citationList"}</p>
+        </div>
+
+        <!-- 暗黑大陆 -->
+        <div class="timeline-item right">
+            <i class="icon fas fa-ship"></i>
+            <div class="year">2022 - 新章启航</div>
+            <span class="character-tag kurapika">王子护卫</span>
+            <span class="character-tag leorio">医者仁心</span>
+            <p>酷拉皮卡参与渡航计划，雷欧力进入医学院深造‌:ml-citation{ref="2,6" data="citationList"}</p>
+        </div>
+    </div>
+</body>
+</html>

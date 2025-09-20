@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
+    <!-- <script src="dash.all.min.js"></script> -->
+    <style>
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .video-container {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        video {
+            width: 100%;
+            max-height: 600px;
+            background-color: #000;
+        }
+        .controls {
+            margin: 15px 0;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+        .quality-btn {
+            padding: 8px 15px;
+            margin-right: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .quality-btn:hover {
+            background-color: #45a049;
+        }
+        .quality-btn.active {
+            background-color: #2196F3;
+        }
+        .stats {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #e9e9e9;
+            border-radius: 5px;
+        }
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .stats-table th, .stats-table td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .stats-table th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>DASH播放器 - 分辨率选择演示</h1>
+        
+        <div class="video-container">
+            <video id="player" controls></video>
+        </div>
+        
+        <div class="controls">
+            <h3>选择视频质量</h3>
+            <button id="auto" class="quality-btn active">自动（默认）</button>
+            <button id="high" class="quality-btn">高清 (720p)</button>
+            <button id="low" class="quality-btn">标清 (480p)</button>
+        </div>
+        
+        <div class="stats">
+            <h3>播放统计信息</h3>
+            <table class="stats-table">
+                <tr>
+                    <th>当前质量</th>
+                    <td id="current-quality">加载中...</td>
+                </tr>
+                <tr>
+                    <th>分辨率</th>
+                    <td id="resolution">加载中...</td>
+                </tr>
+                <tr>
+                    <th>比特率</th>
+                    <td id="bitrate">加载中...</td>
+                </tr>
+                <tr>
+                    <th>缓冲区长度</th>
+                    <td id="buffer">加载中...</td>
+                </tr>
+                <tr>
+                    <th>可用质量</th>
+                    <td id="available-qualities">加载中...</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <script>
+        // 初始化DASH播放器
+        const url = "http://192.168.31.109:8084/dash/testhaogui_high.mpd";
+        const player = dashjs.MediaPlayer().create();
+        
+        // 获取DOM元素
+        const videoElement = document.querySelector("#player");
+        const autoBtn = document.getElementById("auto");
+        const highBtn = document.getElementById("high");
+        const lowBtn = document.getElementById("low");
+        
+        // 统计信息元素
+        const currentQualityEl = document.getElementById("current-quality");
+        const resolutionEl = document.getElementById("resolution");
+        const bitrateEl = document.getElementById("bitrate");
+        const bufferEl = document.getElementById("buffer");
+        const availableQualitiesEl = document.getElementById("available-qualities");
+        
+        // 初始化播放器
+        player.initialize(videoElement, url, true);
+        
+        // 设置自动比特率切换
+        player.updateSettings({
+            streaming: {
+                abr: {
+                    autoSwitchBitrate: true
+                }
+            }
+        });
+        
+        // 监听质量变化事件
+        player.on("streamInitialized", function() {
+            console.log("流已初始化");
+            setTimeout(updateStats, 1000); // 延迟更新，确保数据已加载
+        });
+        
+        player.on("qualityChangeRendered", function(e) {
+            console.log("质量已切换:", e);
+            setTimeout(updateStats, 500);
+        });
+        
+        // 更新所有统计信息
+        function updateStats() {
+            try {
+                // 使用直接的API方法获取质量信息
+                const videoQualities = player.getBitrateInfoListFor ? player.getBitrateInfoListFor("video") : [];
+                const currentQuality = player.getQualityFor ? player.getQualityFor("video") : 0;
+                
+                // 如果能够获取到质量信息，则直接使用
+                if (videoQualities && videoQualities.length > 0) {
+                    updateQualityInfoFromBitrateList(videoQualities, currentQuality);
+                } else {
+                    // 尝试使用替代方法获取质量信息
+                    updateQualityInfoAlternative();
+                }
+                
+                // 更新按钮状态
+                updateButtonStates(currentQuality);
+                
+                // 更新缓冲区信息
+                updateBufferInfo();
+                
+            } catch (error) {
+                console.error("更新统计信息时出错:", error);
+            }
+        }
+        
+        // 从比特率列表更新质量信息
+        function updateQualityInfoFromBitrateList(videoQualities, currentQuality) {
+            try {
+                if (videoQualities && videoQualities.length > 0 && currentQuality !== undefined) {
+                    const qualityInfo = videoQualities[currentQuality];
+                    
+                    if (qualityInfo) {
+                        currentQualityEl.textContent = `索引 ${currentQuality} (${currentQuality === 0 ? "高清" : "标清"})`;
+                        resolutionEl.textContent = `${qualityInfo.width} x ${qualityInfo.height}`;
+                        bitrateEl.textContent = `${Math.round(qualityInfo.bitrate / 1000)} kbps`;
+                        
+                        // 更新可用质量列表
+                        let qualitiesText = "";
+                        videoQualities.forEach((quality, index) => {
+                            qualitiesText += `${index}: ${quality.width}x${quality.height} @ ${Math.round(quality.bitrate / 1000)} kbps<br>`;
+                        });
+                        availableQualitiesEl.innerHTML = qualitiesText;
+                    }
+                }
+            } catch (error) {
+                console.error("从比特率列表更新质量信息时出错:", error);
+            }
+        }
+        
+        // 使用替代方法更新质量信息
+        function updateQualityInfoAlternative() {
+            try {
+                // 尝试从播放器获取清晰度信息
+                const metrics = player.getDashMetrics();
+                const streamInfo = player.getActiveStream() ? player.getActiveStream().getStreamInfo() : null;
+                
+                if (metrics && streamInfo) {
+                    // 尝试获取当前的视频轨道
+                    const videoAdapter = player.getDashAdapter('video')
+                    const videoElement = player.getVideoElement();
+                    
+                    if (videoElement) {
+                        // 从视频元素获取当前分辨率
+                        const width = videoElement.videoWidth;
+                        const height = videoElement.videoHeight;
+                        
+                        if (width && height) {
+                            currentQualityEl.textContent = "当前质量";
+                            resolutionEl.textContent = `${width} x ${height}`;
+                            
+                            // 尝试获取当前比特率
+                            const bandwidthValue = metrics.getBandwidthForRepresentation ? 
+                                                  metrics.getBandwidthForRepresentation("video", 0) : 
+                                                  "未知";
+                            
+                            bitrateEl.textContent = bandwidthValue !== "未知" ? 
+                                                  `${Math.round(bandwidthValue / 1000)} kbps` : 
+                                                  "未知";
+                            
+                            // 设置可用质量
+                            availableQualitiesEl.innerHTML = "无法获取详细质量列表，但当前播放中";
+                        } else {
+                            setUnknownQualityInfo();
+                        }
+                    } else {
+                        setUnknownQualityInfo();
+                    }
+                } else {
+                    setUnknownQualityInfo();
+                }
+            } catch (error) {
+                console.error("使用替代方法更新质量信息时出错:", error);
+                setUnknownQualityInfo();
+            }
+        }
+        
+        // 设置未知质量信息
+        function setUnknownQualityInfo() {
+            currentQualityEl.textContent = "未知";
+            resolutionEl.textContent = "未知";
+            bitrateEl.textContent = "未知";
+            availableQualitiesEl.textContent = "无法获取质量信息";
+        }
+        
+        // 更新缓冲区信息
+        function updateBufferInfo() {
+            try {
+                let bufferLevel = 0;
+                
+                // 尝试不同的方法获取缓冲区长度
+                if (player.getBufferLength) {
+                    bufferLevel = player.getBufferLength("video");
+                } else if (player.getDashMetrics && player.getDashMetrics().getCurrentBufferLevel) {
+                    bufferLevel = player.getDashMetrics().getCurrentBufferLevel("video");
+                } else if (videoElement.buffered && videoElement.buffered.length > 0) {
+                    bufferLevel = videoElement.buffered.end(0) - videoElement.currentTime;
+                }
+                
+                bufferEl.textContent = `${bufferLevel.toFixed(1)} 秒`;
+            } catch (error) {
+                console.error("更新缓冲区信息时出错:", error);
+                bufferEl.textContent = "未知";
+            }
+        }
+        
+        // 更新按钮状态
+        function updateButtonStates(currentQuality) {
+            try {
+                const isAuto = player.getSettings().streaming.abr.autoSwitchBitrate;
+                
+                autoBtn.classList.toggle("active", isAuto === true);
+                
+                // 只有在非自动模式下才高亮显示质量按钮
+                if (!isAuto && currentQuality !== undefined) {
+                    highBtn.classList.toggle("active", currentQuality === 0);
+                    lowBtn.classList.toggle("active", currentQuality === 1);
+                } else {
+                    highBtn.classList.remove("active");
+                    lowBtn.classList.remove("active");
+                }
+            } catch (error) {
+                console.error("更新按钮状态时出错:", error);
+            }
+        }
+        
+        // 按钮点击事件
+        autoBtn.addEventListener("click", function() {
+            player.updateSettings({
+                streaming: {
+                    abr: {
+                        autoSwitchBitrate: true
+                    }
+                }
+            });
+            setTimeout(updateStats, 500);
+        });
+        
+        highBtn.addEventListener("click", function() {
+            player.updateSettings({
+                streaming: {
+                    abr: {
+                        autoSwitchBitrate: false
+                    }
+                }
+            });
+            
+            // 尝试使用不同的方法设置质量
+            if (player.setQualityFor) {
+                player.setQualityFor("video", 0);
+            } else if (player.setAutoSwitchQualityFor) {
+                player.setAutoSwitchQualityFor("video", false);
+                player.setQualityForType("video", 0);
+            } else {
+                console.log("无法设置视频质量，API不支持");
+            }
+            
+            setTimeout(updateStats, 500);
+        });
+        
+        lowBtn.addEventListener("click", function() {
+            player.updateSettings({
+                streaming: {
+                    abr: {
+                        autoSwitchBitrate: false
+                    }
+                }
+            });
+            
+            // 尝试使用不同的方法设置质量
+            if (player.setQualityFor) {
+                player.setQualityFor("video", 1);
+            } else if (player.setAutoSwitchQualityFor) {
+                player.setAutoSwitchQualityFor("video", false);
+                player.setQualityForType("video", 1);
+            } else {
+                console.log("无法设置视频质量，API不支持");
+            }
+            
+            setTimeout(updateStats, 500);
+        });
+        
+        // 定期更新统计信息
+        setInterval(updateStats, 2000);
+    </script>
+</body>
+</html>

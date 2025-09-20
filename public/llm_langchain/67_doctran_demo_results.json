@@ -1,0 +1,25 @@
+[
+  {
+    "type": "properties",
+    "data": "<__main__.Document object at 0x104991b90>"
+  },
+  {
+    "type": "transformation",
+    "data": "基于文档内容生成的响应。"
+  },
+  {
+    "type": "qa_pairs",
+    "data": "<__main__.Document object at 0x104991b90>"
+  },
+  {
+    "type": "cache_demo",
+    "data": {
+      "hits": 1,
+      "misses": 1
+    }
+  },
+  {
+    "type": "batch_demo",
+    "data": "3"
+  }
+]

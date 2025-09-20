@@ -1,0 +1,22 @@
+{
+  "use_cases": [
+    {
+      "name": "customer_service",
+      "description": "智能客服机器人",
+      "examples_count": 6,
+      "selector": "semantic"
+    },
+    {
+      "name": "code_generation",
+      "description": "代码生成助手",
+      "examples_count": 4,
+      "selector": "hybrid"
+    }
+  ],
+  "best_practices": [
+    "根据场景选择合适的selector类型",
+    "定期更新示例库",
+    "监控选择延迟和准确性",
+    "使用缓存优化性能"
+  ]
+}

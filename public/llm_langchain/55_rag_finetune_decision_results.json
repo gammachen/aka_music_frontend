@@ -1,0 +1,80 @@
+[
+  {
+    "scenario": "电商客服系统",
+    "rag_score": 75,
+    "finetune_score": 60,
+    "rag_ratio": 55.6,
+    "finetune_ratio": 44.4,
+    "recommendation": "建议混合使用",
+    "reasoning": [
+      "两者各有优势，可结合使用",
+      "RAG处理动态知识，微调处理核心能力",
+      "通过路由机制动态选择"
+    ]
+  },
+  {
+    "scenario": "医疗诊断助手",
+    "rag_score": 55,
+    "finetune_score": 90,
+    "rag_ratio": 37.9,
+    "finetune_ratio": 62.1,
+    "recommendation": "强烈建议使用微调",
+    "reasoning": [
+      "准确率要求高，微调能提供更精准结果",
+      "领域专业性强，需要深度定制",
+      "数据相对稳定，适合一次性训练"
+    ]
+  },
+  {
+    "scenario": "金融风控系统",
+    "rag_score": 65,
+    "finetune_score": 75,
+    "rag_ratio": 46.4,
+    "finetune_ratio": 53.6,
+    "recommendation": "建议混合使用",
+    "reasoning": [
+      "两者各有优势，可结合使用",
+      "RAG处理动态知识，微调处理核心能力",
+      "通过路由机制动态选择"
+    ]
+  },
+  {
+    "scenario": "代码生成工具",
+    "rag_score": 65,
+    "finetune_score": 80,
+    "rag_ratio": 44.8,
+    "finetune_ratio": 55.2,
+    "recommendation": "建议混合使用",
+    "reasoning": [
+      "两者各有优势，可结合使用",
+      "RAG处理动态知识，微调处理核心能力",
+      "通过路由机制动态选择"
+    ]
+  },
+  {
+    "scenario": "通用问答系统",
+    "rag_score": 95,
+    "finetune_score": 45,
+    "rag_ratio": 67.9,
+    "finetune_ratio": 32.1,
+    "recommendation": "强烈建议使用RAG",
+    "reasoning": [
+      "数据量大且更新频繁，RAG更适合动态知识",
+      "成本相对较低，易于维护和扩展",
+      "延迟要求可通过优化缓解"
+    ]
+  },
+  {
+    "scenario": "创意写作助手",
+    "rag_score": 60,
+    "finetune_score": 60,
+    "rag_ratio": 50.0,
+    "finetune_ratio": 50.0,
+    "recommendation": "建议混合使用",
+    "reasoning": [
+      "两者各有优势，可结合使用",
+      "RAG处理动态知识，微调处理核心能力",
+      "通过路由机制动态选择"
+    ]
+  }
+]

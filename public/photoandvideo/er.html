@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script> -->
+  <script src="mermaid.min.js"></script>
+  <style>
+    .mermaid { 
+      font-family: Arial, sans-serif;
+      background: white;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+<div class="mermaid">
+erDiagram
+
+  %% ========== 核心实体 ==========
+  users {
+    uuid id PK
+    varchar email
+    varchar password
+    timestamp createdAt
+    timestamp updatedAt
+    varchar storageLabel
+    bigint quotaSizeInBytes
+  }
+
+  assets {
+    uuid id PK
+    uuid ownerId FK
+    uuid libraryId FK
+    varchar deviceAssetId
+    bytea checksum
+    varchar originalFileName
+    varchar originalPath
+    timestamp fileCreatedAt
+  }
+
+  albums {
+    uuid id PK
+    uuid ownerId FK
+    varchar albumName
+    uuid albumThumbnailAssetId FK
+    timestamp createdAt
+  }
+
+  libraries {
+    uuid id PK
+    uuid ownerId FK
+    text[] importPaths
+    text[] exclusionPatterns
+  }
+
+  %% ========== 元数据表 ==========
+  exif {
+    uuid assetId PK,FK
+    varchar make
+    varchar model
+    double precision latitude
+    double precision longitude
+    timestamp dateTimeOriginal
+  }
+
+  asset_faces {
+    uuid id PK
+    uuid assetId FK
+    uuid personId FK
+    integer boundingBoxX1
+    integer boundingBoxY1
+  }
+
+  person {
+    uuid id PK
+    uuid ownerId FK
+    varchar name
+    date birthDate
+    uuid faceAssetId FK
+  }
+
+  %% ========== 联结表 ==========
+  albums_assets_assets {
+    uuid albumsId PK,FK
+    uuid assetsId PK,FK
+    timestamp createdAt
+  }
+
+  albums_shared_users_users {
+    uuid albumsId PK,FK
+    uuid usersId PK,FK
+    varchar role
+  }
+
+  tag_asset {
+    uuid assetsId PK,FK
+    uuid tagsId PK,FK
+  }
+
+  shared_link__asset {
+    uuid assetsId PK,FK
+    uuid sharedLinksId PK,FK
+  }
+
+  %% ========== 系统表 ==========
+  system_config {
+    varchar key PK
+    varchar value
+  }
+
+  system_metadata {
+    varchar key PK
+    jsonb value
+  }
+
+  migrations {
+    integer id PK
+    bigint timestamp
+    varchar name
+  }
+
+  %% ========== 审计表 ==========
+  audit {
+    integer id PK
+    varchar entityType
+    uuid entityId
+    varchar action
+    uuid ownerId FK
+    timestamp createdAt
+  }
+
+  assets_audit {
+    uuid id PK
+    uuid assetId FK
+    uuid ownerId FK
+    timestamp deletedAt
+  }
+
+  users_audit {
+    uuid id PK
+    uuid userId FK
+    timestamp deletedAt
+  }
+
+  partners_audit {
+    uuid id PK
+    uuid sharedById FK
+    uuid sharedWithId FK
+    timestamp deletedAt
+  }
+
+  %% ========== 其他功能表 ==========
+  activity {
+    uuid id PK
+    uuid albumId FK
+    uuid userId FK
+    uuid assetId FK
+    boolean isLiked
+    timestamp createdAt
+  }
+
+  memories {
+    uuid id PK
+    uuid ownerId FK
+    jsonb data
+    timestamp memoryAt
+  }
+
+  memories_assets_assets {
+    uuid memoriesId PK,FK
+    uuid assetsId PK,FK
+  }
+
+  shared_links {
+    uuid id PK
+    uuid userId FK
+    bytea key
+    uuid albumId FK
+    boolean allowDownload
+  }
+
+  face_search {
+    uuid faceId PK,FK
+    vector(512) embedding
+  }
+
+  smart_search {
+    uuid assetId PK,FK
+    vector(512) embedding
+  }
+
+  %% ========== 外键关系 ==========
+  users ||--o{ assets : "ownerId"
+  users ||--o{ albums : "ownerId"
+  users ||--o{ libraries : "ownerId"
+  users ||--o{ api_keys : "userId"
+  users ||--o{ partners : "sharedById|sharedWithId"
+  users ||--o{ user_metadata : "userId"
+  users ||--o{ sessions : "userId"
+  users ||--o{ partners_audit : "sharedById|sharedWithId"
+
+  assets ||--o{ asset_faces : "assetId"
+  assets ||--o{ exif : "assetId"
+  assets ||--o{ asset_files : "assetId"
+  assets ||--o{ asset_job_status : "assetId"
+  assets ||--o{ tag_asset : "assetsId"
+  assets ||--o{ shared_link__asset : "assetsId"
+  assets ||--o{ memories_assets_assets : "assetsId"
+  assets ||--|| asset_stack : "stackId"
+
+  albums ||--o{ albums_assets_assets : "albumsId"
+  albums ||--o{ albums_shared_users_users : "albumsId"
+  albums ||--o{ activity : "albumId"
+  albums ||--o{ shared_links : "albumId"
+
+  libraries ||--o{ assets : "libraryId"
+
+  asset_faces ||--|| face_search : "faceId"
+  asset_faces ||--o{ person : "personId"
+
+  tags ||--o{ tag_asset : "tagsId"
+  tags ||--o{ tags_closure : "id_ancestor|id_descendant"
+
+  shared_links ||--o{ shared_link__asset : "sharedLinksId"
+
+  memories ||--o{ memories_assets_assets : "memoriesId"
+</div>
+
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    er: {
+      layoutDirection: 'LR',  // 从左到右布局
+      diagramPadding: 20
+    }
+  });
+</script>
+</body>
+</html>

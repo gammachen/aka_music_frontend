@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>SVM原理与实践教程</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-coy.min.css" rel="stylesheet">
+    <style>
+        .theory-card {
+            background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .math-section {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .code-section pre {
+            border-radius: 10px;
+            background: #f8f9fa !important;
+        }
+    </style>
+</head>
+<body>
+<div class="container py-5">
+    <h1 class="text-center mb-5">支持向量机(SVM)完全解读</h1>
+
+    <!-- 机器学习基础 -->
+    <div class="row mb-5 theory-card p-4">
+        <div class="col-md-4">
+            <h3>🤖 什么是机器学习</h3>
+            <p>机器学习是通过算法让计算机从数据中学习规律的过程：</p>
+            <ul>
+                <li>监督学习（带标签数据）</li>
+                <li>无监督学习（聚类分析）</li>
+                <li>强化学习（环境交互）</li>
+            </ul>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5>传统编程</h5>
+                            <p>规则 → 输入 → 输出</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5>机器学习</h5>
+                            <p>数据 → 算法 → 模型</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SVM数学原理 -->
+    <div class="math-section mb-5">
+        <h3>📐 SVM核心公式</h3>
+        <p>优化目标：
+            $$
+            \min_{\mathbf{w},b} \frac{1}{2}\|\mathbf{w}\|^2
+            $$
+            约束条件：
+            $$
+            y_i(\mathbf{w} \cdot \mathbf{x}_i + b) \geq 1
+            $$
+        </p>
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Svm_max_separating_hyperplane_plane.png" 
+                     class="img-fluid" alt="SVM超平面">
+            </div>
+            <div class="col-md-6">
+                <h5>关键概念</h5>
+                <ul>
+                    <li>间隔最大化</li>
+                    <li>核技巧</li>
+                    <li>支持向量</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 代码实现 -->
+    <div class="code-section">
+        <h3>👨💻 实战代码</h3>
+        <pre><code class="language-python">
+from sklearn import datasets
+from sklearn.svm import SVC
+import matplotlib.pyplot as plt
+
+# 加载鸢尾花数据集
+iris = datasets.load_iris()
+X = iris.data[:, :2]  # 取前两个特征
+
+y = iris.target
+
+# 训练SVM模型
+model = SVC(kernel='linear')
+model.fit(X, y)
+
+# 可视化结果
+plt.scatter(X[:, 0], X[:, 1], c=y, cmap=plt.cm.Paired)
+ax = plt.gca()
+xlim = ax.get_xlim()
+ylim = ax.get_ylim()
+
+# 生成网格点
+xx = np.linspace(xlim[0], xlim[1], 30)
+yy = np.linspace(ylim[0], ylim[1], 30)
+YY, XX = np.meshgrid(yy, xx)
+xy = np.vstack([XX.ravel(), YY.ravel()]).T
+Z = model.decision_function(xy).reshape(XX.shape)
+
+# 绘制决策边界
+ax.contour(XX, YY, Z, colors='k', levels=[-1, 0, 1], 
+           alpha=0.5, linestyles=['--', '-', '--'])
+plt.show()
+        </code></pre>
+
+        <h4 class="mt-4">数据集示例（鸢尾花）</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>花萼长度</th>
+                    <th>花萼宽度</th>
+                    <th>类别</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>5.1</td><td>3.5</td><td>Setosa</td></tr>
+                <tr><td>6.4</td><td>3.2</td><td>Versicolor</td></tr>
+                <tr><td>6.3</td><td>3.3</td><td>Virginica</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+</body>
+</html>

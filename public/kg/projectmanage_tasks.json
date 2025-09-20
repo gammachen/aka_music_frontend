@@ -1,0 +1,177 @@
+﻿[
+  {
+    "path": {
+      "start": {
+        "identity": 213822,
+        "labels": [
+          "PM_Task"
+        ],
+        "properties": {
+          "consumedHours": 0,
+          "risk": "关键路径",
+          "estimatedHours": 180,
+          "id": "task_1006",
+          "title": "系统测试",
+          "deadline": "2023-08-20",
+          "status": "未开始"
+        },
+        "elementId": "4:1a6cb8a5-cda6-43fc-905d-cccea7c10508:213822"
+      },
+      "end": {
+        "identity": 213817,
+        "labels": [
+          "PM_Task"
+        ],
+        "properties": {
+          "consumedHours": 80,
+          "estimatedHours": 80,
+          "id": "task_1001",
+          "title": "UI改造",
+          "deadline": "2023-04-15",
+          "status": "已完成"
+        },
+        "elementId": "4:1a6cb8a5-cda6-43fc-905d-cccea7c10508:213817"
+      },
+      "segments": [
+        {
+          "start": {
+            "identity": 213822,
+            "labels": [
+              "PM_Task"
+            ],
+            "properties": {
+              "consumedHours": 0,
+              "risk": "关键路径",
+              "estimatedHours": 180,
+              "id": "task_1006",
+              "title": "系统测试",
+              "deadline": "2023-08-20",
+              "status": "未开始"
+            },
+            "elementId": "4:1a6cb8a5-cda6-43fc-905d-cccea7c10508:213822"
+          },
+          "relationship": {
+            "identity": 390968,
+            "start": 213822,
+            "end": 213819,
+            "type": "DEPENDS_ON",
+            "properties": {
+              "description": "报表模块完成才能开始系统测试",
+              "type": "FS"
+            },
+            "elementId": "5:1a6cb8a5-cda6-43fc-905d-cccea7c10508:390968",
+            "startNodeElementId": "4:1a6cb8a5-cda6-43fc-905d-cccea7c10508:213822",
+            "endNodeElementId": "4:1a6cb8a5-cda6-43fc-905d-cccea7c10508:213819"
+          },
+          "end": {
+            "identity": 213819,
+            "labels": [
+              "PM_Task"
+            ],
+            "properties": {
+              "consumedHours": 30,
+              "estimatedHours": 200,
+              "id": "task_1003",
+              "title": "报表模块",
+              "deadline": "2023-07-15",
+              "status": "进行中"
+            },
+            "elementId": "4:1a6cb8a5-cda6-43fc-905d-cccea7c10508:213819"
+          }
+        },
+        {
+          "start": {
+            "identity": 213819,
+            "labels": [
+              "PM_Task"
+            ],
+            "properties": {
+              "consumedHours": 30,
+              "estimatedHours": 200,
+              "id": "task_1003",
+              "title": "报表模块",
+              "deadline": "2023-07-15",
+              "status": "进行中"
+            },
+            "elementId": "4:1a6cb8a5-cda6-43fc-905d-cccea7c10508:213819"
+          },
+          "relationship": {
+            "identity": 390967,
+            "start": 213819,
+            "end": 213818,
+            "type": "DEPENDS_ON",
+            "properties": {
+              "description": "API完成才能开发报表",
+              "type": "FS"
+            },
+            "elementId": "5:1a6cb8a5-cda6-43fc-905d-cccea7c10508:390967",
+            "startNodeElementId": "4:1a6cb8a5-cda6-43fc-905d-cccea7c10508:213819",
+            "endNodeElementId": "4:1a6cb8a5-cda6-43fc-905d-cccea7c10508:213818"
+          },
+          "end": {
+            "identity": 213818,
+            "labels": [
+              "PM_Task"
+            ],
+            "properties": {
+              "consumedHours": 60,
+              "estimatedHours": 120,
+              "id": "task_1002",
+              "title": "API重构",
+              "deadline": "2023-05-20",
+              "status": "进行中"
+            },
+            "elementId": "4:1a6cb8a5-cda6-43fc-905d-cccea7c10508:213818"
+          }
+        },
+        {
+          "start": {
+            "identity": 213818,
+            "labels": [
+              "PM_Task"
+            ],
+            "properties": {
+              "consumedHours": 60,
+              "estimatedHours": 120,
+              "id": "task_1002",
+              "title": "API重构",
+              "deadline": "2023-05-20",
+              "status": "进行中"
+            },
+            "elementId": "4:1a6cb8a5-cda6-43fc-905d-cccea7c10508:213818"
+          },
+          "relationship": {
+            "identity": 390965,
+            "start": 213818,
+            "end": 213817,
+            "type": "DEPENDS_ON",
+            "properties": {
+              "description": "UI设计完成后才能开发API",
+              "type": "FS"
+            },
+            "elementId": "5:1a6cb8a5-cda6-43fc-905d-cccea7c10508:390965",
+            "startNodeElementId": "4:1a6cb8a5-cda6-43fc-905d-cccea7c10508:213818",
+            "endNodeElementId": "4:1a6cb8a5-cda6-43fc-905d-cccea7c10508:213817"
+          },
+          "end": {
+            "identity": 213817,
+            "labels": [
+              "PM_Task"
+            ],
+            "properties": {
+              "consumedHours": 80,
+              "estimatedHours": 80,
+              "id": "task_1001",
+              "title": "UI改造",
+              "deadline": "2023-04-15",
+              "status": "已完成"
+            },
+            "elementId": "4:1a6cb8a5-cda6-43fc-905d-cccea7c10508:213817"
+          }
+        }
+      ],
+      "length": 3.0
+    },
+    "totalHours": 580
+  }
+]

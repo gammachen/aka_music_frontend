@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5-4 流媒体协议</title>
+    <link rel="stylesheet" href="rtc_styles.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 高亮当前活动的导航项
+            const currentHash = window.location.hash || '#rtmp-protocol';
+            const activeLink = document.querySelector(`a[href="${currentHash}"]`);
+            if (activeLink) activeLink.classList.add('active');
+            
+            // 点击导航项时添加高亮
+            const navLinks = document.querySelectorAll('.nav a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <nav class="nav">
+        <h2>流媒体协议</h2>
+        <ul>
+            <li><a href="#rtmp-protocol">RTMP协议</a></li>
+            <li><a href="#http-flv">HTTP-FLV</a></li>
+            <li><a href="#http-mpegts">HTTP-MPEGTS</a></li>
+            <li><a href="#webrtc">WebRTC</a></li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <section id="rtmp-protocol">
+            <h1>RTMP协议</h1>
+            <p>RTMP（Real-Time Messaging Protocol）是一种设计用来进行实时数据通信的网络协议，主要用于在Flash/AIR平台和支持RTMP协议的流媒体服务器之间进行音视频和数据传输。</p>
+            
+            <h2>RTMP消息类型</h2>
+            <ul>
+                <li><strong>协议控制消息：</strong>负责交换参数，设置参数等。</li>
+                <li><strong>命令消息：</strong>控制流的，用于创建、连接、推流、拉流以及关闭流等操作。</li>
+                <li><strong>音视频消息：</strong>携带音视频数据，一般是FLV格式封装的数据。</li>
+                <li><strong>数据消息：</strong>主要传输Meta数据，比如分辨率、名称等。</li>
+            </ul>
+            
+            <h2>RTMP优缺点</h2>
+            <ul>
+                <li class="highlight">优点：延时低（一般3-5秒），技术成熟，大部分CDN厂商都实现了RTMP协议，可以相互拉流推流。</li>
+                <li>缺点：播放端需要定制，所以一般只是作为推流以及CDN内部传输协议；由于TCP握手和RTMP握手的存在，建立连接花费时间长；协议本身是为了传输完整的数据设计，所以没办法进一步优化延时。</li>
+            </ul>
+        </section>
+        
+        <section id="http-flv">
+            <h1>HTTP-FLV</h1>
+            <h2>工作原理</h2>
+            <p>客户端通过HTTP请求FLV时，服务端返回一个不带长度的头，客户端就一直接收数据，不会关闭；而服务端会持续的发送音视频数据。</p>
+            
+            <h2>HTTP-FLV优缺点</h2>
+            <ul>
+                <li class="key-terms">优点：HTTP协议更容易在网络上传输，FLV格式封装简单，FLV格式封装出来的媒体流有效负载高，延时一般在3-5秒。</li>
+                <li>缺点：需要Flash Player或者定制的播放器来播放。</li>
+            </ul>
+        </section>
+        
+        <section id="http-mpegts">
+            <h1>HTTP-MPEGTS</h1>
+            <h2>工作原理</h2>
+            <p>客户端请求mpegts时，服务端返回一个不带长度的头，客户端不关闭，一直接收数据；而服务端持续发送ts数据。</p>
+            
+            <h2>HTTP-MPEGTS优缺点</h2>
+            <ul>
+                <li class="key-terms">优点：HTTP协议更容易在网络上传输，mpegts数据流中，隔一段时间会插入一些必要的信息，以便播放不管从哪一段数据开始播放，都能播放成功；延时一般在3-5秒；播放器普遍支持ts播放。</li>
+                <li>缺点：mpegts格式数据头占用的比较多，导致有效负载降低。</li>
+            </ul>
+        </section>
+        
+        <section id="webrtc">
+            <h1>WebRTC</h1>
+            <h2>工作原理</h2>
+            <p>WebRTC是一个协议框架，定义了握手协议（DTLS）、会话描述（SDP）、加密传输协议（SRTP/SRTCP）、P2P穿透（STUN/TURN），同时也加了一些新的拥塞控制算法GCC/BBR等。</p>
+            
+            <h2>WebRTC优缺点</h2>
+            <ul>
+                <li class="highlight">优点：延时低，可以优化到毫秒级别；弱网环境下表现优异。</li>
+                <li>缺点：设备端适配不好；WebRTC只适合解决第一公里和最后一公里的问题；WebRTC支持的音视频格式少；WebRTC只在弱网环境下有优势。</li>
+            </ul>
+        </section>
+    </div>
+</body>
+</html>
+    

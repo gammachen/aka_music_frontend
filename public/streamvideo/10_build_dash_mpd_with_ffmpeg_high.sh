@@ -1,0 +1,21 @@
+ffmpeg -i $HOME/Code/cursor-projects/aka_music/backend/app/static/def/jieba_haogui.mp4 \
+    -map 0:v:0 -map 0:a:0 \
+    -c:v:0 libx264 \
+    -b:v:0 3000k -maxrate:v:0 3000k -bufsize:v:0 6000k \
+    -vf "scale=1280:720" \
+    -profile:v:0 high -preset slower \
+    -crf 23 \
+    -g 120 -keyint_min 120 \
+    -c:v:1 libx264 \
+    -b:v:1 1500k -maxrate:v:1 1500k -bufsize:v:1 3000k \
+    -vf "scale=854:480" \
+    -profile:v:1 main -preset medium \
+    -crf 25 \
+    -g 120 -keyint_min 120 \
+    -c:a aac -b:a 128k \
+    -f dash \
+    -seg_duration 4 \
+    -adaptation_sets "id=0,streams=v id=1,streams=a" \
+    -use_template 1 \
+    -use_timeline 1 \
+    dashdata/testhaogui_high.mpd

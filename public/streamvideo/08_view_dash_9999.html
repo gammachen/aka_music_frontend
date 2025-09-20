@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- <script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script> -->
+    <script src="dash.all.min.js"></script> 
+</head>
+<body>
+    <video id="player" controls></video>
+    <script>
+        const url = "http://192.168.31.96:9999/output.mpd";
+        const player = dashjs.MediaPlayer().create();
+        
+        player.initialize(document.querySelector("#player"), url, true);
+        
+    </script>
+</body>
+</html>

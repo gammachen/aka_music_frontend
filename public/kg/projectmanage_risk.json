@@ -1,0 +1,27 @@
+﻿[
+  {
+    "task": "库存接口开发",
+    "t.status": "阻塞",
+    "t.risk": "高风险",
+    "blockingBugs": [
+      "订单金额计算错误"
+    ],
+    "daysRemaining": -29
+  },
+  {
+    "task": "系统测试",
+    "t.status": "未开始",
+    "t.risk": "关键路径",
+    "blockingBugs": [
+      "权限验证绕过"
+    ],
+    "daysRemaining": -24
+  },
+  {
+    "task": "UI一致性优化",
+    "t.status": "未开始",
+    "t.risk": "已延期",
+    "blockingBugs": [],
+    "daysRemaining": -13
+  }
+]

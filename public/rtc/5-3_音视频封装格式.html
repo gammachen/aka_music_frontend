@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5-3 音视频封装格式</title>
+    <link rel="stylesheet" href="rtc_styles.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 高亮当前活动的导航项
+            const currentHash = window.location.hash || '#container-formats';
+            const activeLink = document.querySelector(`a[href="${currentHash}"]`);
+            if (activeLink) activeLink.classList.add('active');
+            
+            // 点击导航项时添加高亮
+            const navLinks = document.querySelectorAll('.nav a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <nav class="nav">
+        <h2>音视频封装格式</h2>
+        <ul>
+            <li><a href="#container-formats">封装格式概述</a></li>
+            <li><a href="#format-types">常见封装格式</a>
+                <ul style="margin-left: 15px">
+                    <li><a href="#avi-format">AVI</a></li>
+                    <li><a href="#mkv-format">MKV</a></li>
+                    <li><a href="#mp4-format">MP4</a></li>
+                    <li><a href="#flv-format">FLV</a></li>
+                    <li><a href="#ts-format">MPEG2-TS</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <section id="container-formats">
+            <h1>封装格式概述</h1>
+            <p>封装格式，也称为容器，是一种将视频、音频、字幕和元数据等封装到一个文件中的技术。其主要目的是为了方便播放软件进行播放。</p>
+            <p>不同的封装格式可能支持不同的编码格式，但封装格式本身并不直接涉及视频或音频数据的压缩。</p>
+        </section>
+        
+        <section id="format-types">
+            <h1>常见封装格式</h1>
+            
+            <h2 id="avi-format">AVI</h2>
+            <p>AVI（Audio Video Interleaved）是一种成熟的音视频交错格式。AVI符合RIFF（Resource Interchange File Format）文件规范，使用四字符码FOURCC（<code>four-character code</code>）来表示数据类型。</p>
+            
+            <p>AVI文件的结构分为<span class="key-terms">头部、主体和索引</span>三个部分。主体中的图像数据和声音数据是交错存放的，通过尾部的索引可以定位到所需的位置。AVI本身只提供了一个框架，内部的图像数据和声音数据格式可以是任意编码形式。</p>
+            
+            <p class="highlight">由于索引位于文件尾部，因此在播放网络流媒体时可能效果不佳。</p>
+            
+            <h2 id="mkv-format">MKV</h2>
+            <p>MKV（开放标准的自由的容器和文件格式，多媒体封装格式）能够在一个文件中容纳无限数量的视频、音频、图片或字幕轨道。它能容纳多种不同类型编码的视频、音频及字幕流。</p>
+            
+            <h2 id="mp4-format">MP4</h2>
+            <p>MP4（MPEG-4 Part 14）是一种常见的多媒体容器格式，它在ISO/IEC 14496-14标准文件中定义，并属于MPEG-4的一部分。MP4是一种较为全面的容器格式，被认为可以嵌入任何形式的数据。</p>
+            
+            <p>通常见到的大多数MP4文件存储使用AVC（H.264）或MPEG-4（Part 2）编码的视频以及使用AAC编码的音频。MP4文件中的所有数据都存储在box（盒子）中，也就是说，MP4由多个box组成。</p>
+            
+            <p>每个box都有类型和长度，并包含不同信息，可以将box理解为<span class="key-terms">数据对象块</span>。box中可以嵌套另一个box，这种嵌套的box称为容器盒子（<code>container box</code>）。</p>
+            
+            <h2 id="flv-format">FLV</h2>
+            <p>FLV（Flash Video）是一种流行的流媒体格式，广泛用于网络视频应用。文件体积轻巧、封装播放简单。</p>
+            
+            <p>FLV文件由<span class="highlight">文件头（File Header）和文件体（File Body）</span>两部分组成。文件头包含了关于文件的基本信息，如文件类型标识、版本号等。文件体是由一系列的标签（Tag）和标签大小（Tag Size）组成的。每个标签代表了视频或音频数据的一个时间段，并包含了与该时间段相关的数据和元数据。</p>
+            
+            <h2 id="ts-format">MPEG2-TS</h2>
+            <p>一种标准的容器格式，用于传输和存储音视频、节目和系统信息协议数据，广泛应用于数字广播系统。MPEG-2码流基本上都采用TS格式。</p>
+            
+            <p>TS流具有<span class="key-terms">固定长度的传输包和较强的传输误码抵抗能力</span>，特别适合在不稳定的网络环境中传输视频内容。</p>
+        </section>
+    </div>
+</body>
+</html>
+    

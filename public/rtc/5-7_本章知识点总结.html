@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5-7 本章知识点总结</title>
+    <link rel="stylesheet" href="rtc_styles.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 高亮当前活动的导航项
+            const currentHash = window.location.hash || '#chapter-summary';
+            const activeLink = document.querySelector(`a[href="${currentHash}"]`);
+            if (activeLink) activeLink.classList.add('active');
+            
+            // 点击导航项时添加高亮
+            const navLinks = document.querySelectorAll('.nav a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <nav class="nav">
+        <h2>本章知识点总结</h2>
+        <ul>
+            <li><a href="#chapter-summary">总体概述</a></li>
+            <li><a href="#encoding-formats">编码格式</a></li>
+            <li><a href="#container-formats">封装格式</a></li>
+            <li><a href="#streaming-protocols">流媒体协议</a></li>
+            <li><a href="#live-streaming">直播系统</a></li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <section id="chapter-summary">
+            <h1>总体概述</h1>
+            <p><strong>本章知识点总结：</strong></p>
+            <p>在音视频开发和直播系统中，<span class="key-terms">码率，帧率，I帧/P帧/B帧，PTS，DTS</span>这些概念我们经常会用到，并且在程序实现中也经常出现。这些基础概念是理解整个音视频系统的关键。</p>
+        </section>
+        
+        <section id="encoding-formats">
+            <h1>编码格式</h1>
+            <p><strong>编码格式</strong>指的是音视频原始数据的压缩方式，通过特定的算法将原始数据进行压缩，以减小文件大小并保持一定的质量。</p>
+            <p>常见的音频编码格式包括<span class="key-terms">AAC、MP3、OPUS</span>等，视频编码格式包括<span class="key-terms">H.264/AVC、H.265/HEVC、VP9</span>等。</p>
+        </section>
+        
+        <section id="container-formats">
+            <h1>封装格式</h1>
+            <p><strong>封装格式</strong>是将压缩后的音视频数据与其他数据（如字幕、章节信息等）一起打包的容器。</p>
+            <p>常见的封装格式有<span class="key-terms">MP4、FLV、MKV、TS</span>等，不同的封装格式适用于不同的应用场景。</p>
+        </section>
+        
+        <section id="streaming-protocols">
+            <h1>流媒体协议</h1>
+            <p><strong>流媒体协议决定了如何在网络上传输流媒体的内容。</strong>各种流媒体协议各有优缺点，在选择合适的协议时需要考虑具体情况。</p>
+            <p>常见的流媒体协议包括<span class="key-terms">RTMP、HTTP-FLV、HLS、DASH、WebRTC</span>等，它们在延迟、兼容性、传输效率等方面各有特点。</p>
+        </section>
+        
+        <section id="live-streaming">
+            <h1>直播系统</h1>
+            <p><strong>直播系统的业务包括：推流、拉流/播放、回源、录制、时移以及CDN分发和加速等。</strong>直播系统的性能直接影响到直播体验，因此至关重要。</p>
+            <p>一个完整的直播系统需要考虑<span class="highlight">低延迟、高并发、弱网优化</span>等多方面的技术挑战，通过合理的架构设计和技术选型来提供流畅的用户体验。</p>
+        </section>
+    </div>
+</body>
+</html>
+    

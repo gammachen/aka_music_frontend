@@ -1,0 +1,326 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Lcry-Notes</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Description">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="static/vue.css">
+</head>
+<body>
+    <!-- 加载对话框 -->
+  <div id="app">...加载中...</div>
+  <script>
+    window.$docsify = {
+      name: 'Lcry-Notes',  //名称
+      loadSidebar: true,  //开启侧边栏
+      subMaxLevel: 3,  //二级目录自动生成
+      loadNavbar: true,  //开启自定义导航
+      coverpage: true,  //封面设置
+      auto2top: true,  //更改路线时滚动到屏幕顶部
+      homepage: 'home.md', //设置主页
+      notFoundPage: '404.md',  //404
+    //设置搜索          
+    search: {
+        maxAge: 86400000, // 过期时间，单位毫秒，默认一天
+        paths: 'auto', // or 'auto'
+        placeholder: '搜索',
+        noData: '找不到结果',
+        // 搜索标题的最大程级, 1 - 6
+        depth: 3
+    } 
+    }
+  </script>
+  <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>  <!-- 官方主题js -->
+  <script src="//unpkg.com/docsify/lib/plugins/emoji.min.js"></script>   <!-- 表情插件 -->
+  <script src="//unpkg.com/docsify/lib/plugins/zoom-image.min.js"></script>     <!-- 图片放大插件 -->
+  <script src="//unpkg.com/docsify/lib/plugins/search.js"></script>   <!-- 搜索 -->
+   <script src="//unpkg.com/prismjs/components/prism-java.js"></script><!-- java代码高亮 -->
+
+   <script>
+    const bigdataData = [
+      {
+        title: '数据仓库',
+        desc: '数据仓库是一个面向主题的（Subject Oriented）、集成的（Integrate）、相对稳定的（Non-Volatile）、反映历史变化（Time Variant）的数据集合，用于支持管理决策',
+        img: 'images/bigdata/bigdata_architecture_1.png'
+      },
+      {
+        title: '数据分层',
+        desc: '模型层面分为三层：ODS，操作数据层，保存原始数据；DWD，数据仓库明细层，根据主题定义好事实与维度表，保存最细粒度的事实数据；DM，数据集市/轻度汇总层，在 DWD 层的基础之上根据不同的业务需求做轻度汇总；',
+        img: 'images/bigdata/bigdata_architecture_warehouse.png'
+      },
+      {
+        title: 'Lambda架构',
+        desc: '架构总共由三层系统组成：批处理层（Batch Layer），速度处理层（Speed Layer），以及用于响应查询的服务层（Serving Layer）',
+        img: 'images/bigdata/bigdata_architecture_lambda.png'
+      },
+      {
+        title: 'Kappa架构',
+        desc: '架构总共由三层系统组成：批处理层（Batch Layer），速度处理层（Speed Layer），以及用于响应查询的服务层（Serving Layer）',
+        img: 'images/bigdata/bigdata_architecture_kappa.png'
+      },
+      {
+        title: '混合架构',
+        desc: '不是完全规范的 Lambda 架构或 Kappa 架构，可以是两者的混合，比如大部分实时指标使用 Kappa 架构完成计算，少量关键指标（比如金额相关）使用 Lambda 架构用批处理重新计算。',
+        img: 'images/bigdata/bigdata_architecture_lambda_kappa_2.png'
+      },
+      {
+        title: '产品架构',
+        desc: '全链路大数据开发治理平台',
+        img: 'images/bigdata/product_architecture.png'
+      },
+      {
+        title: '技术架构',
+        desc: 'tech_architecture.png',
+        img: 'images/bigdata/tech_architecture.png'
+      },
+      {
+        title: '电商大屏',
+        desc: '数据可视化之电商大屏',
+        img: '/bigdata/images/商品运营大数据.png'
+      },
+      {
+        title: '销售大屏',
+        desc: '数据可视化之销售大屏',
+        img: '/bigdata/images/销售大数据分析.png'
+      },
+      {
+        title: '轨迹',
+        desc: '数据可视化之地图轨迹',
+        img: '/bigdata/images/mapbox-heatmap.png'
+      },
+      {
+        title: 'Superset',
+        desc: '数据可视化Superset',
+        img: '/bigdata/images/superset.gif'
+      },
+      {
+        title: 'Redash',
+        desc: '数据可视化Redash',
+        img: '/bigdata/images/redash-anim.gif'
+      },
+      {
+        title: 'Metabase',
+        desc: '数据可视化Metabase',
+        img: '/bigdata/images/metabase-product-screenshot.png'
+      },
+      {
+        title: 'Kettle',
+        desc: 'Etl-Kettle',
+        img: '/bigdata/images/kettle-2.jpeg'
+      },
+      {
+        title: 'Presto',
+        desc: 'SQL query engine',
+        img: '/bigdata/images/Presto.jpg'
+      },
+      {
+        title: 'Impala',
+        desc: 'analytic databasefor open data and table formats',
+        img: '/bigdata/images/Impala.jpg'
+      },
+      {
+        title: 'Kylin',
+        desc: 'analytic databasefor open data and table formats',
+        img: '/bigdata/images/Kylin.jpg'
+      },
+      {
+        title: 'Airflow',
+        desc: 'a platform to programmatically author, schedule, and monitor workflows',
+        img: '/bigdata/images/airflow-c.png'
+      },
+      {
+        title: 'oozie',
+        desc: 'WorkFlow 规则相对简单，不涉及定时、批处理的工作流。顺序执行流程节点。Workflow 有个大缺点：没有定时和条件触发功能。 Coordinator 将多个工作流 Job 组织起来，称为 Coordinator Job，并指定触发时间和频率，还可以配置数据集、并发数等，类似于在工作流外部增加了一个协调器来管理这些工作流的工作流 Job 的运行。Bundle 针对 coordinator 的批处理工作流。Bundle 将多个 Coordinator 管理起来，这样我们只需要一个 Bundle 提交即可。',
+        img: '/bigdata/images/oozie-a.png'
+      },
+      {
+        title: 'Sqoop&Flume',
+        desc: '数据传输与采集',
+        img: '/bigdata/22_sqoop_flume.png'
+      }
+    ];
+    // img: '/bigdata/images/airflow_poc_dag-graph.png'
+
+    function showBigdata(idx) {
+      for (let i = 0; i < 19; i++) {
+        document.getElementById('bigdata-tab-' + i).classList.remove('active');
+      }
+      document.getElementById('bigdata-tab-' + idx).classList.add('active');
+      const d = bigdataData[idx];
+      document.getElementById('bigdata-detail').innerHTML = `
+        <div class="bd-title">${d.title}</div>
+        <div class="bd-desc">${d.desc}</div>
+        <img class="bd-img" src="${d.img}" alt="${d.title}"/>
+      `;
+    }
+    </script>
+
+    <script>
+      function initDashboardGallery() {
+        var thumbsDiv = document.getElementById('dashboard-thumbs');
+        var mainImg = document.getElementById('dashboard-main-img');
+        var mask = document.getElementById('dashboard-init-mask');
+        if (!thumbsDiv || !mainImg || !mask) return;
+        if (thumbsDiv.dataset.inited) return;
+        thumbsDiv.dataset.inited = '1';
+      
+        // 你的图片数组生成逻辑
+        var dashboardImages = [];
+        for (var i = 1; i <= 118; i++) {
+          var num = i.toString().padStart(3, '0');
+          // dashboardImages.push('images/bigdata/dashboard/' + num + '.png');
+          dashboardImages.push('images/bigdata/dashboard/' + num + '.gif');
+        }
+      
+        function preloadAndFilter(images, callback) {
+          var loaded = 0, valid = [];
+          images.forEach(function(src) {
+            var img = new window.Image();
+            img.onload = function() { valid.push(src); check(); };
+            img.onerror = check;
+            img.src = src;
+          });
+          function check() {
+            loaded++;
+            if (loaded === images.length) callback(valid);
+          }
+        }
+      
+        var current = 0, validImages = [];
+        function show(idx) {
+          if (!validImages[idx]) return;
+          mainImg.src = validImages[idx];
+          var all = thumbsDiv.querySelectorAll('.dashboard-thumb');
+          all.forEach(function(t, i) { t.classList.toggle('active', i === idx); });
+          current = idx;
+        }
+        function renderThumbs() {
+          thumbsDiv.innerHTML = '';
+          validImages.forEach(function(src, idx) {
+            var img = document.createElement('img');
+            img.src = src;
+            img.className = 'dashboard-thumb' + (idx === 0 ? ' active' : '');
+            img.onclick = function() { show(idx); };
+            thumbsDiv.appendChild(img);
+          });
+        }
+        var timer = null;
+        function startAutoPlay() {
+          if (timer) clearInterval(timer);
+          timer = setInterval(function() {
+            var next = (current + 1) % validImages.length;
+            show(next);
+          }, 3500);
+        }
+        preloadAndFilter(dashboardImages, function(filtered) {
+          validImages = filtered;
+          if (!validImages.length) return;
+          renderThumbs();
+          show(0);
+          mainImg.style.display = '';
+          thumbsDiv.style.display = '';
+          mask.style.display = 'none';
+          // 不自动播放（性能相关） TODO: 需要优化
+          // startAutoPlay();
+          mainImg.onmouseenter = function() { if (timer) clearInterval(timer); };
+          // mainImg.onmouseleave = startAutoPlay;
+        });
+      }
+      
+      // 只需监听一次点击/hover即可
+      document.addEventListener('click', function(e) {
+        var mask = document.getElementById('dashboard-init-mask');
+        if (mask && mask.contains(e.target)) {
+          initDashboardGallery();
+        }
+      });
+    </script>
+
+    <script>
+    (function() {
+      // 系统建设基础知识区块图片列表
+      var sysKnowledgeImages = [
+        'images/microservicea/1-4种RestAPI的认证方法.jpeg',
+        'images/microservicea/2-5大缓存策略优缺点.jpeg',
+        'images/microservicea/3-Redis三种集群模式.jpeg',
+        'images/microservicea/4-MQ的幂等性解决方案-1.jpeg',
+        'images/microservicea/4-MQ的幂等性解决方案2.jpeg',
+        'images/microservicea/5-6种API架构风格.jpeg',
+        'images/microservicea/6-DNS工作原理.jpeg',
+        'images/microservicea/6个ElasticSearch的应用场景.jpeg',
+        'images/microservicea/7-5种视图架构模式.jpeg',
+        'images/microservicea/8-导致CPU使用率飙升的常见原因.jpeg',
+        'images/microservicea/9-什么是gPRC.jpeg',
+        'images/microservicea/10-六种常见的API分页方法.jpeg',
+        'images/microservicea/11-ACID的四个属性.jpeg',
+        'images/microservicea/12-链路跟踪日志系统.jpeg',
+        'images/microservicea/13-ChatGPT的最简单的工作流程.jpeg',
+        'images/microservicea/14-Kafka零拷贝.jpeg',
+        'images/microservicea/15-应用之间的数据传输.jpeg',
+        'images/microservicea/16-图解SSH.jpeg',
+        'images/microservicea/17-六种负载均衡算法.jpeg',
+        'images/microservicea/17-六种负载均衡用例.jpeg',
+        'images/microservicea/18-八大缓存淘汰策略.jpeg',
+        'images/microservicea/19-SpringBean的循环依赖-三级缓存.jpeg',
+        'images/microservicea/20-SQL-Join.jpeg',
+        'images/microservicea/21-直播技术实现基础.jpeg',
+        'images/microservicea/22-四种UDP的使用案例.jpeg',
+        'images/microservicea/23-五大分布式锁应用场景.jpeg',
+        'images/microservicea/24-ACID的四个属性_2.jpeg',
+        'images/microservicea/25-三种消息传递系统.jpeg',
+        'images/microservicea/26-Redis-雪崩击穿穿透.jpeg',
+        'images/microservicea/27-REdis数据类型及用例.jpeg',
+        'images/microservicea/28-关于CDN.jpeg',
+        'images/microservicea/29-三种消息传递系统.jpeg',
+        'images/microservicea/30-LVS-Nat工作原理.jpeg',
+        'images/microservicea/31-微服务.jpeg',
+        'images/microservicea/32-Code与API优先的问题.jpeg',
+        'images/microservicea/33-微服务架构.jpeg',
+        'images/microservicea/34-数据管道.jpeg',
+        'images/microservicea/35-幂等的场景案例.jpeg',
+        'images/microservicea/38-正向代理与反向代理.jpeg',
+        'images/microservicea/41-Docker的人8个概念.jpeg',
+        'images/microservicea/43-K8s.jpeg',
+        'images/microservicea/43-Rest_graphql.jpeg',
+        'images/microservicea/44-JWT.jpeg',
+        'images/microservicea/retail_view.webp'
+      ];
+      var currentIdx = 0;
+      function updateSysCarousel(idx) {
+        var img = document.getElementById('sys-carousel-img');
+        if (!img) return;
+        img.src = sysKnowledgeImages[idx];
+      }
+      document.addEventListener('click', function(e) {
+        var left = document.getElementById('sys-arrow-left');
+        var right = document.getElementById('sys-arrow-right');
+        if (!left || !right) return;
+        if (left.contains(e.target)) {
+          currentIdx = (currentIdx - 1 + sysKnowledgeImages.length) % sysKnowledgeImages.length;
+          updateSysCarousel(currentIdx);
+        } else if (right.contains(e.target)) {
+          currentIdx = (currentIdx + 1) % sysKnowledgeImages.length;
+          updateSysCarousel(currentIdx);
+        }
+      });
+      // 初始化（防止页面切换后图片丢失）
+      document.addEventListener('DOMContentLoaded', function() {
+        updateSysCarousel(currentIdx);
+      });
+      // docsify页面切换后也要恢复
+      if (window.$docsify) {
+        window.$docsify.doneEach = (function(old) {
+          return function() {
+            if (typeof old === 'function') old();
+            updateSysCarousel(currentIdx);
+          }
+        })(window.$docsify.doneEach);
+      }
+    })();
+    </script>
+</body>
+</html>

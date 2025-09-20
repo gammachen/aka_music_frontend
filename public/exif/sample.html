@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>EXIF 数据可视化 - OPPO K9x 5G</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --oppo-green: #1ABC9C;
+            --space-silver: #2C3E50;
+        }
+
+        body {
+            background: linear-gradient(45deg, var(--space-silver), #34495e);
+            color: #ecf0f1;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 2rem;
+        }
+
+        .hologram-card {
+            background: rgba(0,0,0,0.7);
+            border: 1px solid var(--oppo-green);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .neon-text {
+            color: var(--oppo-green);
+            text-shadow: 0 0 10px #1ABC9C55;
+            animation: neon-pulse 1.5s infinite alternate;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .parameter-ring {
+            height: 150px;
+            width: 150px;
+            border-radius: 50%;
+            background: conic-gradient(var(--oppo-green) 85%, #666 0%);
+            position: relative;
+            animation: ring-glow 2s ease-in-out infinite;
+        }
+
+        .warning-badge {
+            background: #e74c3c;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+
+        .gps-warning {
+            filter: grayscale(1);
+            opacity: 0.5;
+        }
+
+        @keyframes neon-pulse {
+            from { text-shadow: 0 0 5px #1ABC9C33; }
+            to { text-shadow: 0 0 15px #1ABC9CAA; }
+        }
+
+        @keyframes ring-glow {
+            0%, 100% { box-shadow: 0 0 10px #1ABC9C33; }
+            50% { box-shadow: 0 0 20px #1ABC9CAA; }
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .chip-design {
+            background: #ffffff11;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--oppo-green);
+        }
+    </style>
+</head>
+<body>
+    <div class="hologram-card">
+        <i class="fas fa-mobile-alt fa-3x" style="float: right; opacity: 0.2;"></i>
+        <h1 class="neon-text">OPPO K9x 5G</h1>
+        <div class="chip-design">
+            <i class="fas fa-microchip"></i> MediaTek Camera
+        </div>
+        <div class="gps-warning">
+            <i class="fas fa-satellite-dish"></i> GPS信号丢失
+        </div>
+    </div>
+
+    <div class="dashboard">
+        <div class="hologram-card">
+            <h3><i class="fas fa-sun"></i> 曝光</h3>
+            <div class="parameter-ring"></div>
+            <div class="warning-badge">动态模糊预警 85%</div>
+            <p>1/50s (5001/250000)</p>
+        </div>
+
+        <div class="hologram-card">
+            <h3><i class="fas fa-star"></i> 光圈</h3>
+            <div class="parameter-ring" style="background: conic-gradient(gold 70%, #666 0%)"></div>
+            <p>f/1.7 (17/10)</p>
+            <div class="chip-design">夜拍指数 ★★★★★★★☆☆☆</div>
+        </div>
+
+        <div class="hologram-card">
+            <h3><i class="fas fa-biohazard"></i> ISO</h3>
+            <div class="parameter-ring" style="background: conic-gradient(#e74c3c 80%, #666 0%)"></div>
+            <p>698</p>
+            <div class="warning-badge">噪点风险等级 4/5</div>
+        </div>
+    </div>
+
+    <div class="grid-layout">
+        <div class="hologram-card">
+            <h3><i class="fas fa-ruler-combined"></i> 画质矩阵</h3>
+            <p>📐 3468×4624 (16:21)</p>
+            <div class="chip-design">
+                <i class="fas fa-compass"></i> Landscape 方向
+            </div>
+            <p>🎨 sRGB 色域覆盖率 95%</p>
+            <div class="warning-badge">72dpi 打印警示</div>
+        </div>
+
+        <div class="hologram-card">
+            <h3><i class="fas fa-unlink"></i> 隐藏参数</h3>
+            <div class="chip-design">
+                <i class="fas fa-lightbulb"></i> 光源类型：未知光谱
+            </div>
+            <p>⚖️ 测光模式：中心加权</p>
+            <div class="chip-design">
+                <i class="fas fa-cloud-sun"></i> 白平衡：自动
+            </div>
+        </div>
+    </div>
+</body>
+</html>

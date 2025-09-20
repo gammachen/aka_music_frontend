@@ -1,0 +1,50 @@
+﻿[
+  {
+    "s.name": "陈伟",
+    "s.role": "开发工程师",
+    "totalAllocation": 110,
+    "loadStatus": "过载"
+  },
+  {
+    "s.name": "刘洋",
+    "s.role": "开发工程师",
+    "totalAllocation": 90,
+    "loadStatus": "饱和"
+  },
+  {
+    "s.name": "张明",
+    "s.role": "开发工程师",
+    "totalAllocation": 70,
+    "loadStatus": "适中"
+  },
+  {
+    "s.name": "赵静",
+    "s.role": "测试工程师",
+    "totalAllocation": 70,
+    "loadStatus": "适中"
+  },
+  {
+    "s.name": "周分析师",
+    "s.role": "业务分析师",
+    "totalAllocation": 70,
+    "loadStatus": "适中"
+  },
+  {
+    "s.name": "王芳",
+    "s.role": "测试工程师",
+    "totalAllocation": 60,
+    "loadStatus": "适中"
+  },
+  {
+    "s.name": "李华",
+    "s.role": "开发工程师",
+    "totalAllocation": 50,
+    "loadStatus": "空闲"
+  },
+  {
+    "s.name": "林设计师",
+    "s.role": "UI设计师",
+    "totalAllocation": 50,
+    "loadStatus": "空闲"
+  }
+]

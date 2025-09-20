@@ -1,0 +1,26 @@
+{
+  "timestamp": "2025-08-31T20:36:15.112817",
+  "total_tests": 3,
+  "results": [
+    {
+      "test": "partial_templates",
+      "result": "系统：你是一个友好的助手\n用户：你好\n助手：你好！很高兴为您服务",
+      "remaining_vars": [
+        "assistant"
+      ]
+    },
+    {
+      "test": "multilingual",
+      "results": {
+        "zh": "你好 用户，欢迎来到我们的平台！",
+        "en": "Hello 用户, welcome to our platform!",
+        "ja": "こんにちは 用户さん、私たちのプラットフォームへようこそ！"
+      }
+    },
+    {
+      "test": "customer_service",
+      "greeting": "你好 小明！我是客服助手。您的问题是：我的订单什么时候能收到？",
+      "response": "关于您的问题\"我的订单什么时候能收到？\"，您的订单预计3-5个工作日内送达。"
+    }
+  ]
+}

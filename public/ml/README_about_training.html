@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>README_about_training.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h2 id="training-log-analysis">Training Log Analysis</h2>
+<pre class="hljs"><code><div>Epoch [1/10], Batch [2/161], Loss: 2.6205
+Epoch [1/10], Batch [4/161], Loss: 2.1338
+Epoch [1/10], Batch [6/161], Loss: 2.0734
+Epoch [1/10], Batch [8/161], Loss: 2.5480
+Epoch [1/10], Batch [10/161], Loss: 2.0871
+Epoch [1/10], Batch [12/161], Loss: 2.7146
+Epoch [1/10], Batch [14/161], Loss: 2.1100
+Epoch [1/10], Batch [16/161], Loss: 2.1136
+Epoch [1/10], Batch [18/161], Loss: 2.5807
+Epoch [1/10], Batch [20/161], Loss: 1.5510
+Epoch [1/10], Batch [22/161], Loss: 1.9678
+Epoch [1/10], Batch [24/161], Loss: 2.0655
+Epoch [1/10], Batch [26/161], Loss: 1.5172
+Epoch [1/10], Batch [28/161], Loss: 1.6142
+Epoch [1/10], Batch [30/161], Loss: 1.8894
+Epoch [1/10], Batch [32/161], Loss: 1.6921
+Epoch [1/10], Batch [34/161], Loss: 1.7227
+Epoch [1/10], Batch [36/161], Loss: 1.8425
+Epoch [1/10], Batch [38/161], Loss: 1.6631
+Epoch [1/10], Batch [40/161], Loss: 1.4705
+Epoch [1/10], Batch [42/161], Loss: 1.3921
+Epoch [1/10], Batch [44/161], Loss: 1.4823
+Epoch [1/10], Batch [46/161], Loss: 1.7080
+Epoch [1/10], Batch [48/161], Loss: 1.7833
+Epoch [1/10], Batch [50/161], Loss: 1.2537
+Epoch [1/10], Batch [52/161], Loss: 1.4575
+Epoch [1/10], Batch [54/161], Loss: 1.2932
+Epoch [1/10], Batch [56/161], Loss: 1.3451
+Epoch [1/10], Batch [58/161], Loss: 1.5114
+Epoch [1/10], Batch [60/161], Loss: 1.6163
+Epoch [1/10], Batch [62/161], Loss: 1.5909
+Epoch [1/10], Batch [64/161], Loss: 1.2865
+Epoch [1/10], Batch [66/161], Loss: 1.4936
+Epoch [1/10], Batch [68/161], Loss: 1.2711
+Epoch [1/10], Batch [70/161], Loss: 1.2772
+Epoch [1/10], Batch [72/161], Loss: 0.9716
+Epoch [1/10], Batch [74/161], Loss: 1.2209
+Epoch [1/10], Batch [76/161], Loss: 1.3614
+Epoch [1/10], Batch [78/161], Loss: 1.2841
+Epoch [1/10], Batch [80/161], Loss: 1.0637
+Epoch [1/10], Batch [82/161], Loss: 1.1124
+Epoch [1/10], Batch [84/161], Loss: 0.9447
+Epoch [1/10], Batch [86/161], Loss: 1.2556
+Epoch [1/10], Batch [88/161], Loss: 1.0766
+Epoch [1/10], Batch [90/161], Loss: 0.7573
+Epoch [1/10], Batch [92/161], Loss: 0.9212
+Epoch [1/10], Batch [94/161], Loss: 0.9835
+Epoch [1/10], Batch [96/161], Loss: 0.8150
+Epoch [1/10], Batch [98/161], Loss: 0.8788
+Epoch [1/10], Batch [100/161], Loss: 0.8423
+Epoch [1/10], Batch [102/161], Loss: 0.9059
+Epoch [1/10], Batch [104/161], Loss: 0.9751
+Epoch [1/10], Batch [106/161], Loss: 0.7933
+Epoch [1/10], Batch [108/161], Loss: 0.8005
+Epoch [1/10], Batch [110/161], Loss: 0.6304
+Epoch [1/10], Batch [112/161], Loss: 1.0057
+Epoch [1/10], Batch [114/161], Loss: 0.8621
+</div></code></pre>
+<p>从提供的训练日志来看，目前的损失值（Loss）在逐渐下降，但是否已经收敛或需要继续训练下去，还需要结合以下几个方面进行分析和判断：</p>
+<hr>
+<h3 id="1-%E6%8D%9F%E5%A4%B1%E5%80%BC%E7%9A%84%E8%B6%8B%E5%8A%BF"><strong>1. 损失值的趋势</strong></h3>
+<ul>
+<li><strong>当前趋势</strong>：从日志中可以看到，损失值总体上呈现下降趋势。初始的损失值约为 2.6，而到 Batch [114/161] 时，损失值已经降到 0.8 左右。这是一个积极的信号，说明模型正在学习。</li>
+<li><strong>波动情况</strong>：尽管整体趋势是下降的，但损失值存在一定的波动（例如，Batch [8/161] 的损失值突然升高到 2.5480）。这种波动在训练过程中是正常的，但如果波动幅度过大或过于频繁，则可能需要检查数据分布、学习率设置或优化器的选择。</li>
+</ul>
+<hr>
+<h3 id="2-%E6%94%B6%E6%95%9B%E7%9A%84%E6%A0%87%E5%87%86"><strong>2. 收敛的标准</strong></h3>
+<ul>
+<li><strong>收敛的定义</strong>：通常认为，当损失值趋于平稳（即不再显著下降）且验证集上的性能指标（如准确率、F1 分数等）不再提升时，模型可以被认为已经收敛。</li>
+<li><strong>当前状态</strong>：从现有的日志来看，损失值仍在下降，尚未完全稳定在一个较低的水平。因此，模型可能还未完全收敛。</li>
+<li><strong>参考标准</strong>：
+<ul>
+<li>如果目标是分类任务，通常希望损失值降低到 0.5 以下（具体取决于任务难度）。</li>
+<li>如果目标是生成任务或其他复杂任务，损失值可能需要更低。</li>
+<li>最重要的是结合验证集的表现来判断模型是否过拟合或欠拟合。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="3-%E9%AA%8C%E8%AF%81%E9%9B%86%E7%9A%84%E8%A1%A8%E7%8E%B0"><strong>3. 验证集的表现</strong></h3>
+<ul>
+<li><strong>验证集的重要性</strong>：仅看训练集的损失值不足以判断模型是否表现良好。需要定期在验证集上评估模型的性能（如准确率、BLEU 分数等），以确保模型没有过拟合。</li>
+<li><strong>建议</strong>：
+<ul>
+<li>在每个 Epoch 结束时，计算验证集上的损失值和性能指标。</li>
+<li>如果验证集上的损失值也开始趋于平稳，且性能指标达到预期，那么可以停止训练。</li>
+<li>如果验证集上的损失值开始上升，而训练集上的损失值仍在下降，这可能是过拟合的信号。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="4-%E5%AD%A6%E4%B9%A0%E7%8E%87%E8%B0%83%E6%95%B4"><strong>4. 学习率调整</strong></h3>
+<ul>
+<li><strong>学习率的影响</strong>：如果损失值下降速度变慢，可能是因为学习率过高或过低。可以尝试使用学习率调度器（如余弦退火、ReduceLROnPlateau 等）动态调整学习率。</li>
+<li><strong>建议</strong>：
+<ul>
+<li>如果损失值下降缓慢且波动较大，可以尝试降低学习率。</li>
+<li>如果损失值下降过快且波动剧烈，可以尝试提高学习率或引入梯度裁剪。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="5-%E5%81%9C%E6%AD%A2%E8%AE%AD%E7%BB%83%E7%9A%84%E6%A0%87%E5%87%86"><strong>5. 停止训练的标准</strong></h3>
+<ul>
+<li><strong>早停（Early Stopping）</strong>：为了避免过拟合，可以在验证集上使用早停策略。例如，当验证集上的损失值连续若干个 Epoch 不再下降时，提前终止训练。</li>
+<li><strong>目标损失值</strong>：根据任务需求设定一个目标损失值。例如，对于简单的分类任务，可以将目标损失值设为 0.5 或更低；对于复杂的生成任务，可能需要更低的目标值。</li>
+</ul>
+<hr>
+<h3 id="%E6%80%BB%E7%BB%93%E4%B8%8E%E5%BB%BA%E8%AE%AE"><strong>总结与建议</strong></h3>
+<ol>
+<li><strong>当前状态</strong>：损失值仍在下降，尚未完全收敛，建议继续训练。</li>
+<li><strong>下一步行动</strong>：
+<ul>
+<li>定期在验证集上评估模型的性能，观察验证集损失值和性能指标的变化。</li>
+<li>如果验证集上的性能指标达到预期，可以停止训练。</li>
+<li>如果验证集上的损失值开始上升，考虑使用正则化方法（如 Dropout、权重衰减）或调整学习率。</li>
+</ul>
+</li>
+<li><strong>目标</strong>：最终的目标是让训练集和验证集上的损失值都趋于稳定，并达到预期的性能指标。</li>
+</ol>
+
+</body>
+</html>

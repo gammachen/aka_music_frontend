@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5-2 音视频编码格式简介</title>
+    <link rel="stylesheet" href="rtc_styles.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 高亮当前活动的导航项
+            const currentHash = window.location.hash || '#audio-encoding';
+            const activeLink = document.querySelector(`a[href="${currentHash}"]`);
+            if (activeLink) activeLink.classList.add('active');
+            
+            // 点击导航项时添加高亮
+            const navLinks = document.querySelectorAll('.nav a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <nav class="nav">
+        <h2>音视频编码格式</h2>
+        <ul>
+            <li><a href="#audio-encoding">音频编码</a></li>
+            <li><a href="#video-encoding">视频编码</a>
+                <ul style="margin-left: 15px">
+                    <li><a href="#mpeg-standards">MPEG标准</a></li>
+                    <li><a href="#h-standards">H系列标准</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <section id="audio-encoding">
+            <h1>音频编码格式</h1>
+            <p>音频编码是将原始音频数据压缩成特定格式的过程，以便于存储和传输。</p>
+            
+            <h2>5.1声道技术</h2>
+            <p>5.1声道技术中，<span class="highlight">5代表着5个基本声道</span>，独立连接至五个不同的喇叭（20至2000Hz），分别是右前（RF），中（C），左前（LF），右后（RR），左后（LR）；而<span class="highlight">1则代表1个低频声效</span>，连接至低音辅助喇叭（20至120Hz)。</p>
+            
+            <h2>AAC (Advanced Audio Coding)</h2>
+            <p>AAC是基于MPEG2的音频编码技术。在每个AC-3的音频帧都是以<code>0x0B77</code>为同步头。加入了SBR技术和PS技术，高压缩比的音频压缩算法使得AAC的压缩比通常为<span class="key-terms">18:1或更高</span>，远胜于MP3。</p>
+            
+            <p>AAC支持多达<span class="key-terms">48个音轨和15个低频（LFE）音轨</span>，拥有51多声道的支持，并且最高可达96kHz的采样率和更高的采样精度（包括8bit、16bit、24bit、32bit），音频CD则使用的是16bit。</p>
+            
+            <h2>OPUS</h2>
+            <p>OPUS是一个有损声音编码的格式，由Xiph.Org基金会开发，并通过IETF标准化。其目标在于用单一格式包含声音和语音，以取代Speex和Vorbis适用于网络上低延迟的即时声音传输。</p>
+            
+            <p class="highlight">OPUS为开放格式，在使用上没有任何专利或限制。标准格式定义于RFC 6716文件。</p>
+        </section>
+        
+        <section id="video-encoding">
+            <h1>视频编码格式</h1>
+            <p>视频是连续的图像序列，一帧即为一幅图像。由于人眼的视觉暂留效应和连续播放时的动作连续性，我们需要对原始视频进行编码压缩以去除空间、时间维度的冗余。</p>
+            
+            <p>视频编码是指将视频数据从一种格式转换为另一种格式的过程。</p>
+            
+            <h2 id="mpeg-standards">MPEG标准系列</h2>
+            
+            <h3>MPEG-1</h3>
+            <p>MPEG-1标准主要针对SIF标准分辨率(NTSC制为352×240；PAL制为352×288)的图像进行压缩。压缩位率的主要目标是<code>1.5Mb/s</code>。</p>
+            
+            <p>较MJPEG技术，MPEG1在实时压缩、每帧数据量、处理速度上有显著的提高。但MPEG1也有较多不利地方：存储容量还是过大、清晰度不够高和网络传输困难。</p>
+            
+            <h3>MPEG-2</h3>
+            <p>MPEG-2在MPEG-1基础上进行了扩充和提升，与MPEG-1向下兼容，主要针对存储媒体、数字电视、高清晰等应用领域。MPEG-2视频相对MPEG-1提升了分辨率，满足了用户对高清晰度的要求，但由于压缩性能没有多少提高，使得存储容量还是太大，并不适合网络传输。</p>
+            
+            <h3>MPEG-4</h3>
+            <p>MPEG-4视频压缩算法相对于MPEG-1/2在低比特率压缩上有着显著提高，在CIF（352×288）或者更高清晰度下，无论从清晰度还是从存储量上都比MPEG1具有更大的优势，并且更适用于网络传输。另外，MPEG-4可以方便地动态调整帧率、比特率以降低存储量。</p>
+            
+            <h2 id="h-standards">H系列标准</h2>
+            
+            <h3>H.261</h3>
+            <p>H.261标准是为ISDN设计的，主要针对实时编码和解码进行设计，压缩和解压缩信号延时不超过150ms，码率为p×64kbps（p=1~30）。H.261标准采用运动补偿的帧间预测、DCT变换、自适应量化、熵编码等压缩技术。支持两种图像扫描格式：QCIF和CIF。</p>
+            
+            <h3>H.263</h3>
+            <p>H.263标准是甚低码率的图像编码国际标准，它基于H.261基础上采用混合编码为核心，其基本原理框图和H.261十分相似。H.263支持多种分辨率：SQCIF(128×96)、QCIF、CIF、4CIF、16CIF。</p>
+            
+            <h3>H.264/AVC</h3>
+            <p>H.264集中了以往标准的优点，获得比以往标准好得多的整体性能。与H.263+和MPEG-4 SP相比最多可节省<span class="highlight">50％的码率</span>，使存储容量大大降低。在不同分辨率、不同码率下都能提供较高视频质量，并且采用"网络友善"的结构和语法使其更有利于网络传输。</p>
+            
+            <h3>H.265/HEVC</h3>
+            <p>高效视频编码（HEVC），也称为H.265和MPEG-H part 2，是视频压缩标准。与AVC相比，在相同的视频质量水平下提供大约<span class="key-terms">两倍的数据压缩比</span>，或者以相同的比特率显著提高视频质量。它支持高达8192×4320的分辨率，包括8K UHD。</p>
+        </section>
+    </div>
+</body>
+</html>
+    

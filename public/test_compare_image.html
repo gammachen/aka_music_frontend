@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Test Compare Image</title>
+    <!-- 确保 jQuery 在其他插件之前加载 -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/jquery.event.move.js"></script>
+    <link href="css/foundation.css" rel="stylesheet" type="text/css" />
+    <link href="css/twentytwenty.css" rel="stylesheet" type="text/css" />
+    <!-- 其他脚本 -->
+</head>
+
+<body>
+    <div class="row" style="margin-top: 2em;"></div>
+        <div class="large-4 columns">
+            <h3>Basic Usage</h3>
+            <p>Demonstrates basic usage of the plugin.</p>
+        </div>
+        <div class="large-8 columns">
+            <div id="container1">
+                <!-- The before image is first -->
+                <img src="img/1_1.jpg" />
+                <!-- The after image is last -->
+                <img src="img/1_2.jpg" />
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 2em;">
+        <div class="large-4 columns">
+            <h3>Basic Usage</h3>
+            <p>Demonstrates basic usage of the plugin.</p>
+        </div>
+        <div class="large-8 columns">
+            <div class="twentytwenty-container">
+                <img src="img/1_1.jpg" />
+                <img src="img/1_2.jpg" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 2em; margin-bottom: 2em;">
+        <div class="large-4 columns">
+            <h3>Vertical Orientation</h3>
+            <p>Demonstrates sliding up and down.</p>
+        </div>
+        <div class="large-8 columns">
+            <div class="twentytwenty-container" data-orientation="vertical">
+                <img src="img/1_1.jpg" />
+                <img src="img/1_2.jpg" />
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // 确保所有事件绑定在 DOM 加载完成后进行
+            // 例如：
+            $('#someElement').on('click', function() {
+                // 处理点击事件
+            });
+        });
+    </script>
+</body>
+<!-- <script
+        src="https://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+        crossorigin="anonymous"></script> -->
+<!-- <script src="js/jquery.event.move.js" type="text/javascript"></script>
+        <script src="js/jquery.twentytwenty.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="css/twentytwenty.css" type="text/css" media="screen" /> -->
+
+        <!-- $("#container1").twentytwenty({
+            default_offset_pct: 0.7, // How much of the before image is visible when the page loads
+            orientation: 'horizontal', // Orientation of the before and after images ('horizontal' or 'vertical')
+            before_label: 'January 2017', // Set a custom before label
+            after_label: 'March 2017', // Set a custom after label
+            no_overlay: true, //Do not show the overlay with before and after
+            move_slider_on_hover: true, // Move slider on mouse hover?
+            move_with_handle_only: true, // Allow a user to swipe anywhere on the image to control slider movement. 
+            click_to_move: false // Allow a user to click (or tap) anywhere on the image to move the slider to that location.
+        }); -->
+<script src="js/jquery.twentytwenty.js"></script>
+<script>
+    $(function () {
+        $(".twentytwenty-container[data-orientation!='vertical']").twentytwenty({
+             default_offset_pct: 0.7,
+             click_to_move: true 
+            });
+        
+        $(".twentytwenty-container[data-orientation='vertical']").twentytwenty({
+             default_offset_pct: 0.3, orientation: 'vertical' 
+            });
+    });
+</script>
+
+</html>

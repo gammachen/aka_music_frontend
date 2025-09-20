@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>李白研究全流程知识图谱系统</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/atom-one-dark.min.css">
+    <style>
+        .research-card {
+            background: rgba(255,255,255,0.98);
+            border-radius: 12px;
+            margin: 2rem 0;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        .research-card:hover {
+            transform: translateY(-5px);
+        }
+        .mermaid-box {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        .code-box {
+            background: #2d2d2d;
+            color: #ccc;
+            border-radius: 8px;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+        .analysis-table {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .timeline-badge {
+            font-size: 0.9em;
+            padding: 0.5em 1em;
+            margin: 0 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <header class="text-center mb-5">
+            <h1 class="display-4 fw-bold">李白研究知识图谱系统</h1>
+            <p class="lead text-muted">基于大语言模型的历史人物研究全流程解决方案</p>
+        </header>
+
+        <!-- 核心功能模块 -->
+        <section class="research-card">
+            <h2 class="h3 fw-bold mb-4">📌 核心功能说明</h2>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="mermaid-box">
+                        <div class="mermaid">
+pie showData
+    title 数据处理能力分布
+    "实体识别" : 38
+    "关系抽取" : 27
+    "时间解析" : 20
+    "地理编码" : 15
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="alert alert-success">
+                        <h5>关键功能特性：</h5>
+                        <ul>
+                            <li>多源异构数据整合能力</li>
+                            <li>时空维度交叉分析</li>
+                            <li>动态关系网络构建</li>
+                            <li>智能校验反馈机制</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 典型研究问题 -->
+        <section class="research-card">
+            <h2 class="h3 fw-bold mb-4">🔍 典型研究问题示例</h2>
+            
+            <div class="mermaid-box">
+                <div class="mermaid">
+gantt
+    title 李白人生轨迹时间轴
+    dateFormat  YYYY-MM
+    section 重要节点
+    出生          :milestone, 0701-01, 0d
+    初入长安       :active, 0742-01, 60d
+    创作高峰期      : 0745-01, 730d
+    流放夜郎       : 0758-05, 180d
+    逝世          :milestone, 0762-12, 0d
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <h5>诗歌时空分析</h5>
+                    <pre class="code-box"><code class="language-cypher">
+// 查询创作地点分布
+MATCH (lb:人物 {姓名:"李白"})-[:创作]->(p:诗歌)
+RETURN p.创作地点 AS 地点, count(*) AS 数量
+ORDER BY 数量 DESC LIMIT 5
+                    </code></pre>
+                    <div class="alert alert-info">
+                        <strong>预期结果：</strong>
+                        <ul>
+                            <li>长安：28首</li>
+                            <li>金陵：19首</li>
+                            <li>江夏：15首</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <h5>人际关系分析</h5>
+                    <pre class="code-box"><code class="language-python">
+def get_relations(person):
+    """获取多层人际关系"""
+    query = f'''
+    MATCH path=(:{person})-[*1..3]->(p)
+    RETURN nodes(path), relationships(path)
+    '''
+    return graph.run(query).to_data_frame()
+                    </code></pre>
+                    <div class="alert alert-warning">
+                        <strong>分析维度：</strong>
+                        <ul>
+                            <li>直接关系（杜甫、孟浩然）</li>
+                            <li>间接关系（通过玉真公主）</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 优化建议模块 -->
+        <section class="research-card">
+            <h2 class="h3 fw-bold mb-4">🚀 系统优化建议</h2>
+            
+            <div class="analysis-table">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>优化方向</th>
+                            <th>具体措施</th>
+                            <th>预期收益</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>数据增强</td>
+                            <td>整合历代注疏文献</td>
+                            <td>+30%实体识别准确率</td>
+                        </tr>
+                        <tr>
+                            <td>模型优化</td>
+                            <td>领域适配微调</td>
+                            <td>+25%关系抽取召回率</td>
+                        </tr>
+                        <tr>
+                            <td>交互增强</td>
+                            <td>时空过滤器开发</td>
+                            <td>提升用户体验40%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mermaid-box mt-4">
+                <div class="mermaid">
+graph LR
+    A[原始数据] --> B{自动处理}
+    B -->|高置信度| C[直接入库]
+    B -->|低置信度| D[人工校验]
+    C --> E[知识图谱]
+    D --> E
+    E --> F[可视化分析]
+                </div>
+            </div>
+        </section>
+
+        <!-- 技术实现细节 -->
+        <section class="research-card">
+            <h2 class="h3 fw-bold mb-4">⚙️ 技术实现细节</h2>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">数据处理流程</h5>
+                            <pre class="code-box"><code class="language-python">
+# 时间标准化示例
+def normalize_date(text):
+    patterns = [
+        (r'天宝(\d+)载', r'天宝\1年'),
+        (r'开元末', '开元29年')
+    ]
+    for pat, repl in patterns:
+        text = re.sub(pat, repl, text)
+    return text
+                            </code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">系统架构</h5>
+                            <div class="mermaid-box">
+                                <div class="mermaid">
+graph TD
+    A[原始文本] --> B(预处理模块)
+    B --> C{NLP引擎}
+    C --> D[实体识别]
+    C --> E[关系抽取]
+    D --> F[知识图谱]
+    E --> F
+    F --> G[分析接口]
+    G --> H[可视化]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Mermaid初始化
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#6c5ce7',
+                pie1: '#a8a4e6'
+            },
+            gantt: {
+                axisFormat: '%Y',
+                barHeight: 25
+            }
+        });
+
+        // 代码高亮配置
+        hljs.registerLanguage('cypher', function(hljs) {
+            return {
+                keywords: 'MATCH RETURN WHERE CREATE SET',
+                contains: [
+                    hljs.HASH_COMMENT_MODE,
+                    hljs.QUOTE_STRING_MODE,
+                    hljs.NUMBER_MODE,
+                    {className: 'keyword', begin: /:\w+/}
+                ]
+            };
+        });
+        hljs.highlightAll();
+
+        // 窗口大小变化时重绘图表
+        window.addEventListener('resize', () => {
+            mermaid.init(undefined, '.mermaid');
+        });
+    </script>
+</body>
+</html>

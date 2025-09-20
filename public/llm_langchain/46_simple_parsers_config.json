@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "parsers": [
+    "StringOutputParser",
+    "BooleanOutputParser",
+    "ListOutputParser",
+    "JSONOutputParser",
+    "DatetimeOutputParser",
+    "RegexOutputParser"
+  ],
+  "applications": [
+    "客服机器人",
+    "产品信息提取",
+    "简历解析",
+    "数据验证"
+  ]
+}

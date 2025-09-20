@@ -1,0 +1,42 @@
+[
+  {
+    "parser_type": "JSONOutputParser",
+    "total_operations": 250,
+    "successful_operations": 150,
+    "total_time_seconds": 0.0006101131439208984,
+    "average_time_per_operation": 2.440452575683594e-06,
+    "success_rate": 0.6
+  },
+  {
+    "parser_type": "StringOutputParser",
+    "total_operations": 250,
+    "successful_operations": 250,
+    "total_time_seconds": 1.5735626220703125e-05,
+    "average_time_per_operation": 6.29425048828125e-08,
+    "success_rate": 1.0
+  },
+  {
+    "parser_type": "BooleanOutputParser",
+    "total_operations": 250,
+    "successful_operations": 50,
+    "total_time_seconds": 6.4849853515625e-05,
+    "average_time_per_operation": 2.593994140625e-07,
+    "success_rate": 0.2
+  },
+  {
+    "parser_type": "ListOutputParser",
+    "total_operations": 250,
+    "successful_operations": 250,
+    "total_time_seconds": 0.0010669231414794922,
+    "average_time_per_operation": 4.267692565917968e-06,
+    "success_rate": 1.0
+  },
+  {
+    "parser_type": "DatetimeOutputParser",
+    "total_operations": 250,
+    "successful_operations": 50,
+    "total_time_seconds": 0.010166168212890625,
+    "average_time_per_operation": 4.06646728515625e-05,
+    "success_rate": 0.2
+  }
+]

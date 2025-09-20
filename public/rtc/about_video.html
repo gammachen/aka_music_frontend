@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>多媒体常用概念手册</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box }
+        body { 
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            background: #f5f5f5;
+            display: flex;
+        }
+
+        /* 左侧导航 */
+        .nav {
+            width: 260px;
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            overflow-y: auto;
+        }
+        .nav h2 { margin-bottom: 20px; color: #ecf0f1 }
+        .nav ul { list-style: none }
+        .nav li { margin: 8px 0 }
+        .nav a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .nav a:hover { color: #3498db }
+
+        /* 右侧内容 */
+        .content {
+            flex: 1;
+            padding: 40px;
+            max-width: 800px;
+        }
+        section { 
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 { color: #2c3e50; margin-bottom: 20px }
+        h3 { color: #34495e; margin: 20px 0 15px }
+        p { margin: 10px 0; color: #666 }
+        code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: Consolas, monospace;
+        }
+        .highlight { color: #e74c3c; font-weight: bold }
+    </style>
+</head>
+<body>
+    <!-- 左侧导航 -->
+    <nav class="nav">
+        <h2>目录导航</h2>
+        <ul>
+            <li><a href="#ma-lv">码率</a></li>
+            <li><a href="#fen-bian-lv">分辨率</a></li>
+            <li><a href="#zhen-lv">帧率</a></li>
+            <li><a href="#shi-pin-zhen">视频帧</a></li>
+            <li><a href="#shi-jian-chuo">时间戳</a></li>
+            <li><a href="#se-cai-mo-shi">色彩模式</a>
+                <ul style="margin-left: 15px">
+                    <li><a href="#se-cai-shen-du">色彩深度</a></li>
+                    <li><a href="#rgb">RGB</a></li>
+                    <li><a href="#yuv">YUV</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- 右侧内容 -->
+    <main class="content">
+        <section id="ma-lv">
+            <h2>码率</h2>
+            <p>码率指单位时间内传送比特的数目。单位为比特/秒（<code>bit/s</code>或<code>bps</code>）、千比特/秒（<code>kbit/s</code>或<code>kbps</code>，k=1000）或兆比特/秒（<code>Mbps</code>，M=1000000）。</p>
+            <p class="highlight">码率越高，音视频的质量就越好，画质就越清晰，同时编码后的文件就越大。</p>
+        </section>
+
+        <section id="fen-bian-lv">
+            <h2>分辨率</h2>
+            <p>这里的分辨率指画面的分辨率，也即画面所带的像素，一般是用图片的长（像素）*宽（像素）表示，比如长1920个像素，宽1080个像素，分辨率就是<code>1920*1080</code>。</p>
+            <p>通常说的1080P是一种显示格式。P是progressive（逐行）的意思。<code>1080P</code>就是<code>1920*1080</code>的分辨率，逐行显示。</p>
+        </section>
+
+        <section id="zhen-lv">
+            <h2>帧率</h2>
+            <p>帧率（FPS）是指每秒钟显示的帧的数量，比如帧率25，是指一秒钟显示25帧。</p>
+            <p>帧率影响画面流畅度：帧率越大，画面越流畅；帧率越小，画面越不连贯。</p>
+            <p class="highlight">一般帧率要大于16，因为视觉残留的原因，人眼才会感觉到画面连贯。</p>
+        </section>
+
+        <section id="shi-pin-zhen">
+            <h2>视频帧</h2>
+            <h3>I帧</h3>
+            <p>即帧内编码图像帧，通常是每个 GOP 的第一个帧，经过适度地压缩，做为随机访问的参考点，可以单独重构完整的图像。</p>
+            
+            <h3>P帧</h3>
+            <p>即前向预测编码图像帧。记录的是与之前关键帧（或P帧）的差别，解码时需要叠加差别生成最终画面。</p>
+            
+            <h3>B帧</h3>
+            <p>即双向预测编码图像帧。记录的是与前后帧的差别，需要缓存前后帧进行解码，压缩比高但解码复杂度高。</p>
+        </section>
+
+        <section id="shi-jian-chuo">
+            <h2>时间戳</h2>
+            <p><strong>DTS</strong>（解码时间戳）：指示解码器何时解码当前帧。</p>
+            <p><strong>PTS</strong>（显示时间戳）：指示播放器何时显示当前帧。</p>
+            <p class="highlight">对于B帧视频：I帧的PTS=DTS，P帧的PTS > DTS，B帧的PTS < DTS</p>
+        </section>
+
+        <section id="se-cai-mo-shi">
+            <h2>色彩模式</h2>
+            
+            <article id="se-cai-shen-du">
+                <h3>色彩深度</h3>
+                <p>表示存储1像素颜色所用的位数（bpp）。色彩深度越高，可用颜色越多。</p>
+            </article>
+
+            <article id="rgb">
+                <h3>RGB</h3>
+                <p>通过红(R)、绿(G)、蓝(B)三原色混合呈现颜色，常见格式：</p>
+                <ul>
+                    <li><code>RGB888</code>：24位（8位/通道）</li>
+                    <li><code>ARGB8888</code>：32位（含8位透明度）</li>
+                </ul>
+            </article>
+
+            <article id="yuv">
+                <h3>YUV</h3>
+                <p>亮度(Y)与色度(UV)分离的编码方式，主要类型：</p>
+                <h4>存储方式</h4>
+                <ul>
+                    <li><code>Planar</code>：分量连续存储（YYY...UUU...VVV）</li>
+                    <li><code>Packed</code>：分量交叉存储（YUYVYUYV...）</li>
+                </ul>
+                <h4>常见格式</h4>
+                <ul>
+                    <li><code>YUV420</code>：4个Y共享1个U和V（NV12/YU12）</li>
+                    <li><code>YUV422</code>：2个Y共享1个U和V</li>
+                </ul>
+            </article>
+        </section>
+    </main>
+</body>
+</html>

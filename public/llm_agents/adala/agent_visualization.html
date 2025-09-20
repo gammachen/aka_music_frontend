@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADALA Agent Architecture Visualization</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #e1e5e9;
+            padding-bottom: 20px;
+        }
+        .header h1 {
+            color: #2c3e50;
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+        .section {
+            margin: 40px 0;
+        }
+        .section h2 {
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            margin-bottom: 20px;
+        }
+        .mermaid {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .component-card {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .component-card h3 {
+            color: #495057;
+            margin-top: 0;
+        }
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        .feature-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+        .code-block {
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>ADALA Agent Architecture</h1>
+            <p>Autonomous Data Annotation and Learning Agent - Deep Dive</p>
+        </div>
+
+        <div class="section">
+            <h2>1. 系统整体架构</h2>
+            <div class="mermaid">
+                graph TB
+                    subgraph "Agent Core System"
+                        A[Agent] --> B[Skill Engine]
+                        A --> C[Environment Interface]
+                        A --> D[Runtime Manager]
+                        A --> E[Memory System]
+                    end
+                    
+                    subgraph "External Dependencies"
+                        F[LLM APIs]
+                        G[Data Sources]
+                        H[Storage Systems]
+                    end
+                    
+                    B --> F
+                    C --> G
+                    E --> H
+                    
+                    style A fill:#3498db,stroke:#2980b9,stroke-width:3px
+                    style F fill:#e74c3c,stroke:#c0392b
+                    style G fill:#2ecc71,stroke:#27ae60
+                    style H fill:#f39c12,stroke:#d68910
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>2. 类结构图</h2>
+            <div class="mermaid">
+                classDiagram
+                    class Agent {
+                        -environment Environment
+                        -skills SkillSet
+                        -memory Memory
+                        -runtimes Dict~str, Runtime~
+                        -default_runtime str
+                        -teacher_runtimes Dict~str, Runtime~
+                        -default_teacher_runtime str
+                        
+                        +run(input runtime **kwargs)
+                        +arun(input runtime)
+                        +learn(learning_iterations accuracy_threshold)
+                        +arefine_skill(skill_name input_variables)
+                        +get_runtime(runtime)
+                        +get_teacher_runtime(runtime)
+                        +select_skill_to_train(feedback threshold)
+                    }
+
+                    class Environment {
+                        <<interface>>
+                        +initialize()
+                        +finalize()
+                        +get_data_batch(batch_size)
+                        +get_feedback(skills predictions num_feedbacks)
+                        +save()
+                        +restore()
+                    }
+
+                    class SkillSet {
+                        <<abstract>>
+                        -skills Dict~str, Skill~
+                        +apply(input runtime improved_skill)
+                        +get_skill_outputs()
+                        +__getitem__(skill_name)
+                    }
+
+                    class LinearSkillSet {
+                        -skill_sequence List~str~
+                        +apply(input runtime improved_skill)
+                    }
+
+                    class Skill {
+                        <<abstract>>
+                        -name str
+                        -instructions str
+                        -frozen bool
+                        +apply(input runtime)
+                        +improve(predictions feedback runtime)
+                    }
+
+                    class Runtime {
+                        <<abstract>>
+                        -verbose bool
+                        -batch_size int
+                        -concurrency int
+                        +record_to_record(record templates)
+                        +batch_to_batch(batch templates)
+                    }
+
+                    class OpenAIChatRuntime {
+                        -model str
+                        -api_key str
+                        -temperature float
+                    }
+
+                    class StaticEnvironment {
+                        -df InternalDataFrame
+                        +get_data_batch(batch_size)
+                        +get_feedback(skills predictions)
+                    }
+
+                    Agent --> Environment
+                    Agent --> SkillSet
+                    Agent --> Runtime
+                    LinearSkillSet --|> SkillSet
+                    StaticEnvironment ..|> Environment
+                    OpenAIChatRuntime ..|> Runtime
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>3. 核心组件详解</h2>
+            <div class="component-grid">
+                <div class="component-card">
+                    <h3>🎯 Agent (智能体)</h3>
+                    <ul class="feature-list">
+                        <li>🔄 协调所有组件</li>
+                        <li>🧠 管理学习过程</li>
+                        <li>⚡ 支持同步/异步操作</li>
+                        <li>🎛️ 运行时动态切换</li>
+                        <li>📊 性能监控和反馈</li>
+                    </ul>
+                </div>
+                
+                <div class="component-card">
+                    <h3>🔧 SkillSet (技能集合)</h3>
+                    <ul class="feature-list">
+                        <li>📋 任务分解和编排</li>
+                        <li>🔄 线性/并行执行模式</li>
+                        <li>🎯 技能依赖管理</li>
+                        <li>📈 性能跟踪</li>
+                        <li>🔍 动态技能选择</li>
+                    </ul>
+                </div>
+                
+                <div class="component-card">
+                    <h3>🌍 Environment (环境)</h3>
+                    <ul class="feature-list">
+                        <li>📊 数据流管理</li>
+                        <li>✅ 反馈收集</li>
+                        <li>🔄 状态持久化</li>
+                        <li>🌊 异步数据流</li>
+                        <li>🎯 真值对比</li>
+                    </ul>
+                </div>
+                
+                <div class="component-card">
+                    <h3>⚙️ Runtime (运行时)</h3>
+                    <ul class="feature-list">
+                        <li>🤖 LLM后端抽象</li>
+                        <li>📊 批处理优化</li>
+                        <li>⚡ 并行执行</li>
+                        <li>💰 成本控制</li>
+                        <li>🔄 异步支持</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>4. 学习循环流程</h2>
+            <div class="mermaid">
+                flowchart TD
+                    Start([Learning Start]) --> Init[Initialize Runtimes]
+                    Init --> Loop[For each iteration]
+                    
+                    Loop --> Data[Get Data Batch]
+                    Data --> Predict[Generate Predictions]
+                    Predict --> Feedback[Get Environment Feedback]
+                    
+                    Feedback --> Check{Has Errors?}
+                    Check -->|No| Continue[Continue Loop]
+                    Check -->|Yes| Select[Select Skill to Train]
+                    
+                    Select --> Frozen{Skill Frozen?}
+                    Frozen -->|Yes| Next[Try Next Skill]
+                    Frozen -->|No| Improve[Improve Skill Instructions]
+                    
+                    Improve --> Update[Update Instructions]
+                    Update --> Display[Display Changes]
+                    Display --> Continue
+                    
+                    Continue --> CheckEnd{Last Iteration?}
+                    CheckEnd -->|No| Loop
+                    CheckEnd -->|Yes| Finish([Learning Complete])
+                    
+                    style Start fill:#27ae60,stroke:#229954
+                    style Finish fill:#27ae60,stroke:#229954
+                    style Improve fill:#e74c3c,stroke:#c0392b
+                    style Update fill:#f39c12,stroke:#d68910
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>5. 异步执行模型</h2>
+            <div class="mermaid">
+                sequenceDiagram
+                    participant Main as Main Thread
+                    participant Agent as Agent
+                    participant Env as AsyncEnvironment
+                    participant Skills as SkillSet
+                    participant RT as AsyncRuntime
+                    
+                    Main->>Agent: arun
+                    Agent->>RT: validate runtime type
+                    RT-->>Agent: AsyncRuntime confirmed
+                    
+                    loop Until Environment Exhausted
+                        Agent->>Env: get_data_batch
+                        Env-->>Agent: InternalDataFrame
+                        
+                        Agent->>Skills: aapply
+                        Skills->>RT: async batch processing
+                        RT-->>Skills: predictions
+                        Skills-->>Agent: results
+                        
+                        Agent->>Env: set_predictions
+                        Env-->>Agent: ack
+                    end
+                    
+                    Env-->>Agent: No more data
+                    Agent-->>Main: Complete
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>6. 配置示例</h2>
+            
+            <h3>6.1 基础配置</h3>
+            <div class="code-block">
+from adala.agents import Agent
+from adala.environments import StaticEnvironment
+from adala.skills import LinearSkillSet, TransformSkill
+
+# 创建基础智能体
+agent = Agent(
+    skills=LinearSkillSet(skills=[
+        TransformSkill(
+            name="classifier",
+            instructions="Classify the sentiment of the text",
+            input_template="Text: {text}",
+            output_template="Sentiment: {sentiment}"
+        )
+    ]),
+    environment=StaticEnvironment(df=dataset)
+)
+
+# 运行预测
+predictions = agent.run()
+
+# 启动学习
+agent.learn(
+    learning_iterations=3,
+    accuracy_threshold=0.9,
+    batch_size=100
+)
+            </div>
+
+            <h3>6.2 高级配置</h3>
+            <div class="code-block">
+from adala.runtimes import OpenAIChatRuntime, LiteLLMRuntime
+
+# 多运行时配置
+agent = Agent(
+    skills=LinearSkillSet(skills=[...]),
+    runtimes={
+        'fast': OpenAIChatRuntime(
+            model='gpt-3.5-turbo',
+            temperature=0.7
+        ),
+        'accurate': OpenAIChatRuntime(
+            model='gpt-4',
+            temperature=0.1
+        ),
+        'local': LiteLLMRuntime(
+            model='ollama/llama2',
+            api_base='http://localhost:11434'
+        )
+    },
+    default_runtime='fast',
+    teacher_runtimes={
+        'teacher': OpenAIChatRuntime(
+            model='gpt-4',
+            temperature=0.3
+        )
+    },
+    default_teacher_runtime='teacher'
+)
+            </div>
+
+            <h3>6.3 异步使用</h3>
+            <div class="code-block">
+import asyncio
+
+# 异步执行
+async def process_stream():
+    agent = Agent(...)
+    
+    # 流式处理
+    await agent.arun()
+    
+    # 单批处理
+    results = await agent.arun(input=data_batch)
+    return results
+
+# 运行异步任务
+asyncio.run(process_stream())
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>7. 性能优化建议</h2>
+            <div class="component-grid">
+                <div class="component-card">
+                    <h3>⚡ 运行时优化</h3>
+                    <ul class="feature-list">
+                        <li>合理设置 batch_size 避免内存溢出</li>
+                        <li>使用 concurrency 控制并行度</li>
+                        <li>选择合适的 LLM 模型平衡速度和质量</li>
+                    </ul>
+                </div>
+                
+                <div class="component-card">
+                    <h3>💰 成本控制</h3>
+                    <ul class="feature-list">
+                        <li>使用较小的 batch_size 进行测试</li>
+                        <li>监控 token 使用量</li>
+                        <li>设置合理的 accuracy_threshold</li>
+                    </ul>
+                </div>
+                
+                <div class="component-card">
+                    <h3>🔍 调试技巧</h3>
+                    <ul class="feature-list">
+                        <li>启用 verbose 模式查看详细日志</li>
+                        <li>使用 rich 格式化输出</li>
+                        <li>分阶段验证每个组件</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            themeVariables: {
+                primaryColor: '#3498db',
+                primaryTextColor: '#2c3e50',
+                primaryBorderColor: '#2980b9',
+                lineColor: '#7f8c8d',
+                secondaryColor: '#ecf0f1',
+                tertiaryColor: '#ffffff'
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+{
+  "Character": [
+    {
+      "document_type": "markdown",
+      "original_length": 369,
+      "chunk_count": 1,
+      "avg_chunk_size": 369.0,
+      "processing_time": 2e-05,
+      "quality_scores": {
+        "semantic_coherence": 1.0,
+        "size_uniformity": 1.0,
+        "boundary_naturalness": 0.0,
+        "compression_ratio": 1.0
+      }
+    },
+    {
+      "document_type": "python",
+      "original_length": 803,
+      "chunk_count": 1,
+      "avg_chunk_size": 803.0,
+      "processing_time": 5e-06,
+      "quality_scores": {
+        "semantic_coherence": 1.0,
+        "size_uniformity": 1.0,
+        "boundary_naturalness": 0.0,
+        "compression_ratio": 1.0
+      }
+    },
+    {
+      "document_type": "text",
+      "original_length": 351,
+      "chunk_count": 1,
+      "avg_chunk_size": 351.0,
+      "processing_time": 3e-06,
+      "quality_scores": {
+        "semantic_coherence": 1.0,
+        "size_uniformity": 1.0,
+        "boundary_naturalness": 0.0,
+        "compression_ratio": 1.0
+      }
+    }
+  ],
+  "Token": [
+    {
+      "document_type": "markdown",
+      "original_length": 369,
+      "chunk_count": 1,
+      "avg_chunk_size": 369.0,
+      "processing_time": 0.001035,
+      "quality_scores": {
+        "semantic_coherence": 1.0,
+        "size_uniformity": 1.0,
+        "boundary_naturalness": 0.0,
+        "compression_ratio": 1.0
+      }
+    },
+    {
+      "document_type": "python",
+      "original_length": 803,
+      "chunk_count": 1,
+      "avg_chunk_size": 803.0,
+      "processing_time": 0.000239,
+      "quality_scores": {
+        "semantic_coherence": 1.0,
+        "size_uniformity": 1.0,
+        "boundary_naturalness": 0.0,
+        "compression_ratio": 1.0
+      }
+    },
+    {
+      "document_type": "text",
+      "original_length": 351,
+      "chunk_count": 2,
+      "avg_chunk_size": 185.0,
+      "processing_time": 0.000232,
+      "quality_scores": {
+        "semantic_coherence": 0.0,
+        "size_uniformity": 0.7513513513513513,
+        "boundary_naturalness": 0.0,
+        "compression_ratio": 1.0541310541310542
+      }
+    }
+  ],
+  "Recursive": [
+    {
+      "document_type": "markdown",
+      "original_length": 369,
+      "chunk_count": 1,
+      "avg_chunk_size": 369.0,
+      "processing_time": 7e-06,
+      "quality_scores": {
+        "semantic_coherence": 1.0,
+        "size_uniformity": 1.0,
+        "boundary_naturalness": 0.0,
+        "compression_ratio": 1.0
+      }
+    },
+    {
+      "document_type": "python",
+      "original_length": 803,
+      "chunk_count": 1,
+      "avg_chunk_size": 803.0,
+      "processing_time": 2e-06,
+      "quality_scores": {
+        "semantic_coherence": 1.0,
+        "size_uniformity": 1.0,
+        "boundary_naturalness": 0.0,
+        "compression_ratio": 1.0
+      }
+    },
+    {
+      "document_type": "text",
+      "original_length": 351,
+      "chunk_count": 1,
+      "avg_chunk_size": 351.0,
+      "processing_time": 3e-06,
+      "quality_scores": {
+        "semantic_coherence": 1.0,
+        "size_uniformity": 1.0,
+        "boundary_naturalness": 0.0,
+        "compression_ratio": 1.0
+      }
+    }
+  ],
+  "Markdown": [
+    {
+      "document_type": "markdown",
+      "original_length": 369,
+      "chunk_count": 1,
+      "avg_chunk_size": 177.0,
+      "processing_time": 2.8e-05,
+      "quality_scores": {
+        "semantic_coherence": 1.0,
+        "size_uniformity": 1.0,
+        "boundary_naturalness": 0.0,
+        "compression_ratio": 0.4796747967479675
+      }
+    },
+    {
+      "document_type": "python",
+      "original_length": 803,
+      "chunk_count": 1,
+      "avg_chunk_size": 572.0,
+      "processing_time": 2.1e-05,
+      "quality_scores": {
+        "semantic_coherence": 1.0,
+        "size_uniformity": 1.0,
+        "boundary_naturalness": 0.0,
+        "compression_ratio": 0.7123287671232876
+      }
+    },
+    {
+      "document_type": "text",
+      "original_length": 351,
+      "chunk_count": 1,
+      "avg_chunk_size": 256.0,
+      "processing_time": 8e-06,
+      "quality_scores": {
+        "semantic_coherence": 1.0,
+        "size_uniformity": 1.0,
+        "boundary_naturalness": 0.0,
+        "compression_ratio": 0.7293447293447294
+      }
+    }
+  ],
+  "PythonCode": [
+    {
+      "document_type": "markdown",
+      "original_length": 369,
+      "chunk_count": 1,
+      "avg_chunk_size": 369.0,
+      "processing_time": 5.5e-05,
+      "quality_scores": {
+        "semantic_coherence": 1.0,
+        "size_uniformity": 1.0,
+        "boundary_naturalness": 0.0,
+        "compression_ratio": 1.0
+      }
+    },
+    {
+      "document_type": "python",
+      "original_length": 803,
+      "chunk_count": 2,
+      "avg_chunk_size": 400.5,
+      "processing_time": 2.6e-05,
+      "quality_scores": {
+        "semantic_coherence": 0.0,
+        "size_uniformity": 0.029962546816479363,
+        "boundary_naturalness": 0.0,
+        "compression_ratio": 0.9975093399750934
+      }
+    },
+    {
+      "document_type": "text",
+      "original_length": 351,
+      "chunk_count": 1,
+      "avg_chunk_size": 351.0,
+      "processing_time": 1.3e-05,
+      "quality_scores": {
+        "semantic_coherence": 1.0,
+        "size_uniformity": 1.0,
+        "boundary_naturalness": 0.0,
+        "compression_ratio": 1.0
+      }
+    }
+  ]
+}

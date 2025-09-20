@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>李白生平时间轴</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="/gif.worker.js"></script>
+    <script>
+        const gif = new GIF({
+            workers: 2,
+            quality: 10,
+            workerScript: '/gif.worker.js'
+        });
+    </script>
+    <style>
+        :root {
+            --gold: #FFD700;
+            --ink: #2F4F4F;
+            --paper: #F5F5F5;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 水墨背景动画 */
+        @keyframes inkSpread {
+            0% { transform: scale(0); opacity: 0.4; }
+            100% { transform: scale(4); opacity: 0; }
+        }
+
+        .ink-effect {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--ink) 20%, transparent 60%);
+            animation: inkSpread 8s infinite;
+            pointer-events: none;
+        }
+
+        /* 诗人介绍区块 */
+        .poet-profile {
+            display: flex;
+            max-width: 1200px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            overflow: hidden;
+        }
+
+        .portrait {
+            flex: 1;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Li_Bai.jpg/220px-Li_Bai.jpg') center/cover;
+            min-height: 300px;
+            position: relative;
+        }
+
+        .profile-text {
+            flex: 2;
+            padding: 2rem;
+            border-left: 4px solid var(--gold);
+        }
+
+        /* 时间轴容器 */
+        .timeline-container {
+            max-width: 1400px;
+            margin: 4rem auto;
+            position: relative;
+            padding: 40px 0;
+        }
+
+        /* 水平时间轴 */
+        .timeline-axis {
+            position: absolute;
+            left: 50px;
+            right: 50px;
+            height: 4px;
+            background: var(--ink);
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        /* 时间节点 */
+        .timeline-node {
+            width: 220px;
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            margin: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: nodeEntrance 0.6s ease forwards;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        @keyframes nodeEntrance {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .timeline-node:nth-child(even) {
+            margin-top: 120px;
+        }
+
+        .timeline-node::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 60px;
+            border: 3px solid var(--gold);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+            z-index: -1;
+        }
+
+        .timeline-node:nth-child(odd)::after {
+            right: -70px;
+            border-left-color: transparent;
+            border-bottom-color: transparent;
+        }
+
+        .timeline-node:nth-child(even)::after {
+            left: -70px;
+            border-right-color: transparent;
+            border-top-color: transparent;
+        }
+
+        /* 录制按钮 */
+        .record-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--ink);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .record-btn:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="poet-profile">
+        <div class="portrait"></div>
+        <div class="profile-text">
+            <h1>诗仙李白</h1>
+            <p>唐代最杰出的浪漫主义诗人，字太白，号青莲居士...</p>
+        </div>
+    </div>
+
+    <div class="timeline-container">
+        <div class="timeline-axis"></div>
+        
+        <!-- 时间节点 -->
+        <div class="timeline-node" style="animation-delay: 0.2s">
+            <div class="timeline-card">
+                <div class="card-front">
+                    <h3>701年 · 出生</h3>
+                    <p>出生于碎叶城（今吉尔吉斯斯坦）</p>
+                </div>
+                <div class="card-back">
+                    <h4>历史背景</h4>
+                    <p>唐朝鼎盛时期，丝绸之路上重要的军事要塞</p>
+                    <button class="detail-btn">查看诗作</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-node" style="animation-delay: 0.4s">
+            <h3>725年 · 出蜀</h3>
+            <p>仗剑去国，辞亲远游</p>
+        </div>
+
+        <!-- 更多时间节点... -->
+    </div>
+
+    <button class="record-btn" onclick="startRecording()">
+        <i class="fas fa-video"></i> 录制动画
+    </button>
+
+    <script>
+        // GIF录制逻辑
+        let capturer = new GIF({ workers: 2, quality: 10 });
+
+        async function startRecording() {
+            capturer.start();
+            
+            // GSAP动画初始化
+            const timeline = gsap.timeline({
+                scrollTrigger: {
+                    trigger: ".timeline-container",
+                    start: "top center",
+                    end: "bottom center",
+                    scrub: 1
+                }
+            });
+
+            document.querySelectorAll('.timeline-node').forEach((node, i) => {
+                timeline.from(node, {
+                    duration: 0.8,
+                    opacity: 0,
+                    y: 50,
+                    rotateX: -45,
+                    ease: "back.out(1.7)",
+                    stagger: 0.2
+                }, i*0.3);
+
+                // 卡片翻转交互
+                const card = node.querySelector('.timeline-card');
+                card.addEventListener('mouseenter', () => {
+                    gsap.to(card, {rotationY: 180, duration: 0.8, ease: "power2.inOut"});
+                });
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(card, {rotationY: 0, duration: 0.8, ease: "power2.inOut"});
+                });
+            });
+
+            // 捕获帧
+            for(let i=0; i<60; i++) {
+                const canvas = await html2canvas(document.querySelector('.timeline-container'));
+                capturer.addFrame(canvas, { delay: 50 });
+                await new Promise(r => setTimeout(r, 50));
+            }
+
+            capturer.on('finished', blob => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'poet-timeline.gif';
+                a.click();
+            });
+
+            capturer.render();
+        }
+    </script>
+</body>
+</html>

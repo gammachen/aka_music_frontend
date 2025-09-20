@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebRTC Communication</title>
+    <script src="/static/js/socket.io.js"></script>
+    <style>
+        .aka {
+            margin-top: 20px; 
+            max-height: 200px; 
+            overflow-y: auto;
+        }
+        #remoteVideos video {
+            display: block; /* 确保视频元素可见 */
+            width: 100%; /* 设置宽度 */
+            height: auto; /* 自动高度 */
+        }
+    </style>
+</head>
+<body>
+    <video id="localVideo" autoplay muted></video>
+    <div id="remoteVideos"></div>
+    <input id="messageInput" type="text" placeholder="Type a message">
+    <button onclick="sendMessage()">Send</button>
+    
+    <!-- 添加消息列表区域 -->
+    <div id="messages" class="aka">
+        <ul id="messageList"></ul>
+    </div>
+
+    <script>
+        console.log("begin the page scripts, i will connect to server...");
+        const socket = io();
+
+        const localVideo = document.getElementById('localVideo');
+        const remoteVideos = document.getElementById('remoteVideos');
+        const messageInput = document.getElementById('messageInput');
+        const messageList = document.getElementById('messageList');
+
+        let localStream;
+        let peerConnections = {};
+        let otherUserIds = [];
+
+        async function createPeerConnection(userId) {
+            console.log("createPeerConnection " + userId);
+            console.log('peerConnections:', peerConnections);
+            console.log('otherUserIds:', otherUserIds);
+
+            if (!peerConnections[userId]) {
+                peerConnections[userId] = new RTCPeerConnection({
+                    iceServers: [
+                        // { urls: 'stun:stun.l.google.com:19302' },
+                        // { urls: 'stun:stun1.l.google.com:19302' }
+                    ]
+                });
+
+                peerConnections[userId].ontrack = (event) => {
+                    console.log('ontrack event triggered', event); // 调试信息
+                    
+                    if (event.streams && event.streams.length > 0) {
+                        event.streams.forEach((stream) => {
+                            stream.getTracks().forEach((track) => {
+                                const mediaType = track.kind; // 'audio' or 'video'
+                                const mediaElementId = `${userId}-${mediaType}`;
+                                let mediaElement;
+                
+                                if (mediaType === 'video') {
+                                    mediaElement = document.createElement('video');
+                                    mediaElement.autoplay = true;
+                                    mediaElement.srcObject = stream;
+                                    mediaElement.style.width = '100%'; // 确保视频元素有宽度
+                                    mediaElement.style.height = 'auto'; // 确保视频元素有高度
+                                } else if (mediaType === 'audio') {
+                                    mediaElement = document.createElement('audio');
+                                    mediaElement.autoplay = true;
+                                    mediaElement.srcObject = stream;
+                                }
+                
+                                mediaElement.id = mediaElementId;
+                                remoteVideos.appendChild(mediaElement);
+                                console.log(`${mediaType} element added to DOM with ID: ${mediaElementId}`, mediaElement); // 调试信息
+                            });
+                        });
+                    } else {
+                        console.error('No streams found in ontrack event', event); // 调试信息
+                    }
+                };
+
+                peerConnections[userId].onicecandidate = (event) => {
+                    if (event.candidate) {
+                        console.log('Sending ICE candidate');
+
+                        socket.emit('ice_candidate', { candidate: event.candidate, user_id: socket.id, other_user_id: userId });
+                    }
+                };
+            }
+            return peerConnections[userId];
+        }
+
+        async function init() {
+            try {
+                console.log("init...");
+
+                localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                localVideo.srcObject = localStream;
+
+                // 加入房间
+                console.log("join_room1...");
+                console.log("socket.id:", socket.id);
+
+                socket.emit('join_room', { room: 'room1' });
+
+                // 处理新用户加入
+                socket.on('new_user', async (data) => {
+                    console.log('New user joined:', data);
+
+                    const otherUserId = data.user_id;
+                    otherUserIds.push(otherUserId);
+
+                    const pc = await createPeerConnection(otherUserId);
+
+                    conracks = localStream.getTracks();
+                    conracks.forEach(track => 
+                        pc.addTrack(track, localStream)
+                    );
+
+                    // 创建offer
+                    const offer = await pc.createOffer();
+                    await pc.setLocalDescription(offer);
+                    console.log('Created offer and emit Offer:', offer);
+                    console.log('emit offer from user_id:', socket.id);
+                    console.log('emit offer to:', otherUserId);
+                    socket.emit('offer', {offer: { type: offer.type, sdp: offer.sdp }, user_id: socket.id, other_user_id: otherUserId });
+
+                    // 向新用户发送offer
+                    for (const existingUserId of otherUserIds) {
+                        if (existingUserId !== socket.id && existingUserId !== otherUserId) {
+                            const existingPc = await createPeerConnection(existingUserId);
+                            const existingOffer = await existingPc.createOffer();
+                            await existingPc.setLocalDescription(existingOffer);
+                            socket.emit('offer', { offer: { type: existingOffer.type, sdp: existingOffer.sdp }, user_id: socket.id, other_user_id: existingUserId });
+                        }
+                    }
+                });
+
+                // 处理offer–
+                socket.on('offer', async (offer) => {
+                    console.log('Received offer from', offer.user_id);
+                    console.log('Offer details:', offer);
+
+                    const otherUserId = offer.other_user_id;
+                    // const pc = await createPeerConnection(otherUserId); // 创建的应该是offer.user_id，而不是offer.other_user_id
+                    const pc = await createPeerConnection(offer.user_id);
+                    
+                    try {
+                        console.log('Setting remote description...');
+                        await pc.setRemoteDescription(new RTCSessionDescription(offer.offer));
+                        const answer = await pc.createAnswer();
+                        await pc.setLocalDescription(answer);
+                        
+                        console.log('then emit answer from user_id:', socket.id, 'to:', offer.user_id);
+
+                        socket.emit('answer', { answer: { type: answer.type, sdp: answer.sdp }, user_id: socket.id, other_user_id: offer.user_id });
+                    } catch (error) {
+                        console.error('Failed to handle offer:', error);
+                    }
+                });
+
+                // 处理answer
+                socket.on('answer', async (answer) => {
+                    console.log('Received answer from', answer.user_id);
+                    console.log('Answer details:', answer);
+
+                    const otherUserId = answer.other_user_id;
+                    const pc = peerConnections[answer.user_id];
+
+                    if (pc.signalingState === 'stable') {
+                        console.error('RTCPeerConnection is in stable state. Cannot set remote description.');
+                        return;
+                    }
+
+                    try {
+                        await pc.setRemoteDescription(new RTCSessionDescription(answer.answer));
+                        console.log('Answer set successfully.');
+                    } catch (error) {
+                        console.error('Failed to set remote description:', error);
+                    }
+                });
+
+                // 处理ICE候选
+                socket.on('ice_candidate', async (candidate) => {
+                    console.log('Received ICE candidate from', candidate.user_id);
+                    console.log('Candidate details:', candidate);
+                    
+                    const otherUserId = candidate.other_user_id;
+                    try {
+                        // await peerConnections[otherUserId].addIceCandidate(new RTCIceCandidate(candidate.candidate));
+                        await peerConnections[candidate.user_id].addIceCandidate(new RTCIceCandidate(candidate.candidate));
+                    } catch (error) {
+                        console.error('Failed to add ICE candidate:', error);
+                    }
+                });
+
+            } catch (error) {
+                console.error('Error accessing media devices.', error);
+            }
+        }
+
+        function sendMessage() {
+            const message = messageInput.value;
+            socket.emit('message', message);
+            messageInput.value = '';
+        }
+
+        socket.on('message', function(message) {
+            console.log('Received message:', message);
+            // 将接收到的消息添加到消息列表中
+            const li = document.createElement('li');
+            li.textContent = message;
+            messageList.appendChild(li);
+        });
+
+        init();
+    </script>
+</body>
+</html>

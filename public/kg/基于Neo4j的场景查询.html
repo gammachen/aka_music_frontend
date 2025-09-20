@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <!-- 保持原有head部分不变 -->
+    <style>
+        .cypher-box {
+            background: #1e1e1e;
+            color: #dcdcdc;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Fira Code', monospace;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <!-- 案例1：李亚鹏和王菲的女儿 -->
+        <div class="case-card">
+            <h3>1. 李亚鹏和王菲的女儿</h3>
+            <pre class="cypher-box"><code class="language-cypher">
+// 路径查询
+MATCH (lyp:Person {name:'李亚鹏'})-[:SPOUSE]->(wf:Person {name:'王菲'})
+MATCH (wf)-[:HAS_CHILD]->(child)
+RETURN child.name AS daughter
+            </code></pre>
+        </div>
+
+        <!-- 案例2：北京的面积 -->
+        <div class="case-card">
+            <h3>2. 北京的面积</h3>
+            <pre class="cypher-box"><code class="language-cypher">
+// 属性查询
+MATCH (bj:City {name:'北京'})
+RETURN bj.area AS area
+            </code></pre>
+        </div>
+
+        <!-- 案例3：梁思成和林徽因的关系 -->
+        <div class="case-card">
+            <h3>3. 梁思成和林徽因是什么关系</h3>
+            <pre class="cypher-box"><code class="language-cypher">
+// 多重关系查询
+MATCH (lsc:Person {name:'梁思成'})-[r]->(lhx:Person {name:'林徽因'})
+RETURN type(r) AS relationshipType
+            </code></pre>
+        </div>
+
+        <!-- 案例4：高山流水典故 -->
+        <div class="case-card">
+            <h3>4. 高山流水典故</h3>
+            <pre class="cypher-box"><code class="language-cypher">
+// 事件参与人查询
+MATCH (a:Allusion {title:'高山流水'})<-[:INVOLVES]-(p:Person)
+RETURN p.name AS protagonist
+            </code></pre>
+        </div>
+
+        <!-- 案例5：黄日华版天龙八部 -->
+        <div class="case-card">
+            <h3>5. 黄日华版天龙八部</h3>
+            <pre class="cypher-box"><code class="language-cypher">
+// 版本信息查询
+MATCH (v:DramaVersion {title:'天龙八部'})
+WHERE ANY(actor IN v.actors WHERE actor.name = '黄日华')
+RETURN v.year AS year, 
+       [role IN v.cast WHERE role.actor = '黄日华'] AS roles
+            </code></pre>
+        </div>
+
+        <!-- 案例6：单位转换 -->
+        <div class="case-card">
+            <h3>6. 一尺九腰围转换</h3>
+            <pre class="cypher-box"><code class="language-cypher">
+// 单位换算查询
+MATCH (c:Conversion {type:'length'})
+WHERE c.chinese_unit = '尺'
+RETURN 1.9 * c.to_cm AS cm, 
+       round(1.9 * c.to_cm / 2.54) AS international_size
+            </code></pre>
+        </div>
+
+        <div class="case-card">
+            <h3>案例3增强版（包含时间属性）</h3>
+            <pre class="cypher-box"><code class="language-cypher">
+        // 
+MATCH (lsc:Person {name:'梁思成'})-[r:MARRIED|WORKED_WITH]->(lhx:Person {name:'林徽因'})
+RETURN type(r) as relationship, 
+       r.start_year + "-" + r.end_year AS duration
+    </code></pre>
+</div>
+<div class="case-card">
+    <h3>节点结构定义示例（案例5）</h3>
+    <pre class="cypher-box"><code class="language-cypher">
+       // 节点结构定义示例（案例5）
+CREATE (:DramaVersion {
+  title: "天龙八部",
+  year: 1997,
+  cast: [
+    {actor: "黄日华", role: "乔峰"},
+    {actor: "陈浩民", role: "段誉"}
+  ],
+  rating: 9.0
+})
+</code></pre>
+</div>
+
+<div class="case-card">
+    <h3>增强版单位换算（案例6）：</h3>
+    <pre class="cypher-box"><code class="language-cypher">
+增强版单位换算（案例6）：
+
+// 带单位换算规则的查询
+MATCH (c:ConversionRule {from_unit:"chinese_chi", to_unit:"international"})
+RETURN 1.9 * c.conversion_rate AS result
+</code></pre>
+</div>
+
+<div class="case-card">
+    <h3>使用可变长度路径查询</h3>
+    <pre class="cypher-box"><code class="language-cypher">
+// 使用可变长度路径查询
+MATCH path = (:Person {name:'李亚鹏'})-[:SPOUSE*1..2]->(:Person)-[:HAS_CHILD]->(child)
+RETURN [node IN nodes(path) | node.name] AS family_path
+</code></pre>
+</div>
+
+<div class="case-card">
+    <h3>路径查询优化（案例1）：</h3>
+    <pre class="cypher-box"><code class="language-cypher">
+路径查询优化（案例1）：
+
+// 使用可变长度路径查询
+MATCH path = (:Person {name:'李亚鹏'})-[:SPOUSE*1..2]->(:Person)-[:HAS_CHILD]->(child)
+RETURN [node IN nodes(path) | node.name] AS family_path
+</code></pre>
+</div>
+
+<div class="case-card">
+    <h3>数据建模</h3>
+    <pre class="cypher-box"><code class="language-cypher">
+数据建模：
+// 人物关系模型
+CREATE (:Person {
+  name: "李亚鹏",
+  gender: "male",
+  birthyear: 1971
+})-[:SPOUSE {
+  start_year: 2005,
+  end_year: 2013
+}]->(:Person {
+  name: "王菲",
+  gender: "female"
+})
+
+// 影视作品模型
+CREATE (:Drama {
+  title: "天龙八部",
+  original_author: "金庸"
+})<-[:ADAPTED_FROM]-(:DramaVersion {
+  year: 1997,
+  director: "李添胜"
+})-[:CAST]->(:Actor {
+  name: "黄日华",
+  role: "乔峰"
+})
+
+// 单位换算模型
+CREATE (:Conversion {
+  category: "length",
+  from_unit: "chi",
+  to_unit: "cm",
+  rate: 33.33
+})
+</code></pre>
+</div>
+    </div>
+
+    <!-- 新增Cypher语法高亮 -->
+    <script>
+        hljs.registerLanguage('cypher', function(hljs) {
+            return {
+                keywords: {
+                    keyword: 'MATCH WHERE RETURN WITH OPTIONAL UNWIND AND OR NOT',
+                    literal: 'true false null'
+                },
+                contains: [
+                    hljs.HASH_COMMENT_MODE,
+                    hljs.QUOTE_STRING_MODE,
+                    hljs.NUMBER_MODE,
+                    {
+                        className: 'keyword',
+                        begin: /:\w+/
+                    }
+                ]
+            };
+        });
+        hljs.highlightAll();
+    </script>
+</body>
+</html>

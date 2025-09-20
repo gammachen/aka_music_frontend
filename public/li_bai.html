@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>李白生平年表</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background: #e0e0e0;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+        .timeline-item {
+            padding: 20px 40px;
+            position: relative;
+            background: inherit;
+            width: 50%;
+        }
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+        }
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        .icon {
+            font-size: 1.5em;
+            position: absolute;
+            top: 15px;
+        }
+        .odd .icon { right: -35px; }
+        .even .icon { left: -35px; }
+        .year { font-weight: bold; color: #2c3e50; }
+        .content { background: #f8f9fa; padding: 15px; border-radius: 6px; }
+    </style>
+</head>
+<body>
+    <div class="timeline">
+        <!-- 出生与早年 -->
+        <div class="timeline-item odd">
+            <i class="icon fas fa-baby-carriage text-primary"></i>
+            <div class="content">
+                <div class="year">701年</div>
+                <p>出生于碎叶城（今吉尔吉斯斯坦），后随父迁居蜀郡绵州昌隆县‌:ml-citation{ref="2,3" data="citationList"}</p>
+            </div>
+        </div>
+
+        <!-- 少年时期 -->
+        <div class="timeline-item even">
+            <i class="icon fas fa-book-open"></i>
+            <div class="content">
+                <div class="year">705年（5岁）</div>
+                <p>开始发奋读书，通晓《六甲》启蒙读物‌:ml-citation{ref="2,4" data="citationList"}</p>
+            </div>
+        </div>
+
+        <!-- 青年游历 -->
+        <div class="timeline-item odd">
+            <i class="icon fas fa-hiking"></i>
+            <div class="content">
+                <div class="year">724年（24岁）</div>
+                <p>辞亲远游，出蜀途经成都、峨眉山，写下《峨眉山月歌》‌:ml-citation{ref="3,4" data="citationList"}</p>
+            </div>
+        </div>
+
+        <!-- 婚姻生活 -->
+        <div class="timeline-item even">
+            <i class="icon fas fa-heart"></i>
+            <div class="content">
+                <div class="year">727年（27岁）</div>
+                <p>在安陆与许圉师孙女成婚，开启十年安陆生活‌:ml-citation{ref="2,4" data="citationList"}</p>
+            </div>
+        </div>
+
+        <!-- 长安时期 -->
+        <div class="timeline-item odd">
+            <i class="icon fas fa-landmark"></i>
+            <div class="content">
+                <div class="year">742年（42岁）</div>
+                <p>应诏入长安供奉翰林，写下《清平调》等宫廷诗作‌:ml-citation{ref="3,4" data="citationList"}</p>
+            </div>
+        </div>
+
+        <!-- 政治挫折 -->
+        <div class="timeline-item even">
+            <i class="icon fas fa-exclamation-triangle"></i>
+            <div class="content">
+                <div class="year">744年（44岁）</div>
+                <p>遭谗被赐金放还，写下《行路难》等名篇‌:ml-citation{ref="1,4" data="citationList"}</p>
+            </div>
+        </div>
+
+        <!-- 晚年经历 -->
+        <div class="timeline-item odd">
+            <i class="icon fas fa-ship"></i>
+            <div class="content">
+                <div class="year">757年（57岁）</div>
+                <p>因永王李璘案牵连入狱，后流放夜郎‌:ml-citation{ref="1,5" data="citationList"}</p>
+            </div>
+        </div>
+
+        <!-- 逝世 -->
+        <div class="timeline-item even">
+            <i class="icon fas fa-monument"></i>
+            <div class="content">
+                <div class="year">762年（61岁）</div>
+                <p>病逝于当涂，葬于龙山南麓‌:ml-citation{ref="1,5" data="citationList"}</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

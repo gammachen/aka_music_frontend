@@ -1,0 +1,168 @@
+[
+  {
+    "scenario": "电商客服系统",
+    "scores": {
+      "RAG": 25.055,
+      "Fine-tuning": -24.544999999999998,
+      "Hybrid": 0.2550000000000008
+    },
+    "recommendation": "RAG",
+    "confidence": 1.0,
+    "detailed_analysis": {
+      "key_factors": [
+        "高频数据更新"
+      ],
+      "implementation_plan": {
+        "phase1": "向量数据库搭建 (2周)",
+        "phase2": "嵌入模型选择 (1周)",
+        "phase3": "检索策略优化 (2周)",
+        "phase4": "系统集成测试 (1周)"
+      },
+      "estimated_costs": {
+        "development": 15,
+        "infrastructure": 8,
+        "maintenance": 5
+      },
+      "risks": []
+    }
+  },
+  {
+    "scenario": "医疗诊断助手",
+    "scores": {
+      "RAG": 1.2599999999999998,
+      "Fine-tuning": -0.792,
+      "Hybrid": 0.2699999999999999
+    },
+    "recommendation": "RAG",
+    "confidence": 0.9899999999999999,
+    "detailed_analysis": {
+      "key_factors": [
+        "极高准确性要求",
+        "严格数据隐私"
+      ],
+      "implementation_plan": {
+        "phase1": "向量数据库搭建 (2周)",
+        "phase2": "嵌入模型选择 (1周)",
+        "phase3": "检索策略优化 (2周)",
+        "phase4": "系统集成测试 (1周)"
+      },
+      "estimated_costs": {
+        "development": 15,
+        "infrastructure": 8,
+        "maintenance": 5
+      },
+      "risks": []
+    }
+  },
+  {
+    "scenario": "金融风控系统",
+    "scores": {
+      "RAG": 300.03,
+      "Fine-tuning": -247.00005000000002,
+      "Hybrid": 0.26499999999998636
+    },
+    "recommendation": "RAG",
+    "confidence": 1.0,
+    "detailed_analysis": {
+      "key_factors": [
+        "高频数据更新",
+        "超低延迟需求"
+      ],
+      "implementation_plan": {
+        "phase1": "向量数据库搭建 (2周)",
+        "phase2": "嵌入模型选择 (1周)",
+        "phase3": "检索策略优化 (2周)",
+        "phase4": "系统集成测试 (1周)"
+      },
+      "estimated_costs": {
+        "development": 15,
+        "infrastructure": 8,
+        "maintenance": 5
+      },
+      "risks": []
+    }
+  },
+  {
+    "scenario": "教育内容推荐",
+    "scores": {
+      "RAG": 12.549999999999999,
+      "Fine-tuning": -12.030000000000001,
+      "Hybrid": 0.2599999999999989
+    },
+    "recommendation": "RAG",
+    "confidence": 1.0,
+    "detailed_analysis": {
+      "key_factors": [
+        "高频数据更新"
+      ],
+      "implementation_plan": {
+        "phase1": "向量数据库搭建 (2周)",
+        "phase2": "嵌入模型选择 (1周)",
+        "phase3": "检索策略优化 (2周)",
+        "phase4": "系统集成测试 (1周)"
+      },
+      "estimated_costs": {
+        "development": 15,
+        "infrastructure": 8,
+        "maintenance": 5
+      },
+      "risks": []
+    }
+  },
+  {
+    "scenario": "法律合同分析",
+    "scores": {
+      "RAG": 0.5049999999999999,
+      "Fine-tuning": 0.0451,
+      "Hybrid": 0.27299999999999996
+    },
+    "recommendation": "RAG",
+    "confidence": 0.23199999999999993,
+    "detailed_analysis": {
+      "key_factors": [
+        "极高准确性要求",
+        "严格数据隐私"
+      ],
+      "implementation_plan": {
+        "phase1": "向量数据库搭建 (2周)",
+        "phase2": "嵌入模型选择 (1周)",
+        "phase3": "检索策略优化 (2周)",
+        "phase4": "系统集成测试 (1周)"
+      },
+      "estimated_costs": {
+        "development": 15,
+        "infrastructure": 8,
+        "maintenance": 5
+      },
+      "risks": []
+    }
+  },
+  {
+    "scenario": "新闻摘要生成",
+    "scores": {
+      "RAG": 125.075,
+      "Fine-tuning": -124.57499999999999,
+      "Hybrid": 0.2500000000000071
+    },
+    "recommendation": "RAG",
+    "confidence": 1.0,
+    "detailed_analysis": {
+      "key_factors": [
+        "高频数据更新",
+        "超低延迟需求"
+      ],
+      "implementation_plan": {
+        "phase1": "向量数据库搭建 (2周)",
+        "phase2": "嵌入模型选择 (1周)",
+        "phase3": "检索策略优化 (2周)",
+        "phase4": "系统集成测试 (1周)"
+      },
+      "estimated_costs": {
+        "development": 15,
+        "infrastructure": 8,
+        "maintenance": 5
+      },
+      "risks": []
+    }
+  }
+]

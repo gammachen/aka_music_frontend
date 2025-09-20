@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>支持向量机(SVM)详解</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: #4a5568;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .code-block {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 20px 0;
+        }
+
+        .highlight {
+            background-color: #f0f7ff;
+            padding: 15px;
+            border-left: 4px solid #3182ce;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>支持向量机(SVM)详解</h1>
+            <p>一种强大的机器学习算法</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- 第一区块：机器学习简介 -->
+        <section class="section">
+            <h2>什么是机器学习？</h2>
+            <p>机器学习是人工智能的一个子领域，它使计算机系统能够通过经验自动改进其性能。机器学习算法通过从数据中学习模式，而不是遵循明确编程的规则来做出决策。</p>
+            
+            <div class="highlight">
+                <p>机器学习的主要类型：</p>
+                <ul>
+                    <li>监督学习</li>
+                    <li>无监督学习</li>
+                    <li>强化学习</li>
+                </ul>
+            </div>
+
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Machine_Learning_Workflow.svg/1200px-Machine_Learning_Workflow.svg.png" alt="机器学习工作流程">
+                <p>机器学习工作流程示意图</p>
+            </div>
+        </section>
+
+        <!-- 第二区块：SVM介绍 -->
+        <section class="section">
+            <h2>支持向量机(SVM)简介</h2>
+            <p>支持向量机是一种强大的监督学习算法，主要用于分类问题。它通过在高维空间中构建超平面来实现分类。</p>
+
+            <div class="highlight">
+                <p>SVM的核心概念：</p>
+                <ul>
+                    <li>超平面（Hyperplane）</li>
+                    <li>支持向量（Support Vectors）</li>
+                    <li>核技巧（Kernel Trick）</li>
+                    <li>间隔最大化（Margin Maximization）</li>
+                </ul>
+            </div>
+
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/SVM_margin.png/300px-SVM_margin.png" alt="SVM边界示意图">
+                <p>SVM分类边界与支持向量示意图</p>
+            </div>
+        </section>
+
+        <!-- 第三区块：代码实现 -->
+        <section class="section">
+            <h2>SVM的Python实现</h2>
+            <p>以下是使用scikit-learn库实现SVM分类器的示例代码：</p>
+
+            <div class="code-block">
+                <pre>
+import numpy as np
+from sklearn import svm
+from sklearn.datasets import make_classification
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+
+# 生成示例数据集
+X, y = make_classification(n_samples=100, n_features=2, n_classes=2, 
+                         n_clusters_per_class=1, n_redundant=0)
+
+# 划分训练集和测试集
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
+
+# 创建SVM分类器
+clf = svm.SVC(kernel='linear')
+
+# 训练模型
+clf.fit(X_train, y_train)
+
+# 预测
+y_pred = clf.predict(X_test)
+
+# 计算准确率
+accuracy = clf.score(X_test, y_test)
+print(f"模型准确率: {accuracy:.2f}")
+                </pre>
+            </div>
+
+            <div class="highlight">
+                <p>数据集说明：</p>
+                <ul>
+                    <li>样本数量：100</li>
+                    <li>特征维度：2</li>
+                    <li>类别数：2</li>
+                    <li>训练集比例：70%</li>
+                    <li>测试集比例：30%</li>
+                </ul>
+            </div>
+
+            <div class="image-container">
+                <img src="https://scikit-learn.org/stable/_images/sphx_glr_plot_iris_svc_001.png" alt="SVM分类结果示例">
+                <p>SVM分类结果可视化示例</p>
+            </div>
+        </section>
+    </div>
+</body>
+</html> 

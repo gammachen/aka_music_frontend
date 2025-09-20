@@ -1,0 +1,68 @@
+{
+  "case_1": {
+    "length": {
+      "score": 1.0,
+      "passed": true,
+      "reasoning": "文本长度合适（31字符）"
+    },
+    "keywords": {
+      "score": 1.0,
+      "passed": true,
+      "reasoning": "关键词检查通过"
+    },
+    "json": {
+      "score": 0.0,
+      "passed": false,
+      "reasoning": "JSON格式错误: Expecting value: line 1 column 1 (char 0)"
+    },
+    "semantic": {
+      "score": 0.85,
+      "passed": true,
+      "reasoning": "语义相似度: 0.85"
+    }
+  },
+  "case_2": {
+    "length": {
+      "score": 1.0,
+      "passed": true,
+      "reasoning": "文本长度合适（47字符）"
+    },
+    "keywords": {
+      "score": 0.2,
+      "passed": false,
+      "reasoning": "缺少必需关键词: 机器学习"
+    },
+    "json": {
+      "score": 1.0,
+      "passed": true,
+      "reasoning": "JSON格式正确"
+    },
+    "semantic": {
+      "score": 1.0,
+      "passed": true,
+      "reasoning": "语义相似度: 1.00"
+    }
+  },
+  "case_3": {
+    "length": {
+      "score": 0.3,
+      "passed": false,
+      "reasoning": "文本过短（2字符），应至少5字符"
+    },
+    "keywords": {
+      "score": 0.2,
+      "passed": false,
+      "reasoning": "缺少必需关键词: 人工智能, 机器学习"
+    },
+    "json": {
+      "score": 0.0,
+      "passed": false,
+      "reasoning": "JSON格式错误: Expecting value: line 1 column 1 (char 0)"
+    },
+    "semantic": {
+      "score": 1.0,
+      "passed": true,
+      "reasoning": "语义相似度: 1.00"
+    }
+  }
+}

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>机器学习基本流程</title>
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .screenshot-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 24px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1000;
+            font-size: 16px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .screenshot-btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .concept-section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: #4a5568;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 1.4em;
+            color: #2d3748;
+            margin: 20px 0 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        pre {
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .code-block {
+            background: #282c34;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        .math-block {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .highlight {
+            background-color: #f0f7ff;
+            padding: 15px;
+            border-left: 4px solid #3182ce;
+            margin: 20px 0;
+        }
+
+        blockquote {
+            background: #f9f9f9;
+            border-left: 5px solid #6b7280;
+            margin: 20px 0;
+            padding: 15px;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+        }
+
+        /* 动态箭头效果 */
+        .mermaid .edgePath path {
+            stroke-dasharray: 5, 5;
+            animation: dash 1s linear infinite;
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -10;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="loading" class="loading">
+        <div class="loading-text">正在生成截图...</div>
+    </div>
+    
+    <button class="screenshot-btn" onclick="captureScreenshots()">保存为图片</button>
+
+    <header>
+        <div class="container">
+            <h1>机器学习基本流程</h1>
+            <p>正向传播与反向传播解析</p>
+        </div>
+    </header>
+
+    <div class="container" id="content">
+        <!-- 基本流程 -->
+        <section class="concept-section" id="basic-process">
+            <h2>1. 机器学习基本流程</h2>
+            <p>机器学习的基本流程通常包括以下几个步骤：</p>
+            <ul>
+                <li>数据收集与准备</li>
+                <li>特征工程与预处理</li>
+                <li>模型选择与训练</li>
+                <li>模型评估与优化</li>
+                <li>模型部署与监控</li>
+            </ul>
+            <div class="mermaid">
+                graph TD;
+                    A[数据收集与准备] --> B[特征工程与预处理];
+                    B --> C[模型选择与训练];
+                    C --> D[模型评估与优化];
+                    D --> E[模型部署与监控];
+            </div>
+            <blockquote>
+                <p>从数据到部署，机器学习的每一步都至关重要。</p>
+            </blockquote>
+        </section>
+
+        <!-- 正向传播 -->
+        <section class="concept-section" id="forward-propagation">
+            <h2>2. 正向传播（Forward Propagation）</h2>
+            <p><strong>定义</strong>：计算输入数据通过网络得到输出的过程</p>
+            <div class="math-block">
+                <span class="katex-render">( a^{(l)} = \sigma(W^{(l)} a^{(l-1)} + b^{(l)}) )</span>
+            </div>
+            <div class="mermaid">
+                graph LR;
+                    X[输入 X] --> Z[线性变换 Z];
+                    Z --> A[激活函数 A];
+                    A --> Y[输出 Y];
+            </div>
+            <h3>代码示例</h3>
+            <div class="code-block">
+                <pre><code class="language-python">
+# 正向传播示例
+import numpy as np
+
+def forward_propagation(X, W, b):
+    Z = np.dot(W, X) + b
+    A = 1 / (1 + np.exp(-Z))  # Sigmoid激活函数
+    return A
+                </code></pre>
+            </div>
+        </section>
+
+        <!-- 反向传播 -->
+        <section class="concept-section" id="backward-propagation">
+            <h2>3. 反向传播（Backward Propagation）</h2>
+            <p><strong>定义</strong>：通过计算损失函数的梯度来更新模型参数的过程</p>
+            <div class="math-block">
+                <span class="katex-render">( \frac{\partial L}{\partial W^{(l)}} = \delta^{(l)} a^{(l-1)T} )</span>
+            </div>
+            <div class="mermaid">
+                graph RL;
+                    L[损失 L] --> dA[激活梯度 dA];
+                    dA --> dZ[线性变换梯度 dZ];
+                    dZ --> dW[权重梯度 dW];
+                    dZ --> db[偏置梯度 db];
+            </div>
+            <h3>代码示例</h3>
+            <div class="code-block">
+                <pre><code class="language-python">
+# 反向传播示例
+def backward_propagation(X, Y, A, W):
+    m = X.shape[1]
+    dZ = A - Y
+    dW = np.dot(dZ, X.T) / m
+    db = np.sum(dZ) / m
+    return dW, db
+                </code></pre>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.katex-render').forEach(block => {
+                try {
+                    const formula = block.textContent.trim();
+                    katex.render(formula, block, {
+                        throwOnError: false,
+                        displayMode: true
+                    });
+                } catch (e) {
+                    console.error("KaTeX error:", e);
+                }
+            });
+        });
+
+        // 初始化Mermaid
+        mermaid.initialize({ startOnLoad: true });
+
+        // 截图功能
+        async function captureScreenshots() {
+            const loading = document.getElementById('loading');
+            loading.style.display = 'flex';
+
+            try {
+                const content = document.getElementById('content');
+                const sections = content.getElementsByClassName('concept-section');
+                let index = 1;
+
+                for (let section of sections) {
+                    const canvas = await html2canvas(section, {
+                        scale: 2,
+                        logging: false,
+                        useCORS: true
+                    });
+
+                    // 创建下载链接
+                    const link = document.createElement('a');
+                    link.download = `ml-process-${index}.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                    index++;
+
+                    // 等待一小段时间再继续下一张截图
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                }
+
+                alert('截图已完成！');
+            } catch (error) {
+                console.error('截图过程出错：', error);
+                alert('截图过程出现错误，请查看控制台了解详情。');
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html> 

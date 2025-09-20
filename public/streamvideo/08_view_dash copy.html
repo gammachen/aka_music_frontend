@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- 引入 video.js CSS -->
+    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
+    
+    <!-- 引入 video.js 核心库 -->
+    <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
+    
+    <!-- 引入 DASH 插件 -->
+    <script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-dash/5.1.1/videojs-dash.min.js"></script>
+</head>
+<body>
+    <!-- 使用 video.js 的 video 标签，注意添加了 class 和 data-setup -->
+    <video id="player" 
+           class="video-js vjs-default-skin vjs-big-play-centered" 
+           controls 
+           width="640" 
+           height="360" 
+           data-setup='{}'>
+        <source src="http://127.0.0.1:8084/dash/testhaogui_src.mpd" type="application/dash+xml">
+        <p class="vjs-no-js">
+            要查看此视频，请启用 JavaScript 并考虑升级到支持 HTML5 视频的 Web 浏览器
+        </p>
+    </video>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化 video.js 播放器
+            var player = videojs('player', {
+                html5: {
+                    dash: {
+                        limitBitrateByPortal: true,
+                        fastSwitchEnabled: true
+                    }
+                }
+            });
+            
+            // 监听错误事件
+            player.on('error', function() {
+                console.error('播放器错误:', player.error());
+            });
+            
+            // 监听准备就绪事件
+            player.on('ready', function() {
+                console.log('播放器已准备就绪');
+            });
+        });
+    </script>
+</body>
+</html>

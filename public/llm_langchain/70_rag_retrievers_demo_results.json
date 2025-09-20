@@ -1,0 +1,46 @@
+{
+  "system_stats": {
+    "document_count": 5,
+    "performance_stats": {
+      "message": "No queries recorded"
+    },
+    "cache_stats": {
+      "hits": 0,
+      "misses": 0
+    },
+    "config": {
+      "top_k": 5,
+      "score_threshold": 0.7,
+      "chunk_size": 1000,
+      "chunk_overlap": 200,
+      "cache_ttl": 3600,
+      "enable_compression": true,
+      "enable_reranking": true,
+      "batch_size": 100
+    }
+  },
+  "sample_queries": [
+    "RAG系统的工作原理是什么？",
+    "如何提高检索准确性？",
+    "向量数据库与传统数据库的区别？",
+    "LangChain中的检索器类型有哪些？",
+    "上下文压缩检索器的优势是什么？"
+  ],
+  "retriever_types": [
+    "vector",
+    "bm25",
+    "compression",
+    "multi",
+    "cached"
+  ],
+  "config": {
+    "top_k": 5,
+    "score_threshold": 0.7,
+    "chunk_size": 1000,
+    "chunk_overlap": 200,
+    "cache_ttl": 3600,
+    "enable_compression": true,
+    "enable_reranking": true,
+    "batch_size": 100
+  }
+}

@@ -1,0 +1,470 @@
+[
+  {
+    "original": "Generative AI exists because of the transformer.html",
+    "new": "01_generative ai exists because of the transformer.html",
+    "mtime": "2025-08-31 14:41:45",
+    "group": 1
+  },
+  {
+    "original": "README.md",
+    "new": "02_readme.md",
+    "mtime": "2025-08-31 15:54:49",
+    "group": 2
+  },
+  {
+    "original": "01_llm类模型简介.md",
+    "new": "03_01_llm类模型简介.md",
+    "mtime": "2025-08-31 17:38:07",
+    "group": 3
+  },
+  {
+    "original": "LLM技术详解与LangChain实战.md",
+    "new": "04_llm技术详解与langchain实战.md",
+    "mtime": "2025-08-31 17:42:39",
+    "group": 4
+  },
+  {
+    "original": "openai_vs_chatopenai_demo.py",
+    "new": "05_openai_vs_chatopenai_demo.py",
+    "mtime": "2025-08-31 17:50:11",
+    "group": 5
+  },
+  {
+    "original": "OpenAI_vs_ChatOpenAI_详细差异说明.md",
+    "new": "06_openai_vs_chatopenai_详细差异说明.md",
+    "mtime": "2025-08-31 17:52:48",
+    "group": 6
+  },
+  {
+    "original": "token_multilingual_analysis.py",
+    "new": "07_token_multilingual_analysis.py",
+    "mtime": "2025-08-31 18:42:08",
+    "group": 7
+  },
+  {
+    "original": "token_cost_calculator.py",
+    "new": "08_token_cost_calculator.py",
+    "mtime": "2025-08-31 18:43:22",
+    "group": 8
+  },
+  {
+    "original": "token_visualization.py",
+    "new": "09_token_visualization.py",
+    "mtime": "2025-08-31 18:44:25",
+    "group": 9
+  },
+  {
+    "original": "advanced_token_management.md",
+    "new": "10_advanced_token_management.md",
+    "mtime": "2025-08-31 18:46:06",
+    "group": 10
+  },
+  {
+    "original": "memory_cache.py",
+    "new": "11_memory_cache.py",
+    "mtime": "2025-08-31 18:51:20",
+    "group": 11
+  },
+  {
+    "original": "sqlite_cache.py",
+    "new": "12_sqlite_cache.py",
+    "mtime": "2025-08-31 18:52:28",
+    "group": 12
+  },
+  {
+    "original": "mysql_cache.py",
+    "new": "13_mysql_cache.py",
+    "mtime": "2025-08-31 18:53:36",
+    "group": 13
+  },
+  {
+    "original": "redis_cache.py",
+    "new": "14_redis_cache.py",
+    "mtime": "2025-08-31 18:54:53",
+    "group": 14
+  },
+  {
+    "original": "mongodb_cache.py",
+    "new": "15_mongodb_cache.py",
+    "mtime": "2025-08-31 18:56:32",
+    "group": 15
+  },
+  {
+    "original": "semantic_cache.py",
+    "new": "16_semantic_cache.py",
+    "mtime": "2025-08-31 18:58:24",
+    "group": 16
+  },
+  {
+    "original": "gptcache_integration.py",
+    "new": "17_gptcache_integration.py",
+    "mtime": "2025-08-31 18:59:42",
+    "group": 17
+  },
+  {
+    "original": "unified_cache_manager.py",
+    "new": "18_unified_cache_manager.py",
+    "mtime": "2025-08-31 19:01:16",
+    "group": 18
+  },
+  {
+    "original": "缓存技术全栈实施指南.md",
+    "new": "19_缓存技术全栈实施指南.md",
+    "mtime": "2025-08-31 19:02:31",
+    "group": 19
+  },
+  {
+    "original": "缓存技术全栈实施指南-2.md",
+    "new": "20_缓存技术全栈实施指南-2.md",
+    "mtime": "2025-08-31 19:36:32",
+    "group": 20
+  },
+  {
+    "original": "缓存技术全栈实施指南-3.md",
+    "new": "21_缓存技术全栈实施指南-3.md",
+    "mtime": "2025-08-31 19:43:57",
+    "group": 21
+  },
+  {
+    "original": "prompt生命周期.md",
+    "new": "22_prompt生命周期.md",
+    "mtime": "2025-08-31 20:10:11",
+    "group": 22
+  },
+  {
+    "original": "langchain_prompt模板技术文档.md",
+    "new": "23_langchain_prompt模板技术文档.md",
+    "mtime": "2025-08-31 20:20:35",
+    "group": 23
+  },
+  {
+    "original": "prompt_templates.py",
+    "new": "24_prompt_templates.py",
+    "mtime": "2025-08-31 20:22:08",
+    "group": 24
+  },
+  {
+    "original": "prompt_examples.py",
+    "new": "25_prompt_examples.py",
+    "mtime": "2025-08-31 20:23:59",
+    "group": 25
+  },
+  {
+    "original": "prompt_lifecycle_flow.md",
+    "new": "26_prompt_lifecycle_flow.md",
+    "mtime": "2025-08-31 20:24:55",
+    "group": 26
+  },
+  {
+    "original": "partial_and_custom_templates.py",
+    "new": "27_partial_and_custom_templates.py",
+    "mtime": "2025-08-31 20:27:18",
+    "group": 27
+  },
+  {
+    "original": "partial_custom_templates_guide.md",
+    "new": "28_partial_custom_templates_guide.md",
+    "mtime": "2025-08-31 20:28:41",
+    "group": 28
+  },
+  {
+    "original": "partial_templates_flow.md",
+    "new": "29_partial_templates_flow.md",
+    "mtime": "2025-08-31 20:31:34",
+    "group": 29
+  },
+  {
+    "original": "partial_template_examples.py",
+    "new": "30_partial_template_examples.py",
+    "mtime": "2025-08-31 20:35:13",
+    "group": 30
+  },
+  {
+    "original": "test_partial_examples.py",
+    "new": "31_test_partial_examples.py",
+    "mtime": "2025-08-31 20:36:09",
+    "group": 31
+  },
+  {
+    "original": "partial_custom_templates_summary.md",
+    "new": "32_partial_custom_templates_summary.md",
+    "mtime": "2025-08-31 20:37:00",
+    "group": 32
+  },
+  {
+    "original": "test_results.json",
+    "new": "33_test_results.json",
+    "mtime": "2025-08-31 20:36:15",
+    "group": 33
+  },
+  {
+    "original": "langchain_example_selector_guide.md",
+    "new": "34_langchain_example_selector_guide.md",
+    "mtime": "2025-08-31 22:15:03",
+    "group": 34
+  },
+  {
+    "original": "example_selector_usage_guide.py",
+    "new": "35_example_selector_usage_guide.py",
+    "mtime": "2025-08-31 22:20:18",
+    "group": 35
+  },
+  {
+    "original": "example_selector_complete_guide.md",
+    "new": "36_example_selector_complete_guide.md",
+    "mtime": "2025-08-31 22:21:41",
+    "group": 36
+  },
+  {
+    "original": "output_parsers_guide.md",
+    "new": "37_output_parsers_guide.md",
+    "mtime": "2025-08-31 23:22:03",
+    "group": 37
+  },
+  {
+    "original": "output_parsers_complete_guide.md",
+    "new": "38_output_parsers_complete_guide.md",
+    "mtime": "2025-08-31 23:29:43",
+    "group": 38
+  },
+  {
+    "original": "rag_vs_finetuning_comprehensive_guide.md",
+    "new": "39_rag_vs_finetuning_comprehensive_guide.md",
+    "mtime": "2025-08-31 23:40:31",
+    "group": 39
+  },
+  {
+    "original": "example_selector_implementation.py",
+    "new": "40_example_selector_implementation.py",
+    "mtime": "2025-08-31 22:17:13",
+    "group": 40
+  },
+  {
+    "original": "example_selector_simple.py",
+    "new": "41_example_selector_simple.py",
+    "mtime": "2025-08-31 22:18:37",
+    "group": 41
+  },
+  {
+    "original": "example_selector_usage_config.json",
+    "new": "42_example_selector_usage_config.json",
+    "mtime": "2025-08-31 22:20:29",
+    "group": 42
+  },
+  {
+    "original": "project_summary.md",
+    "new": "43_project_summary.md",
+    "mtime": "2025-08-31 22:22:25",
+    "group": 43
+  },
+  {
+    "original": "output_parsers_implementation.py",
+    "new": "44_output_parsers_implementation.py",
+    "mtime": "2025-08-31 23:24:06",
+    "group": 44
+  },
+  {
+    "original": "output_parsers_simple.py",
+    "new": "45_output_parsers_simple.py",
+    "mtime": "2025-08-31 23:25:52",
+    "group": 45
+  },
+  {
+    "original": "simple_parsers_config.json",
+    "new": "46_simple_parsers_config.json",
+    "mtime": "2025-08-31 23:26:03",
+    "group": 46
+  },
+  {
+    "original": "output_parsers_usage.py",
+    "new": "47_output_parsers_usage.py",
+    "mtime": "2025-08-31 23:27:58",
+    "group": 47
+  },
+  {
+    "original": "output_parsers_final.py",
+    "new": "48_output_parsers_final.py",
+    "mtime": "2025-08-31 23:31:23",
+    "group": 48
+  },
+  {
+    "original": "final_parsers_performance.json",
+    "new": "49_final_parsers_performance.json",
+    "mtime": "2025-08-31 23:31:33",
+    "group": 49
+  },
+  {
+    "original": "output_parsers_project_summary.md",
+    "new": "50_output_parsers_project_summary.md",
+    "mtime": "2025-08-31 23:32:23",
+    "group": 50
+  },
+  {
+    "original": "model_configuration_serialization.md",
+    "new": "51_model_configuration_serialization.md",
+    "mtime": "2025-08-31 23:38:25",
+    "group": 51
+  },
+  {
+    "original": "openai_api_parameters_detailed.md",
+    "new": "52_openai_api_parameters_detailed.md",
+    "mtime": "2025-08-31 23:40:11",
+    "group": 52
+  },
+  {
+    "original": "rag_finetune_decision_tool.py",
+    "new": "53_rag_finetune_decision_tool.py",
+    "mtime": "2025-08-31 23:41:59",
+    "group": 53
+  },
+  {
+    "original": "rag_finetune_simple_tool.py",
+    "new": "54_rag_finetune_simple_tool.py",
+    "mtime": "2025-09-01 00:14:03",
+    "group": 54
+  },
+  {
+    "original": "rag_finetune_decision_results.json",
+    "new": "55_rag_finetune_decision_results.json",
+    "mtime": "2025-09-01 00:14:38",
+    "group": 55
+  },
+  {
+    "original": "rag_vs_finetuning_final_guide.md",
+    "new": "56_rag_vs_finetuning_final_guide.md",
+    "mtime": "2025-09-01 00:15:58",
+    "group": 56
+  },
+  {
+    "original": "decision_heatmap.png",
+    "new": "57_decision_heatmap.png",
+    "mtime": "2025-08-31 23:42:26",
+    "group": 57
+  },
+  {
+    "original": "radar_企业智能问答系统.png",
+    "new": "58_radar_企业智能问答系统.png",
+    "mtime": "2025-09-01 00:47:35",
+    "group": 58
+  },
+  {
+    "original": "decision_results.json",
+    "new": "59_decision_results.json",
+    "mtime": "2025-09-01 00:47:38",
+    "group": 59
+  },
+  {
+    "original": "langchain_document_loaders_comprehensive_guide.md",
+    "new": "60_langchain_document_loaders_comprehensive_guide.md",
+    "mtime": "2025-09-01 00:52:02",
+    "group": 60
+  },
+  {
+    "original": "langchain_document_transformers_comprehensive_guide.md",
+    "new": "61_langchain_document_transformers_comprehensive_guide.md",
+    "mtime": "2025-09-01 00:58:13",
+    "group": 61
+  },
+  {
+    "original": "langchain_document_transformers_advanced_analysis.md",
+    "new": "62_langchain_document_transformers_advanced_analysis.md",
+    "mtime": "2025-09-01 01:04:55",
+    "group": 62
+  },
+  {
+    "original": "langchain_doctran_transformers_comprehensive_guide.md",
+    "new": "63_langchain_doctran_transformers_comprehensive_guide.md",
+    "mtime": "2025-09-01 01:24:10",
+    "group": 63
+  },
+  {
+    "original": "document_transformers_implementation.py",
+    "new": "64_document_transformers_implementation.py",
+    "mtime": "2025-09-01 01:01:09",
+    "group": 64
+  },
+  {
+    "original": "document_transformer_benchmark.json",
+    "new": "65_document_transformer_benchmark.json",
+    "mtime": "2025-09-01 01:01:58",
+    "group": 65
+  },
+  {
+    "original": "doctran_implementation.py",
+    "new": "66_doctran_implementation.py",
+    "mtime": "2025-09-01 01:30:33",
+    "group": 66
+  },
+  {
+    "original": "doctran_demo_results.json",
+    "new": "67_doctran_demo_results.json",
+    "mtime": "2025-09-01 01:30:43",
+    "group": 67
+  },
+  {
+    "original": "DOCTRAN_SUMMARY.md",
+    "new": "68_doctran_summary.md",
+    "mtime": "2025-09-01 01:31:31",
+    "group": 68
+  },
+  {
+    "original": "rag_retrievers_implementation.py",
+    "new": "69_rag_retrievers_implementation.py",
+    "mtime": "2025-09-01 08:30:38",
+    "group": 69
+  },
+  {
+    "original": "rag_retrievers_demo_results.json",
+    "new": "70_rag_retrievers_demo_results.json",
+    "mtime": "2025-09-01 08:30:56",
+    "group": 70
+  },
+  {
+    "original": "RAG_RETRIEVERS_SUMMARY.md",
+    "new": "71_rag_retrievers_summary.md",
+    "mtime": "2025-09-01 08:31:40",
+    "group": 71
+  },
+  {
+    "original": "langchain_rag_retrievers_comprehensive_manual.md",
+    "new": "72_langchain_rag_retrievers_comprehensive_manual.md",
+    "mtime": "2025-09-01 10:21:11",
+    "group": 72
+  },
+  {
+    "original": "RAG_RETRIEVERS_PROFESSIONAL_ANALYSIS.md",
+    "new": "73_rag_retrievers_professional_analysis.md",
+    "mtime": "2025-09-01 10:23:05",
+    "group": 73
+  },
+  {
+    "original": "test_ollama_setup.py",
+    "new": "74_test_ollama_setup.py",
+    "mtime": "2025-09-01 11:08:34",
+    "group": 74
+  },
+  {
+    "original": "simple_test.py",
+    "new": "75_simple_test.py",
+    "mtime": "2025-09-01 11:12:00",
+    "group": 75
+  },
+  {
+    "original": "sequential_chain_test.py",
+    "new": "76_sequential_chain_test.py",
+    "mtime": "2025-09-01 11:36:06",
+    "group": 76
+  },
+  {
+    "original": "requirements.txt",
+    "new": "77_requirements.txt",
+    "mtime": "2025-09-01 11:11:25",
+    "group": 77
+  },
+  {
+    "original": "UPGRADE_GUIDE.md",
+    "new": "78_upgrade_guide.md",
+    "mtime": "2025-09-01 11:12:15",
+    "group": 78
+  }
+]

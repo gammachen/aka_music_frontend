@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClassificationSkill 架构可视化</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.2em;
+        }
+        .content {
+            padding: 40px;
+        }
+        .section {
+            margin-bottom: 50px;
+        }
+        .section h2 {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        .chart-container {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        .card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .card h3 {
+            color: #667eea;
+            margin-top: 0;
+        }
+        .tab-container {
+            margin: 20px 0;
+        }
+        .tab-buttons {
+            display: flex;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .tab-button {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: #667eea;
+            transition: all 0.3s;
+        }
+        .tab-button.active {
+            background: #667eea;
+            color: white;
+            border-radius: 5px 5px 0 0;
+        }
+        .tab-content {
+            display: none;
+            padding: 20px 0;
+        }
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>ClassificationSkill 架构可视化</h1>
+            <p>深入理解ADALA框架中的文本分类技能实现</p>
+        </div>
+
+        <div class="content">
+            <!-- 继承结构 -->
+            <div class="section">
+                <h2>1. 类继承结构</h2>
+                <div class="chart-container">
+                    <div class="mermaid">
+                        classDiagram
+                            class Skill {
+                                <<abstract>>
+                                +str name
+                                +str instructions
+                                +str input_template
+                                +str output_template
+                                +Optional[str] description
+                                +Optional[Dict] field_schema
+                                +bool instructions_first
+                                +bool frozen
+                                +Type[BaseModel] response_model
+                                +apply(input, runtime)*
+                                +improve(predictions, feedback, runtime)*
+                            }
+
+                            class TransformSkill {
+                                <<abstract>>
+                                +apply(input, runtime) InternalDataFrame
+                                +aapply(input, runtime) InternalDataFrame
+                                +improve(predictions, feedback, runtime)
+                                +aimprove(teacher_runtime, variables)
+                            }
+
+                            class ClassificationSkill {
+                                +str name
+                                +str instructions
+                                +str input_template
+                                +str output_template
+                                +validate_response_model(response_model)
+                            }
+
+                            Skill <|-- TransformSkill : 继承
+                            TransformSkill <|-- ClassificationSkill : 实现
+                    </div>
+                </div>
+            </div>
+
+            <!-- 配置机制 -->
+            <div class="section">
+                <h2>2. 配置机制</h2>
+                <div class="grid">
+                    <div class="card">
+                        <h3>标签配置方式</h3>
+                        <div class="code-block">
+# 方式1: 使用labels参数
+skill = ClassificationSkill(
+    labels=["positive", "negative", "neutral"]
+)
+
+# 方式2: 使用field_schema
+skill = ClassificationSkill(
+    field_schema={
+        "predictions": {
+            "type": "string",
+            "enum": ["A", "B", "C"]
+        }
+    }
+)
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>自定义模板</h3>
+                        <div class="code-block">
+skill = ClassificationSkill(
+    name="custom_classifier",
+    instructions="Classify into topics",
+    input_template="Text: {text}",
+    output_template="Topic: {predictions}",
+    labels=["tech", "sports", "politics"]
+)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 初始化流程 -->
+            <div class="section">
+                <h2>3. 初始化流程</h2>
+                <div class="chart-container">
+                    <div class="mermaid">
+                        flowchart TD
+                            Start([开始]) --> Init[ClassificationSkill初始化]
+                            Init --> LabelsCheck{提供labels?}
+                            LabelsCheck -->|是| BuildSchema[构建field_schema]
+                            LabelsCheck -->|否| SchemaCheck{提供field_schema?}
+                            BuildSchema --> SetEnum[设置predictions枚举]
+                            SchemaCheck -->|是| UseCustom[使用自定义schema]
+                            SchemaCheck -->|否| Error[配置错误]
+                            SetEnum --> Validate[验证响应模型]
+                            UseCustom --> Validate
+                            Error --> Fail([初始化失败])
+                            Validate --> Success([初始化成功])
+                            Validate -->|失败| Fail
+                    </div>
+                </div>
+            </div>
+
+            <!-- 运行时流程 -->
+            <div class="section">
+                <h2>4. 运行时处理流程</h2>
+                
+                <div class="tab-container">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" onclick="showTab('sync')">同步处理</button>
+                        <button class="tab-button" onclick="showTab('async')">异步处理</button>
+                        <button class="tab-button" onclick="showTab('learning')">学习改进</button>
+                    </div>
+                    
+                    <div class="tab-content active" id="sync">
+                        <div class="chart-container">
+                            <div class="mermaid">
+                                sequenceDiagram
+                                    participant Client
+                                    participant ClassificationSkill
+                                    participant Runtime
+                                    participant LLM
+
+                                    Client->>ClassificationSkill: apply(input_df, runtime)
+                                    ClassificationSkill->>Runtime: batch_to_batch()
+                                    Runtime->>Runtime: 构建prompt模板
+                                    Runtime->>Runtime: 格式化输入数据
+                                    Runtime->>LLM: 批量API调用
+                                    LLM-->>Runtime: 分类结果
+                                    Runtime-->>Runtime: 验证结果格式
+                                    Runtime-->>ClassificationSkill: 标注数据框
+                                    ClassificationSkill-->>Client: 返回结果
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="async">
+                        <div class="chart-container">
+                            <div class="mermaid">
+                                sequenceDiagram
+                                    participant Client
+                                    participant ClassificationSkill
+                                    participant AsyncRuntime
+                                    participant LLM
+
+                                    Client->>ClassificationSkill: aapply(input_df, runtime)
+                                    ClassificationSkill->>AsyncRuntime: batch_to_batch()
+                                    AsyncRuntime->>AsyncRuntime: 并行构建prompt
+                                    AsyncRuntime->>AsyncRuntime: 数据分批处理
+                                    AsyncRuntime->>LLM: 并发API调用
+                                    LLM-->>AsyncRuntime: 异步响应流
+                                    AsyncRuntime-->>AsyncRuntime: 合并结果
+                                    AsyncRuntime-->>ClassificationSkill: 完整数据框
+                                    ClassificationSkill-->>Client: 返回异步结果
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="learning">
+                        <div class="chart-container">
+                            <div class="mermaid">
+                                flowchart TD
+                                    A[初始预测] --> B[收集反馈]
+                                    B --> C{反馈有效?}
+                                    C -->|否| D[跳过改进]
+                                    C -->|是| E[分析错误模式]
+                                    E --> F[构建改进示例]
+                                    F --> G[LLM分析错误]
+                                    G --> H[生成改进指令]
+                                    H --> I[更新instructions]
+                                    I --> J[技能改进完成]
+                                    J --> K[重新预测验证]
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 数据流分析 -->
+            <div class="section">
+                <h2>5. 数据流分析</h2>
+                <div class="chart-container">
+                    <div class="mermaid">
+                        flowchart LR
+                            subgraph Input
+                                Raw[原始文本数据]
+                                Template[输入模板]
+                                Formatted[格式化输入]
+                            end
+                            
+                            subgraph Processing
+                                Prompt[Prompt构建]
+                                LLM[大模型调用]
+                                Parse[结果解析]
+                            end
+                            
+                            subgraph Output
+                                Schema[Schema验证]
+                                Frame[数据框构建]
+                                Result[分类结果]
+                            end
+                            
+                            Raw --> Template
+                            Template --> Formatted
+                            Formatted --> Prompt
+                            Prompt --> LLM
+                            LLM --> Parse
+                            Parse --> Schema
+                            Schema --> Frame
+                            Frame --> Result
+                    </div>
+                </div>
+            </div>
+
+            <!-- 使用示例 -->
+            <div class="section">
+                <h2>6. 完整使用示例</h2>
+                <div class="highlight">
+                    <h3>情感分析示例</h3>
+                    <div class="code-block">
+from adala.skills.collection.classification import ClassificationSkill
+from adala.runtimes import OpenAIChatRuntime
+from adala.utils.internal_data import InternalDataFrame
+
+# 1. 创建分类技能
+sentiment_skill = ClassificationSkill(
+    name="sentiment_analysis",
+    labels=["positive", "negative", "neutral"],
+    instructions="Analyze the sentiment of the given text"
+)
+
+# 2. 准备数据
+input_df = InternalDataFrame({
+    'input': [
+        'I love this product!',
+        'This is terrible',
+        'It is okay, nothing special'
+    ]
+})
+
+# 3. 执行分类
+runtime = OpenAIChatRuntime(model='gpt-3.5-turbo')
+result_df = sentiment_skill.apply(input_df, runtime)
+
+# 4. 查看结果
+print(result_df[['input', 'predictions']])
+                    </div>
+                </div>
+
+                <div class="grid">
+                    <div class="card">
+                        <h3>性能优化</h3>
+                        <ul>
+                            <li>合理设置batch_size (建议50-100)</li>
+                            <li>使用异步处理提高吞吐量</li>
+                            <li>启用结果缓存避免重复计算</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>错误处理</h3>
+                        <ul>
+                            <li>API调用失败重试机制</li>
+                            <li>结果格式验证</li>
+                            <li>超时设置避免阻塞</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 扩展设计 -->
+            <div class="section">
+                <h2>7. 扩展设计方案</h2>
+                <div class="chart-container">
+                    <div class="mermaid">
+                        classDiagram
+                            class ClassificationSkill {
+                                +standard classification
+                            }
+                            
+                            class MultiLabelClassificationSkill {
+                                +multiple labels support
+                                +confidence thresholds
+                            }
+                            
+                            class HierarchicalClassificationSkill {
+                                +tree structure labels
+                                +multi-level classification
+                            }
+                            
+                            class ConfidenceClassificationSkill {
+                                +confidence scores
+                                +uncertainty estimation
+                            }
+                            
+                            ClassificationSkill <|-- MultiLabelClassificationSkill
+                            ClassificationSkill <|-- HierarchicalClassificationSkill
+                            ClassificationSkill <|-- ConfidenceClassificationSkill
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 初始化Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true
+            }
+        });
+
+        // 标签页切换
+        function showTab(tabName) {
+            // 隐藏所有标签内容
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // 移除所有按钮的active状态
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(button => button.classList.remove('active'));
+            
+            // 显示选中的标签内容
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+            
+            // 重新渲染Mermaid图表
+            mermaid.init();
+        }
+    </script>
+</body>
+</html>

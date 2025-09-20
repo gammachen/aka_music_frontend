@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>机器学习核心概念知识库</title>
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --background-color: #f8f9fa;
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--primary-color);
+            background: var(--background-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, var(--secondary-color), #2980b9);
+            color: white;
+            margin-bottom: 3rem;
+            border-radius: 0 0 2rem 2rem;
+        }
+
+        .concept-section {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .concept-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--secondary-color);
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .code-block::before {
+            content: ' ';
+            position: absolute;
+            top: 1rem;
+            left: 1.5rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ff5f56;
+            box-shadow: 25px 0 #ffbd2e, 50px 0 #27c93f;
+        }
+
+        .screenshot-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem 2rem;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 2rem;
+            cursor: pointer;
+            z-index: 1000;
+            font-size: 1.1rem;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .screenshot-btn:hover {
+            transform: scale(1.05);
+            background: #2980b9;
+        }
+
+        .loading {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 1.5rem 3rem;
+            border-radius: 1rem;
+            font-size: 1.2rem;
+            z-index: 9999;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .concept-section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading" id="loading">
+        <span class="loader">🔄</span> 
+        <span>正在生成知识卡片...</span>
+    </div>
+
+    <button class="screenshot-btn" onclick="captureSections()">
+        📸 保存知识卡片
+    </button>
+
+    <header>
+        <div class="container">
+            <h1>机器学习核心概念全解</h1>
+            <p>理论详解 × 代码实例 × 可视化展示</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- 样本 Section -->
+        <section class="concept-section" id="sample">
+            <h2>📦 样本 (Sample)</h2>
+            <p><strong>定义：</strong>构成数据集的基本单元，包含特征和（可选）标签的独立观测值</p>
+            <div class="highlight">
+                <p>▸ 图像识别：单张28×28像素的MNIST手写数字图像<br>
+                ▸ 电商推荐：单个用户的{年龄, 性别, 浏览记录}数据记录</p>
+            </div>
+            <div class="code-block">
+                <pre><code class="language-python">
+# 加载样本数据示例
+from sklearn.datasets import load_digits
+digits = load_digits()
+sample = digits.images[0]  # 8x8像素的手写数字矩阵
+                </code></pre>
+            </div>
+        </section>
+
+        <!-- 特征 Section -->
+        <section class="concept-section" id="feature">
+            <h2>🔍 特征 (Feature)</h2>
+            <p><strong>定义：</strong>描述样本特性的可观测变量，构成模型的输入空间</p>
+            <div class="highlight">
+                <p>▸ 数值特征：房屋面积（连续值）、房间数（离散值）<br>
+                ▸ 类别特征：颜色类型（红/蓝/绿）、产品类别</p>
+            </div>
+            <div class="math-block">
+                特征空间维度：$\mathbb{R}^{d}$ (d个特征维度)
+            </div>
+        </section>
+
+        <!-- 其他概念区块保持类似结构 -->
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script>
+        // 增强版截图功能
+        async function captureSections() {
+            const loading = document.getElementById('loading');
+            const sections = document.querySelectorAll('.concept-section');
+            
+            loading.style.display = 'flex';
+            
+            try {
+                for (const [index, section] of sections.entries()) {
+                    loading.querySelector('span').textContent = `正在生成第 ${index+1}/${sections.length} 张卡片...`;
+                    
+                    const canvas = await html2canvas(section, {
+                        scale: 2,
+                        logging: true,
+                        useCORS: true,
+                        backgroundColor: null,
+                        windowWidth: section.scrollWidth,
+                        windowHeight: section.scrollHeight
+                    });
+
+                    const link = document.createElement('a');
+                    link.download = `ML_Concept_${index+1}.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                    
+                    await new Promise(r => setTimeout(r, 500));
+                }
+
+                Toastify({
+                    text: "✅ 所有知识卡片已保存！",
+                    duration: 3000,
+                    style: { 
+                        background: "linear-gradient(to right, #00b09b, #96c93d)",
+                        borderRadius: "1rem"
+                    }
+                }).showToast();
+            } catch (error) {
+                console.error('截图错误:', error);
+                Toastify({
+                    text: "❌ 截图失败，请检查控制台",
+                    duration: 3000,
+                    style: { background: "#ff4757" }
+                }).showToast();
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        // 初始化代码高亮
+        Prism.highlightAll();
+    </script>
+</body>
+</html>

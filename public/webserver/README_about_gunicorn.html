@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>README_about_gunicorn.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<p>以下是关于 <strong>Gunicorn</strong> 的详细介绍，结合知识库中的信息整理而成：</p>
+<hr>
+<h3 id="1-gunicorn-%E7%AE%80%E4%BB%8B"><strong>1. Gunicorn 简介</strong></h3>
+<ul>
+<li><strong>定义</strong>：<br>
+Gunicorn（全称：Green Unicorn）是一个基于 Python 的 <strong>WSGI HTTP 服务器</strong>，专为生产环境设计，用于部署和管理 Python Web 应用程序（如 Flask、Django、FastAPI 等）。它以高性能、稳定性和易用性著称。</li>
+<li><strong>核心特点</strong>：
+<ul>
+<li><strong>多进程模型</strong>：基于 <strong>预分派（pre-fork）</strong> 模型，通过主进程（Master）管理多个工作进程（Worker），充分利用多核 CPU 资源。</li>
+<li><strong>支持多种并发模式</strong>：提供同步、异步（如 gevent、eventlet）和混合模式，适应不同场景（如 I/O 密集型或 CPU 密集型任务）。</li>
+<li><strong>WSGI 兼容性</strong>：遵循 WSGI 标准，可与主流 Python Web 框架无缝集成。</li>
+<li><strong>灵活配置</strong>：通过命令行参数或配置文件调整工作进程数、超时时间、日志等参数。</li>
+<li><strong>轻量级资源消耗</strong>：相比传统服务器（如 Apache、Nginx），在高并发场景下表现更优。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="2-gunicorn-%E7%9A%84%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86"><strong>2. Gunicorn 的核心原理</strong></h3>
+<h4 id="21-%E8%BF%9B%E7%A8%8B%E6%A8%A1%E5%9E%8B"><strong>2.1 进程模型</strong></h4>
+<ul>
+<li><strong>主进程（Master）</strong>：
+<ul>
+<li>负责管理所有工作进程，监控它们的运行状态。</li>
+<li>根据配置动态调整工作进程数量（如自动重启崩溃的进程）。</li>
+</ul>
+</li>
+<li><strong>工作进程（Worker）</strong>：
+<ul>
+<li>通过 <code>fork()</code> 系统调用从主进程派生而来，每个工作进程独立处理 HTTP 请求。</li>
+<li>默认采用 <strong>同步模式</strong>，每个进程一次只能处理一个请求。</li>
+<li>支持多种并发模式（如异步模式通过 <code>gevent</code> 实现多请求并发处理）。</li>
+</ul>
+</li>
+</ul>
+<h4 id="22-%E8%AF%B7%E6%B1%82%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B"><strong>2.2 请求处理流程</strong></h4>
+<ol>
+<li><strong>接收请求</strong>：主进程监听客户端请求，通过轮询算法将请求分配给空闲的工作进程。</li>
+<li><strong>处理请求</strong>：工作进程调用 Web 应用程序的 WSGI 入口（如 Flask 的 <code>app</code> 对象），执行业务逻辑并生成响应。</li>
+<li><strong>返回响应</strong>：工作进程将处理结果返回给客户端。</li>
+</ol>
+<h4 id="23-%E9%A2%84%E5%88%86%E6%B4%BE%E6%A8%A1%E5%9E%8Bpre-fork"><strong>2.3 预分派模型（Pre-fork）</strong></h4>
+<ul>
+<li><strong>预分派</strong>：主进程在启动时预先创建多个工作进程，无需等待请求到达后再创建进程，减少延迟。</li>
+<li><strong>优势</strong>：
+<ul>
+<li>高并发场景下响应更快。</li>
+<li>通过动态调整工作进程数量应对负载变化。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="3-%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE"><strong>3. 安装与配置</strong></h3>
+<h4 id="31-%E5%AE%89%E8%A3%85"><strong>3.1 安装</strong></h4>
+<pre class="hljs"><code><div>pip install gunicorn  <span class="hljs-comment"># 安装最新版</span>
+pip install gunicorn==20.1.0  <span class="hljs-comment"># 安装指定版本（如 20.1.0）</span>
+<span class="hljs-comment"># 异步模式需要额外安装依赖（如 gevent）：</span>
+pip install gevent==21.8.0
+</div></code></pre>
+<h4 id="32-%E5%9F%BA%E6%9C%AC%E5%90%AF%E5%8A%A8%E5%91%BD%E4%BB%A4"><strong>3.2 基本启动命令</strong></h4>
+<pre class="hljs"><code><div>gunicorn [OPTIONS] [MODULE_NAME:VARIABLE_NAME]
+</div></code></pre>
+<ul>
+<li><strong>示例</strong>：启动 Flask 应用（假设应用文件为 <code>app.py</code>，变量名为 <code>app</code>）：<pre class="hljs"><code><div>gunicorn -w 4 -b 0.0.0.0:8000 app:app
+</div></code></pre>
+<ul>
+<li><code>-w 4</code>：启动 4 个工作进程。</li>
+<li><code>-b 0.0.0.0:8000</code>：绑定到 0.0.0.0 的 8000 端口。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="4-%E5%85%B3%E9%94%AE%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0"><strong>4. 关键配置参数</strong></h3>
+<p>以下是一些常用配置参数（通过命令行或配置文件设置）：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--workers</code></td>
+<td>工作进程数（根据 CPU 核心数调整）</td>
+<td><code>-w 4</code></td>
+</tr>
+<tr>
+<td><code>--bind</code></td>
+<td>绑定地址和端口</td>
+<td><code>-b 0.0.0.0:8000</code></td>
+</tr>
+<tr>
+<td><code>--worker-class</code></td>
+<td>指定工作模式（如 <code>sync</code>、<code>gevent</code>）</td>
+<td><code>--worker-class gevent</code></td>
+</tr>
+<tr>
+<td><code>--timeout</code></td>
+<td>请求超时时间（秒）</td>
+<td><code>--timeout 30</code></td>
+</tr>
+<tr>
+<td><code>--log-level</code></td>
+<td>日志级别（debug、info、error）</td>
+<td><code>--log-level debug</code></td>
+</tr>
+<tr>
+<td><code>--access-logfile</code></td>
+<td>访问日志路径</td>
+<td><code>--access-logfile /var/log/gunicorn/access.log</code></td>
+</tr>
+<tr>
+<td><code>--error-logfile</code></td>
+<td>错误日志路径</td>
+<td><code>--error-logfile /var/log/gunicorn/error.log</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="5-%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%BC%8Fworker-classes"><strong>5. 并发模式（Worker Classes）</strong></h3>
+<p>Gunicorn 支持多种工作模式，适用于不同场景：</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>描述</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>sync</strong>（默认）</td>
+<td>同步模式，每个进程处理一个请求</td>
+<td>I/O 密集型任务（如数据库查询）</td>
+</tr>
+<tr>
+<td><strong>gevent</strong></td>
+<td>基于协程的异步模式，支持高并发</td>
+<td>长连接、WebSocket 或高频 I/O 操作</td>
+</tr>
+<tr>
+<td><strong>gthread</strong></td>
+<td>每个进程包含多个线程</td>
+<td>需要线程级并发的场景</td>
+</tr>
+<tr>
+<td><strong>tornado</strong></td>
+<td>基于 Tornado 的异步框架</td>
+<td>需要事件驱动的异步处理</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="6-%E4%B8%8E-web-%E6%A1%86%E6%9E%B6%E7%9A%84%E9%9B%86%E6%88%90"><strong>6. 与 Web 框架的集成</strong></h3>
+<h4 id="61-flask-%E7%A4%BA%E4%BE%8B"><strong>6.1 Flask 示例</strong></h4>
+<pre class="hljs"><code><div><span class="hljs-comment"># app.py</span>
+<span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask
+app = Flask(__name__)
+
+<span class="hljs-meta">@app.route('/')</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">hello</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-string">"Hello, Gunicorn!"</span>
+</div></code></pre>
+<p>启动命令：</p>
+<pre class="hljs"><code><div>gunicorn -w 3 app:app  <span class="hljs-comment"># 启动 3 个工作进程</span>
+</div></code></pre>
+<h4 id="62-django-%E7%A4%BA%E4%BE%8B"><strong>6.2 Django 示例</strong></h4>
+<pre class="hljs"><code><div>gunicorn myproject.wsgi:application --workers 4 --<span class="hljs-built_in">bind</span> 0.0.0.0:8000
+</div></code></pre>
+<hr>
+<h3 id="7-%E6%97%A5%E5%BF%97%E4%B8%8E%E7%9B%91%E6%8E%A7"><strong>7. 日志与监控</strong></h3>
+<ul>
+<li><strong>日志功能</strong>：
+<ul>
+<li><strong>访问日志</strong>：记录每个请求的详细信息（如 URL、响应时间、状态码）。</li>
+<li><strong>错误日志</strong>：记录服务器错误、崩溃信息等。</li>
+<li>支持输出到文件、控制台或 syslog。</li>
+</ul>
+</li>
+<li><strong>监控工具</strong>：
+<ul>
+<li>可通过 <code>gunicorn --version</code> 查看版本。</li>
+<li>使用 <code>ps</code> 或 <code>htop</code> 查看进程状态。</li>
+<li>结合 Prometheus/Grafana 实现性能监控。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="8-%E4%BC%98%E7%BC%BA%E7%82%B9%E5%88%86%E6%9E%90"><strong>8. 优缺点分析</strong></h3>
+<h4 id="%E4%BC%98%E7%82%B9"><strong>优点</strong>：</h4>
+<ul>
+<li><strong>高性能</strong>：多进程模型和预分派机制适合高并发场景。</li>
+<li><strong>轻量级</strong>：无需复杂的配置，部署简单。</li>
+<li><strong>灵活性</strong>：支持多种工作模式和配置参数。</li>
+<li><strong>社区支持</strong>：活跃的开源社区和完善的文档。</li>
+</ul>
+<h4 id="%E7%BC%BA%E7%82%B9"><strong>缺点</strong>：</h4>
+<ul>
+<li><strong>依赖 Python</strong>：相比 C 编写的服务器（如 uWSGI），可能性能略低。</li>
+<li><strong>异步模式兼容性</strong>：使用 <code>gevent</code> 等异步库时，需确保代码兼容协程（避免阻塞操作）。</li>
+<li><strong>仅支持 WSGI</strong>：不支持 ASGI（需用 uvicorn 处理异步框架如 FastAPI）。</li>
+</ul>
+<hr>
+<h3 id="9-%E4%B8%8E%E5%90%8C%E7%B1%BB%E5%B7%A5%E5%85%B7%E7%9A%84%E5%AF%B9%E6%AF%94"><strong>9. 与同类工具的对比</strong></h3>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>特点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Gunicorn</strong></td>
+<td>Python 原生，多进程，支持多种并发模式</td>
+<td>Flask/Django 等 WSGI 应用，高并发场景</td>
+</tr>
+<tr>
+<td><strong>uWSGI</strong></td>
+<td>C 语言编写，支持更多协议（如 HTTP、WebSocket），配置复杂</td>
+<td>复杂生产环境，需要高性能和协议扩展</td>
+</tr>
+<tr>
+<td><strong>uvicorn</strong></td>
+<td>专为 ASGI 设计，支持异步框架（如 FastAPI）</td>
+<td>FastAPI、Starlette 等异步 Web 框架</td>
+</tr>
+<tr>
+<td><strong>Nginx + uWSGI</strong></td>
+<td>经典组合，静态资源处理 + 动态请求转发</td>
+<td>需要反向代理和负载均衡的复杂架构</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="10-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><strong>10. 最佳实践</strong></h3>
+<ol>
+<li><strong>工作进程数配置</strong>：
+<ul>
+<li>公式：<code>workers = 2 * CPU核心数 + 1</code>（根据负载调整）。</li>
+</ul>
+</li>
+<li><strong>异步模式选择</strong>：
+<ul>
+<li>使用 <code>gevent</code> 时，确保依赖库兼容非阻塞操作。</li>
+</ul>
+</li>
+<li><strong>结合反向代理</strong>：
+<ul>
+<li>通常与 Nginx 结合，Nginx 处理静态文件和反向代理，Gunicorn 处理动态请求。</li>
+</ul>
+</li>
+<li><strong>监控与告警</strong>：
+<ul>
+<li>监控 CPU/内存使用率、请求响应时间，设置告警阈值。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="11-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><strong>11. 常见问题</strong></h3>
+<h4 id="q-gunicorn-%E4%B8%8E-nginx-%E7%9A%84%E5%85%B3%E7%B3%BB"><strong>Q: Gunicorn 与 Nginx 的关系？</strong></h4>
+<ul>
+<li><strong>Nginx</strong>：作为反向代理，处理静态文件、负载均衡和 SSL 加密。</li>
+<li><strong>Gunicorn</strong>：处理动态请求，专注于 WSGI 应用的高性能运行。</li>
+</ul>
+<h4 id="q-%E5%A6%82%E4%BD%95%E8%B0%83%E8%AF%95-gunicorn-%E7%9A%84%E6%97%A5%E5%BF%97"><strong>Q: 如何调试 Gunicorn 的日志？</strong></h4>
+<ul>
+<li>增加日志级别：<code>--log-level debug</code>。</li>
+<li>检查错误日志文件（如 <code>/var/log/gunicorn/error.log</code>）。</li>
+</ul>
+<h4 id="q-%E5%BC%82%E6%AD%A5%E6%A8%A1%E5%BC%8F%E4%B8%8B%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%98%BB%E5%A1%9E"><strong>Q: 异步模式下如何避免阻塞？</strong></h4>
+<ul>
+<li>使用非阻塞库（如 <code>requests</code> 的 <code>async</code> 版本 <code>aiohttp</code>）。</li>
+<li>避免在协程中执行长时间的 CPU 密集型操作。</li>
+</ul>
+<hr>
+<h3 id="%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><strong>参考资料</strong></h3>
+<ul>
+<li><strong>官方文档</strong>：<a href="https://gunicorn.org">https://gunicorn.org</a></li>
+<li><strong>GitHub 仓库</strong>：<a href="https://github.com/benoitc/gunicorn">https://github.com/benoitc/gunicorn</a></li>
+</ul>
+
+</body>
+</html>

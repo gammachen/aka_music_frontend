@@ -1,0 +1,7221 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>小说知识图谱</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        #main {
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div id="main"></div>
+    <script>
+        var chart = echarts.init(document.getElementById('main'));
+        
+        // 添加窗口大小变化的响应式处理
+        window.addEventListener('resize', function() {
+            chart.resize();
+        });
+        var nodes = [{
+            "name": "中年道姑",
+            "category": "人物"
+        }, {
+            "name": "长须老者",
+            "category": "人物"
+        }, {
+            "name": "辛双清",
+            "category": "人物"
+        }, {
+            "name": "左子穆",
+            "category": "人物"
+        }, {
+            "name": "龚姓中年汉子",
+            "category": "人物"
+        }, {
+            "name": "褚姓少年",
+            "category": "人物"
+        }, {
+            "name": "段姓少年",
+            "category": "人物"
+        }, {
+            "name": "马五德",
+            "category": "人物"
+        }, {
+            "name": "段誉",
+            "category": "人物"
+        }, {
+            "name": "龚光杰",
+            "category": "人物"
+        }, {
+            "name": "无量剑西宗双清门下男女弟子们",
+            "category": "人物"
+        }, {
+            "name": "段誉(未出场)",
+            "category": "人物"
+        }, {
+            "name": "无量剑",
+            "category": "人物"
+        }, {
+            "name": "西宗门下",
+            "category": "人物"
+        }, {
+            "name": "双清",
+            "category": "人物"
+        }, {
+            "name": "辛师妹",
+            "category": "人物"
+        }, {
+            "name": "少女",
+            "category": "人物"
+        }, {
+            "name": "干光豪",
+            "category": "人物"
+        }, {
+            "name": "梁上的少女",
+            "category": "人物"
+        }, {
+            "name": "长胡子老头",
+            "category": "人物"
+        }, {
+            "name": "钟灵",
+            "category": "人物"
+        }, {
+            "name": "司空玄",
+            "category": "人物"
+        }, {
+            "name": "阿胜",
+            "category": "人物"
+        }, {
+            "name": "闪电貂",
+            "category": "人物"
+        }, {
+            "name": "太师父",
+            "category": "人物"
+        }, {
+            "name": "葛师妹",
+            "category": "人物"
+        }, {
+            "name": "两位高人",
+            "category": "人物"
+        }, {
+            "name": "段姓人物",
+            "category": "人物"
+        }, {
+            "name": "段举",
+            "category": "人物"
+        }, {
+            "name": "未知女子",
+            "category": "人物"
+        }, {
+            "name": "",
+            "category": "人物"
+        }, {
+            "name": "钟姑娘",
+            "category": "人物"
+        }, {
+            "name": "钟夫人",
+            "category": "人物"
+        }, {
+            "name": "少女丫鬟",
+            "category": "人物"
+        }, {
+            "name": "钟谷主",
+            "category": "人物"
+        }, {
+            "name": "进喜儿",
+            "category": "人物"
+        }, {
+            "name": "来福儿",
+            "category": "人物"
+        }, {
+            "name": "钟万仇",
+            "category": "人物"
+        }, {
+            "name": "段姓主角",
+            "category": "人物"
+        }, {
+            "name": "甘宝宝",
+            "category": "人物"
+        }, {
+            "name": "段公子",
+            "category": "人物"
+        }, {
+            "name": "小婢",
+            "category": "人物"
+        }, {
+            "name": "大汉1",
+            "category": "人物"
+        }, {
+            "name": "大汉2",
+            "category": "人物"
+        }, {
+            "name": "借马的小姐",
+            "category": "人物"
+        }, {
+            "name": "瑞婆婆",
+            "category": "人物"
+        }, {
+            "name": "平婆婆",
+            "category": "人物"
+        }, {
+            "name": "黑衣女郎",
+            "category": "人物"
+        }, {
+            "name": "黑衣女子",
+            "category": "人物"
+        }, {
+            "name": "女郎",
+            "category": "人物"
+        }, {
+            "name": "女魔头",
+            "category": "人物"
+        }, {
+            "name": "无量剑干光豪",
+            "category": "人物"
+        }, {
+            "name": "未知",
+            "category": "人物"
+        }, {
+            "name": "木婉清",
+            "category": "人物"
+        }, {
+            "name": "神秘黑衣女郎",
+            "category": "人物"
+        }, {
+            "name": "高身材老者",
+            "category": "人物"
+        }, {
+            "name": "黑玫瑰",
+            "category": "人物"
+        }, {
+            "name": "用户",
+            "category": "人物"
+        }, {
+            "name": "岳老二",
+            "category": "人物"
+        }, {
+            "name": "南海鳄神",
+            "category": "人物"
+        }, {
+            "name": "未知男性",
+            "category": "人物"
+        }, {
+            "name": "叶二娘",
+            "category": "人物"
+        }, {
+            "name": "小男孩",
+            "category": "人物"
+        }, {
+            "name": "老四",
+            "category": "人物"
+        }, {
+            "name": "段郎",
+            "category": "人物"
+        }, {
+            "name": "云四娘",
+            "category": "人物"
+        }, {
+            "name": "云中鹤",
+            "category": "人物"
+        }, {
+            "name": "山山",
+            "category": "人物"
+        }, {
+            "name": "草丛中儿童尸体",
+            "category": "人物"
+        }, {
+            "name": "神仙姊姊",
+            "category": "人物"
+        }, {
+            "name": "符圣使",
+            "category": "人物"
+        }, {
+            "name": "郁光标",
+            "category": "人物"
+        }, {
+            "name": "吴光胜",
+            "category": "人物"
+        }, {
+            "name": "无名送饭之人",
+            "category": "人物"
+        }, {
+            "name": "仆人",
+            "category": "人物"
+        }, {
+            "name": "段",
+            "category": "人物"
+        }, {
+            "name": "仆役",
+            "category": "人物"
+        }, {
+            "name": "莽牯朱蛤",
+            "category": "人物"
+        }, {
+            "name": "蜈蚣",
+            "category": "人物"
+        }, {
+            "name": "朱丹臣",
+            "category": "人物"
+        }, {
+            "name": "秦红棉",
+            "category": "人物"
+        }, {
+            "name": "玉虚散人",
+            "category": "人物"
+        }, {
+            "name": "高升泰",
+            "category": "人物"
+        }, {
+            "name": "褚万里",
+            "category": "人物"
+        }, {
+            "name": "古笃诚",
+            "category": "人物"
+        }, {
+            "name": "傅思归",
+            "category": "人物"
+        }, {
+            "name": "紫袍人",
+            "category": "人物"
+        }, {
+            "name": "高升泰等",
+            "category": "人物"
+        }, {
+            "name": "保定帝",
+            "category": "人物"
+        }, {
+            "name": "天下第一恶人",
+            "category": "人物"
+        }, {
+            "name": "霍先生",
+            "category": "人物"
+        }, {
+            "name": "段正淳",
+            "category": "人物"
+        }, {
+            "name": "无量剑七名弟子",
+            "category": "人物"
+        }, {
+            "name": "岳老三（南海鳄神）",
+            "category": "人物"
+        }, {
+            "name": "刀白凤",
+            "category": "人物"
+        }, {
+            "name": "镇南王",
+            "category": "人物"
+        }, {
+            "name": "青袍客",
+            "category": "人物"
+        }, {
+            "name": "角色A",
+            "category": "人物"
+        }, {
+            "name": "角色B",
+            "category": "人物"
+        }, {
+            "name": "巴天石子",
+            "category": "人物"
+        }, {
+            "name": "青袍怪客",
+            "category": "人物"
+        }, {
+            "name": "巴天石",
+            "category": "人物"
+        }, {
+            "name": "延庆太子",
+            "category": "人物"
+        }, {
+            "name": "上德帝段廉义",
+            "category": "人物"
+        }, {
+            "name": "上明帝段寿辉",
+            "category": "人物"
+        }, {
+            "name": "段正明",
+            "category": "人物"
+        }, {
+            "name": "黄眉和尚",
+            "category": "人物"
+        }, {
+            "name": "黄眉僧",
+            "category": "人物"
+        }, {
+            "name": "黄眉僧师祖",
+            "category": "人物"
+        }, {
+            "name": "岳老三",
+            "category": "人物"
+        }, {
+            "name": "过彦之",
+            "category": "人物"
+        }, {
+            "name": "段正离",
+            "category": "人物"
+        }, {
+            "name": "褚、古、傅、朱",
+            "category": "人物"
+        }, {
+            "name": "崔百泉",
+            "category": "人物"
+        }, {
+            "name": "过彦",
+            "category": "人物"
+        }, {
+            "name": "玄悲大师",
+            "category": "人物"
+        }, {
+            "name": "五叶方丈",
+            "category": "人物"
+        }, {
+            "name": "慕容家人物",
+            "category": "人物"
+        }, {
+            "name": "少林派弟子",
+            "category": "人物"
+        }, {
+            "name": "段延庆",
+            "category": "人物"
+        }, {
+            "name": "慧真",
+            "category": "人物"
+        }, {
+            "name": "少年慕容博",
+            "category": "人物"
+        }, {
+            "name": "未知男子",
+            "category": "人物"
+        }, {
+            "name": "黄眉大师",
+            "category": "人物"
+        }, {
+            "name": "丁春秋",
+            "category": "人物"
+        }, {
+            "name": "本观",
+            "category": "人物"
+        }, {
+            "name": "本相",
+            "category": "人物"
+        }, {
+            "name": "本参",
+            "category": "人物"
+        }, {
+            "name": "本因方丈",
+            "category": "人物"
+        }, {
+            "name": "枯荣大师",
+            "category": "人物"
+        }, {
+            "name": "本因",
+            "category": "人物"
+        }, {
+            "name": "鸠摩智",
+            "category": "人物"
+        }, {
+            "name": "慕容先生",
+            "category": "人物"
+        }, {
+            "name": "老衲",
+            "category": "人物"
+        }, {
+            "name": "大轮明王随从",
+            "category": "人物"
+        }, {
+            "name": "user",
+            "category": "人物"
+        }, {
+            "name": "牟尼堂中人",
+            "category": "人物"
+        }, {
+            "name": "保定帝等",
+            "category": "人物"
+        }, {
+            "name": "少林寺玄渡大师",
+            "category": "人物"
+        }, {
+            "name": "迦叶尊者",
+            "category": "人物"
+        }, {
+            "name": "中冲大师、本观大师、本参大师",
+            "category": "人物"
+        }, {
+            "name": "大轮明王",
+            "category": "人物"
+        }, {
+            "name": "明王",
+            "category": "人物"
+        }, {
+            "name": "天龙寺方丈",
+            "category": "人物"
+        }, {
+            "name": "阿碧",
+            "category": "人物"
+        }, {
+            "name": "师叔",
+            "category": "人物"
+        }, {
+            "name": "霍大爷",
+            "category": "人物"
+        }, {
+            "name": "柯百岁",
+            "category": "人物"
+        }, {
+            "name": "老人",
+            "category": "人物"
+        }, {
+            "name": "老仆",
+            "category": "人物"
+        }, {
+            "name": "孙三",
+            "category": "人物"
+        }, {
+            "name": "阿朱",
+            "category": "人物"
+        }, {
+            "name": "女子",
+            "category": "人物"
+        }, {
+            "name": "王夫人",
+            "category": "人物"
+        }, {
+            "name": "唐光雄",
+            "category": "人物"
+        }, {
+            "name": "清秀男子",
+            "category": "人物"
+        }, {
+            "name": "身穿藕色衫子的姑娘",
+            "category": "人物"
+        }, {
+            "name": "王姑娘",
+            "category": "人物"
+        }, {
+            "name": "小姐（未知身份）",
+            "category": "人物"
+        }, {
+            "name": "小茗",
+            "category": "人物"
+        }, {
+            "name": "王语嫣",
+            "category": "人物"
+        }, {
+            "name": "慕容公子",
+            "category": "人物"
+        }, {
+            "name": "严婆婆",
+            "category": "人物"
+        }, {
+            "name": "四川客1",
+            "category": "人物"
+        }, {
+            "name": "四川客2",
+            "category": "人物"
+        }, {
+            "name": "老者",
+            "category": "人物"
+        }, {
+            "name": "诸保昆",
+            "category": "人物"
+        }, {
+            "name": "司马林",
+            "category": "人物"
+        }, {
+            "name": "都灵子",
+            "category": "人物"
+        }, {
+            "name": "诸家",
+            "category": "人物"
+        }, {
+            "name": "人物姓名",
+            "category": "人物"
+        }, {
+            "name": "姜老爷子",
+            "category": "人物"
+        }, {
+            "name": "姚伯当",
+            "category": "人物"
+        }, {
+            "name": "孟老者",
+            "category": "人物"
+        }, {
+            "name": "包三先生",
+            "category": "人物"
+        }, {
+            "name": "包不同",
+            "category": "人物"
+        }, {
+            "name": "风四弟",
+            "category": "人物"
+        }, {
+            "name": "邓大嫂",
+            "category": "人物"
+        }, {
+            "name": "吐蕃和尚",
+            "category": "人物"
+        }, {
+            "name": "马迹山土人",
+            "category": "人物"
+        }, {
+            "name": "燕赵大汉",
+            "category": "人物"
+        }, {
+            "name": "跛足汉子",
+            "category": "人物"
+        }, {
+            "name": "愁眉老者",
+            "category": "人物"
+        }, {
+            "name": "乔峰",
+            "category": "人物"
+        }, {
+            "name": "陈长老",
+            "category": "人物"
+        }, {
+            "name": "矮老者",
+            "category": "人物"
+        }, {
+            "name": "彩蝎",
+            "category": "人物"
+        }, {
+            "name": "全冠清",
+            "category": "人物"
+        }, {
+            "name": "马二哥",
+            "category": "人物"
+        }, {
+            "name": "慕容复",
+            "category": "人物"
+        }, {
+            "name": "李春来",
+            "category": "人物"
+        }, {
+            "name": "白世镜",
+            "category": "人物"
+        }, {
+            "name": "宋长老",
+            "category": "人物"
+        }, {
+            "name": "刘竹庄",
+            "category": "人物"
+        }, {
+            "name": "奚长老",
+            "category": "人物"
+        }, {
+            "name": "吴长风",
+            "category": "人物"
+        }, {
+            "name": "赵钱孙",
+            "category": "人物"
+        }, {
+            "name": "单正",
+            "category": "人物"
+        }, {
+            "name": "马门温氏",
+            "category": "人物"
+        }, {
+            "name": "执法长老白世镜",
+            "category": "人物"
+        }, {
+            "name": "双歪",
+            "category": "人物"
+        }, {
+            "name": "谭公",
+            "category": "人物"
+        }, {
+            "name": "谭婆",
+            "category": "人物"
+        }, {
+            "name": "徐长老",
+            "category": "人物"
+        }, {
+            "name": "马大元",
+            "category": "人物"
+        }, {
+            "name": "智光大师",
+            "category": "人物"
+        }, {
+            "name": "智光",
+            "category": "人物"
+        }, {
+            "name": "带头大哥",
+            "category": "人物"
+        }, {
+            "name": "汪帮主",
+            "category": "人物"
+        }, {
+            "name": "辽人",
+            "category": "人物"
+        }, {
+            "name": "赵钱孙李,周吴郑王",
+            "category": "人物"
+        }, {
+            "name": "剑通兄",
+            "category": "人物"
+        }, {
+            "name": "契丹武士",
+            "category": "人物"
+        }, {
+            "name": "农人三槐",
+            "category": "人物"
+        }, {
+            "name": "带头大侠",
+            "category": "人物"
+        }, {
+            "name": "马夫人",
+            "category": "人物"
+        }, {
+            "name": "汪剑通",
+            "category": "人物"
+        }, {
+            "name": "吴长老",
+            "category": "人物"
+        }, {
+            "name": "西夏人",
+            "category": "人物"
+        }, {
+            "name": "大鼻子汉子",
+            "category": "人物"
+        }, {
+            "name": "打狗棒",
+            "category": "人物"
+        }, {
+            "name": "徐老",
+            "category": "人物"
+        }, {
+            "name": "努儿海",
+            "category": "人物"
+        }, {
+            "name": "西夏武士",
+            "category": "人物"
+        }, {
+            "name": "农女",
+            "category": "人物"
+        }, {
+            "name": "小伙子",
+            "category": "人物"
+        }, {
+            "name": "晋南虎爪门弟子",
+            "category": "人物"
+        }, {
+            "name": "西夏众武士",
+            "category": "人物"
+        }, {
+            "name": "李延宗",
+            "category": "人物"
+        }, {
+            "name": "慕容",
+            "category": "人物"
+        }, {
+            "name": "乔帮主",
+            "category": "人物"
+        }, {
+            "name": "赫连铁树",
+            "category": "人物"
+        }, {
+            "name": "易大彪",
+            "category": "人物"
+        }, {
+            "name": "契丹人",
+            "category": "人物"
+        }, {
+            "name": "西夏恶狗",
+            "category": "人物"
+        }, {
+            "name": "玄苦大师",
+            "category": "人物"
+        }, {
+            "name": "三槐公",
+            "category": "人物"
+        }, {
+            "name": "凶手",
+            "category": "人物"
+        }, {
+            "name": "玄慈大师",
+            "category": "人物"
+        }, {
+            "name": "玄慈方丈",
+            "category": "人物"
+        }, {
+            "name": "青松",
+            "category": "人物"
+        }, {
+            "name": "玄难大师",
+            "category": "人物"
+        }, {
+            "name": "守律僧",
+            "category": "人物"
+        }, {
+            "name": "止清",
+            "category": "人物"
+        }, {
+            "name": "被踢倒的三名少林僧",
+            "category": "人物"
+        }, {
+            "name": "止湛",
+            "category": "人物"
+        }, {
+            "name": "止渊",
+            "category": "人物"
+        }, {
+            "name": "玄寂",
+            "category": "人物"
+        }, {
+            "name": "未命名角色1",
+            "category": "人物"
+        }, {
+            "name": "止清和尚",
+            "category": "人物"
+        }, {
+            "name": "乔三槐夫妇",
+            "category": "人物"
+        }, {
+            "name": "鲍千灵",
+            "category": "人物"
+        }, {
+            "name": "向望海",
+            "category": "人物"
+        }, {
+            "name": "祁六",
+            "category": "人物"
+        }, {
+            "name": "赵老三",
+            "category": "人物"
+        }, {
+            "name": "薛神医",
+            "category": "人物"
+        }, {
+            "name": "游氏兄弟",
+            "category": "人物"
+        }, {
+            "name": "玄难、玄寂二僧",
+            "category": "人物"
+        }, {
+            "name": "玄慈",
+            "category": "人物"
+        }, {
+            "name": "玄难",
+            "category": "人物"
+        }, {
+            "name": "游驹",
+            "category": "人物"
+        }, {
+            "name": "传功长老",
+            "category": "人物"
+        }, {
+            "name": "赵钱孙李",
+            "category": "人物"
+        }, {
+            "name": "周吴郑王",
+            "category": "人物"
+        }, {
+            "name": "快刀祁六",
+            "category": "人物"
+        }, {
+            "name": "直镥孙",
+            "category": "人物"
+        }, {
+            "name": "铁面判官单氏父子",
+            "category": "人物"
+        }, {
+            "name": "乔三槐老公公和老婆婆",
+            "category": "人物"
+        }, {
+            "name": "单小山",
+            "category": "人物"
+        }, {
+            "name": "丐帮吴长老",
+            "category": "人物"
+        }, {
+            "name": "大宋官兵",
+            "category": "人物"
+        }, {
+            "name": "契丹妇女和婴儿",
+            "category": "人物"
+        }, {
+            "name": "萧峰",
+            "category": "人物"
+        }, {
+            "name": "马大元夫人",
+            "category": "人物"
+        }, {
+            "name": "白长老",
+            "category": "人物"
+        }, {
+            "name": "姑苏慕容氏",
+            "category": "人物"
+        }, {
+            "name": "达摩老祖",
+            "category": "人物"
+        }, {
+            "name": "酒保",
+            "category": "人物"
+        }, {
+            "name": "农夫傅某",
+            "category": "人物"
+        }, {
+            "name": "大恶人",
+            "category": "人物"
+        }, {
+            "name": "年轻女子",
+            "category": "人物"
+        }, {
+            "name": "渔人",
+            "category": "人物"
+        }, {
+            "name": "未知少女",
+            "category": "人物"
+        }, {
+            "name": "中年人",
+            "category": "人物"
+        }, {
+            "name": "紫衫少女",
+            "category": "人物"
+        }, {
+            "name": "美妇",
+            "category": "人物"
+        }, {
+            "name": "乔峰/萧峰",
+            "category": "人物"
+        }, {
+            "name": "美妇人",
+            "category": "人物"
+        }, {
+            "name": "御敌除恶之人",
+            "category": "人物"
+        }, {
+            "name": "浓眉大眼的汉子",
+            "category": "人物"
+        }, {
+            "name": "中等身材的汉子",
+            "category": "人物"
+        }, {
+            "name": "皇太弟段正淳",
+            "category": "人物"
+        }, {
+            "name": "阿紫",
+            "category": "人物"
+        }, {
+            "name": "阮星竹",
+            "category": "人物"
+        }, {
+            "name": "范骅",
+            "category": "人物"
+        }, {
+            "name": "华赫艮",
+            "category": "人物"
+        }, {
+            "name": "中年女子",
+            "category": "人物"
+        }, {
+            "name": "黑衣少女",
+            "category": "人物"
+        }, {
+            "name": "少女1",
+            "category": "人物"
+        }, {
+            "name": "修罗刀秦红棉",
+            "category": "人物"
+        }, {
+            "name": "康敏",
+            "category": "人物"
+        }, {
+            "name": "小康",
+            "category": "人物"
+        }, {
+            "name": "僵尸",
+            "category": "人物"
+        }, {
+            "name": "段姑娘",
+            "category": "人物"
+        }, {
+            "name": "Vox",
+            "category": "人物"
+        }, {
+            "name": "Sister Vox",
+            "category": "人物"
+        }, {
+            "name": "Brother Vox",
+            "category": "人物"
+        }, {
+            "name": "三师哥",
+            "category": "人物"
+        }, {
+            "name": "四师哥",
+            "category": "人物"
+        }, {
+            "name": "七师哥",
+            "category": "人物"
+        }, {
+            "name": "八师哥",
+            "category": "人物"
+        }, {
+            "name": "其他人",
+            "category": "人物"
+        }, {
+            "name": "出尘子",
+            "category": "人物"
+        }, {
+            "name": "大师兄",
+            "category": "人物"
+        }, {
+            "name": "四人",
+            "category": "人物"
+        }, {
+            "name": "摘星子",
+            "category": "人物"
+        }, {
+            "name": "狮鼻人",
+            "category": "人物"
+        }, {
+            "name": "王通治",
+            "category": "人物"
+        }, {
+            "name": "猎人",
+            "category": "人物"
+        }, {
+            "name": "耶律室里",
+            "category": "人物"
+        }, {
+            "name": "耶律洪基",
+            "category": "人物"
+        }, {
+            "name": "叛军",
+            "category": "人物"
+        }, {
+            "name": "皇太主",
+            "category": "人物"
+        }, {
+            "name": "楚王",
+            "category": "人物"
+        }, {
+            "name": "叛军将领",
+            "category": "人物"
+        }, {
+            "name": "御营官兵",
+            "category": "人物"
+        }, {
+            "name": "御营官兵家属",
+            "category": "人物"
+        }, {
+            "name": "洪基",
+            "category": "人物"
+        }, {
+            "name": "侍卫",
+            "category": "人物"
+        }, {
+            "name": "室里队长",
+            "category": "人物"
+        }, {
+            "name": "皇太叔",
+            "category": "人物"
+        }, {
+            "name": "世子",
+            "category": "人物"
+        }, {
+            "name": "白须将军",
+            "category": "人物"
+        }, {
+            "name": "随从",
+            "category": "人物"
+        }, {
+            "name": "辽国官兵",
+            "category": "人物"
+        }, {
+            "name": "俘虏",
+            "category": "人物"
+        }, {
+            "name": "游坦之",
+            "category": "人物"
+        }, {
+            "name": "蚕虫",
+            "category": "人物"
+        }, {
+            "name": "老汪",
+            "category": "人物"
+        }, {
+            "name": "小毕",
+            "category": "人物"
+        }, {
+            "name": "先吴长老",
+            "category": "人物"
+        }, {
+            "name": "苏星河",
+            "category": "人物"
+        }, {
+            "name": "聋哑老人",
+            "category": "人物"
+        }, {
+            "name": "星宿派人物",
+            "category": "人物"
+        }, {
+            "name": "天狼子",
+            "category": "人物"
+        }, {
+            "name": "巨蟒",
+            "category": "人物"
+        }, {
+            "name": "虚竹",
+            "category": "人物"
+        }, {
+            "name": "黄衣汉子",
+            "category": "人物"
+        }, {
+            "name": "枣红袍子大汉",
+            "category": "人物"
+        }, {
+            "name": "黑衣人",
+            "category": "人物"
+        }, {
+            "name": "慕容氏",
+            "category": "人物"
+        }, {
+            "name": "风波恶",
+            "category": "人物"
+        }, {
+            "name": "邓百川",
+            "category": "人物"
+        }, {
+            "name": "风恶",
+            "category": "人物"
+        }, {
+            "name": "公冶乾",
+            "category": "人物"
+        }, {
+            "name": "中年美妇",
+            "category": "人物"
+        }, {
+            "name": "黑须老者",
+            "category": "人物"
+        }, {
+            "name": "儒生打扮之人",
+            "category": "人物"
+        }, {
+            "name": "木匠",
+            "category": "人物"
+        }, {
+            "name": "青面獠牙红发绿须妖怪",
+            "category": "人物"
+        }, {
+            "name": "五哥",
+            "category": "人物"
+        }, {
+            "name": "玄痛",
+            "category": "人物"
+        }, {
+            "name": "工匠模样的人",
+            "category": "人物"
+        }, {
+            "name": "儒生",
+            "category": "人物"
+        }, {
+            "name": "薛慕华",
+            "category": "人物"
+        }, {
+            "name": "慧镜",
+            "category": "人物"
+        }, {
+            "name": "棋盘人",
+            "category": "人物"
+        }, {
+            "name": "书呆子",
+            "category": "人物"
+        }, {
+            "name": "弹琴老者",
+            "category": "人物"
+        }, {
+            "name": "戏子",
+            "category": "人物"
+        }, {
+            "name": "书生",
+            "category": "人物"
+        }, {
+            "name": "工匠",
+            "category": "人物"
+        }, {
+            "name": "李傀儡",
+            "category": "人物"
+        }, {
+            "name": "康广陵",
+            "category": "人物"
+        }, {
+            "name": "石清露",
+            "category": "人物"
+        }, {
+            "name": "苟读",
+            "category": "人物"
+        }, {
+            "name": "范百龄",
+            "category": "人物"
+        }, {
+            "name": "慕容氏手下的部属",
+            "category": "人物"
+        }, {
+            "name": "少林诸僧康广等函谷八友",
+            "category": "人物"
+        }, {
+            "name": "慧净",
+            "category": "人物"
+        }, {
+            "name": "unknown1",
+            "category": "人物"
+        }, {
+            "name": "unknown2",
+            "category": "人物"
+        }, {
+            "name": "聪辩先生",
+            "category": "人物"
+        }, {
+            "name": "恶贯满盈",
+            "category": "人物"
+        }, {
+            "name": "聪辩先生苏星河",
+            "category": "人物"
+        }, {
+            "name": "慧方",
+            "category": "人物"
+        }, {
+            "name": "少年相公",
+            "category": "人物"
+        }, {
+            "name": "星宿派弟子",
+            "category": "人物"
+        }, {
+            "name": "大头老者",
+            "category": "人物"
+        }, {
+            "name": "三十六洞主、七十二岛主",
+            "category": "人物"
+        }, {
+            "name": "黎夫人",
+            "category": "人物"
+        }, {
+            "name": "端木元",
+            "category": "人物"
+        }, {
+            "name": "桑土公",
+            "category": "人物"
+        }, {
+            "name": "头陀",
+            "category": "人物"
+        }, {
+            "name": "不平道人",
+            "category": "人物"
+        }, {
+            "name": "剑神卓先生",
+            "category": "人物"
+        }, {
+            "name": "芙蓉仙子",
+            "category": "人物"
+        }, {
+            "name": "乌老大",
+            "category": "人物"
+        }, {
+            "name": "天山童姥",
+            "category": "人物"
+        }, {
+            "name": "安洞主",
+            "category": "人物"
+        }, {
+            "name": "钦岛主",
+            "category": "人物"
+        }, {
+            "name": "三十六洞洞主和七十二岛岛主",
+            "category": "人物"
+        }, {
+            "name": "神秘声音",
+            "category": "人物"
+        }, {
+            "name": "无崖子",
+            "category": "人物"
+        }, {
+            "name": "玄悲",
+            "category": "人物"
+        }, {
+            "name": "玄苦",
+            "category": "人物"
+        }, {
+            "name": "女童",
+            "category": "人物"
+        }, {
+            "name": "那女童",
+            "category": "人物"
+        }, {
+            "name": "无崖子老先生",
+            "category": "人物"
+        }, {
+            "name": "小和尚",
+            "category": "人物"
+        }, {
+            "name": "未知女童",
+            "category": "人物"
+        }, {
+            "name": "矮胖子",
+            "category": "人物"
+        }, {
+            "name": "姥姥",
+            "category": "人物"
+        }, {
+            "name": "童姥",
+            "category": "人物"
+        }, {
+            "name": "白衫人",
+            "category": "人物"
+        }, {
+            "name": "李秋水",
+            "category": "人物"
+        }, {
+            "name": "主人公",
+            "category": "人物"
+        }, {
+            "name": "无崖子前辈",
+            "category": "人物"
+        }, {
+            "name": "苏星河前辈",
+            "category": "人物"
+        }, {
+            "name": "那少女",
+            "category": "人物"
+        }, {
+            "name": "丑和尚",
+            "category": "人物"
+        }, {
+            "name": "朱天部的哨骑",
+            "category": "人物"
+        }, {
+            "name": "阳天部的首领符敏仪",
+            "category": "人物"
+        }, {
+            "name": "程姊妹",
+            "category": "人物"
+        }, {
+            "name": "朱天部诸女",
+            "category": "人物"
+        }, {
+            "name": "阳天部哨骑",
+            "category": "人物"
+        }, {
+            "name": "绿衣女子",
+            "category": "人物"
+        }, {
+            "name": "昊天部、朱天部诸女",
+            "category": "人物"
+        }, {
+            "name": "赤天、阳天、玄天、幽天、成天五部众女",
+            "category": "人物"
+        }, {
+            "name": "鸾天部诸女",
+            "category": "人物"
+        }, {
+            "name": "程青霜",
+            "category": "人物"
+        }, {
+            "name": "石嫂",
+            "category": "人物"
+        }, {
+            "name": "余婆",
+            "category": "人物"
+        }, {
+            "name": "符敏仪",
+            "category": "人物"
+        }, {
+            "name": "大理段公子",
+            "category": "人物"
+        }, {
+            "name": "碧石岛主",
+            "category": "人物"
+        }, {
+            "name": "黄衫女子",
+            "category": "人物"
+        }, {
+            "name": "均天部的女子",
+            "category": "人物"
+        }, {
+            "name": "朱天、昊天各部姊妹",
+            "category": "人物"
+        }, {
+            "name": "反贼们",
+            "category": "人物"
+        }, {
+            "name": "珠崖二怪",
+            "category": "人物"
+        }, {
+            "name": "剑神卓不凡",
+            "category": "人物"
+        }, {
+            "name": "卓不凡",
+            "category": "人物"
+        }, {
+            "name": "崔绿华",
+            "category": "人物"
+        }, {
+            "name": "梅剑",
+            "category": "人物"
+        }, {
+            "name": "兰剑",
+            "category": "人物"
+        }, {
+            "name": "竹剑",
+            "category": "人物"
+        }, {
+            "name": "菊剑",
+            "category": "人物"
+        }, {
+            "name": "哈大霸",
+            "category": "人物"
+        }, {
+            "name": "慧轮",
+            "category": "人物"
+        }, {
+            "name": "四姝",
+            "category": "人物"
+        }, {
+            "name": "缘根",
+            "category": "人物"
+        }, {
+            "name": "神山上人",
+            "category": "人物"
+        }, {
+            "name": "玄字辈僧人",
+            "category": "人物"
+        }, {
+            "name": "菜园中僧人",
+            "category": "人物"
+        }, {
+            "name": "玄寂大师",
+            "category": "人物"
+        }, {
+            "name": "波罗星大师",
+            "category": "人物"
+        }, {
+            "name": "哲罗星大师",
+            "category": "人物"
+        }, {
+            "name": "上人",
+            "category": "人物"
+        }, {
+            "name": "戒律院首座玄寂大师",
+            "category": "人物"
+        }, {
+            "name": "方丈(玄慈)",
+            "category": "人物"
+        }, {
+            "name": "天竺胡僧哲罗星",
+            "category": "人物"
+        }, {
+            "name": "哲罗星",
+            "category": "人物"
+        }, {
+            "name": "神山",
+            "category": "人物"
+        }, {
+            "name": "波罗星",
+            "category": "人物"
+        }, {
+            "name": "灵门禅师",
+            "category": "人物"
+        }, {
+            "name": "神音",
+            "category": "人物"
+        }, {
+            "name": "老僧",
+            "category": "人物"
+        }, {
+            "name": "玄生",
+            "category": "人物"
+        }, {
+            "name": "元元大师",
+            "category": "人物"
+        }, {
+            "name": "七指头陀",
+            "category": "人物"
+        }, {
+            "name": "玄生师叔祖",
+            "category": "人物"
+        }, {
+            "name": "玄渡",
+            "category": "人物"
+        }, {
+            "name": "观心等",
+            "category": "人物"
+        }, {
+            "name": "梅兰菊竹四女",
+            "category": "人物"
+        }, {
+            "name": "丁老怪",
+            "category": "人物"
+        }, {
+            "name": "观心",
+            "category": "人物"
+        }, {
+            "name": "道清",
+            "category": "人物"
+        }, {
+            "name": "辽帝",
+            "category": "人物"
+        }, {
+            "name": "南院枢密使耶律莫哥",
+            "category": "人物"
+        }, {
+            "name": "段正游",
+            "category": "人物"
+        }, {
+            "name": "邓百川、公冶乾、包不同、风波恶",
+            "category": "人物"
+        }, {
+            "name": "灰衣僧人",
+            "category": "人物"
+        }, {
+            "name": "未知高僧1",
+            "category": "人物"
+        }, {
+            "name": "未知高僧2",
+            "category": "人物"
+        }, {
+            "name": "聚贤庄众人",
+            "category": "人物"
+        }, {
+            "name": "李太白",
+            "category": "人物"
+        }, {
+            "name": "门人",
+            "category": "人物"
+        }, {
+            "name": "少林寺僧人",
+            "category": "人物"
+        }, {
+            "name": "星宿派门人",
+            "category": "人物"
+        }, {
+            "name": "吐蕃国师鸠摩智",
+            "category": "人物"
+        }, {
+            "name": "余婆婆",
+            "category": "人物"
+        }, {
+            "name": "黑衣僧",
+            "category": "人物"
+        }, {
+            "name": "智光和尚",
+            "category": "人物"
+        }, {
+            "name": "萧远山",
+            "category": "人物"
+        }, {
+            "name": "慕容博",
+            "category": "人物"
+        }, {
+            "name": "金算盘崔百泉",
+            "category": "人物"
+        }, {
+            "name": "吐蕃、西夏、大理三国势力",
+            "category": "人物"
+        }, {
+            "name": "道清大师",
+            "category": "人物"
+        }, {
+            "name": "玄灭",
+            "category": "人物"
+        }, {
+            "name": "乔三槐",
+            "category": "人物"
+        }, {
+            "name": "庄聚贤",
+            "category": "人物"
+        }, {
+            "name": "小哥哥",
+            "category": "人物"
+        }, {
+            "name": "四剑",
+            "category": "人物"
+        }, {
+            "name": "庄帮主",
+            "category": "人物"
+        }, {
+            "name": "吐播国王子",
+            "category": "人物"
+        }, {
+            "name": "西夏礼部陶侍郎",
+            "category": "人物"
+        }, {
+            "name": "吐番武士",
+            "category": "人物"
+        }, {
+            "name": "吐蕃武士",
+            "category": "人物"
+        }, {
+            "name": "张三",
+            "category": "人物"
+        }, {
+            "name": "李四",
+            "category": "人物"
+        }, {
+            "name": "银川公主",
+            "category": "人物"
+        }, {
+            "name": "众男子",
+            "category": "人物"
+        }, {
+            "name": "宗赞王子",
+            "category": "人物"
+        }, {
+            "name": "绿杉宫女",
+            "category": "人物"
+        }, {
+            "name": "西夏公主",
+            "category": "人物"
+        }, {
+            "name": "宫女",
+            "category": "人物"
+        }, {
+            "name": "四五十人",
+            "category": "人物"
+        }, {
+            "name": "虚竹子",
+            "category": "人物"
+        }, {
+            "name": "贾老者",
+            "category": "人物"
+        }, {
+            "name": "老婆婆",
+            "category": "人物"
+        }, {
+            "name": "巴叔叔",
+            "category": "人物"
+        }, {
+            "name": "白衣女子",
+            "category": "人物"
+        }, {
+            "name": "皇帝",
+            "category": "人物"
+        }, {
+            "name": "段夫人",
+            "category": "人物"
+        }, {
+            "name": "段夫人刀白凤",
+            "category": "人物"
+        }, {
+            "name": "崔百录",
+            "category": "人物"
+        }, {
+            "name": "赵煦",
+            "category": "人物"
+        }, {
+            "name": "太皇太后",
+            "category": "人物"
+        }, {
+            "name": "王安石",
+            "category": "人物"
+        }, {
+            "name": "司马光、吕公著、苏轼",
+            "category": "人物"
+        }, {
+            "name": "刘娥",
+            "category": "人物"
+        }, {
+            "name": "苏轼",
+            "category": "人物"
+        }, {
+            "name": "范祖禹",
+            "category": "人物"
+        }, {
+            "name": "乐士宣、刘惟简、梁从政等",
+            "category": "人物"
+        }, {
+            "name": "皇上",
+            "category": "人物"
+        }, {
+            "name": "穆贵妃",
+            "category": "人物"
+        }, {
+            "name": "多名岛主",
+            "category": "人物"
+        }, {
+            "name": "辽国兵将",
+            "category": "人物"
+        }, {
+            "name": "虚生",
+            "category": "人物"
+        }, {
+            "name": "军官",
+            "category": "人物"
+        }, {
+            "name": "帝释",
+            "category": "人物"
+        }, {
+            "name": "夜叉八大将",
+            "category": "人物"
+        }, {
+            "name": "乾达婆",
+            "category": "人物"
+        }, {
+            "name": "阿修罗王",
+            "category": "人物"
+        }, {
+            "name": "八部罗",
+            "category": "人物"
+        }];
+        
+        var links = [
+        {
+          "source": "左子穆",
+          "target": "长须老者",
+          "name": "师徒关系"
+        },
+        {
+          "source": "辛双清",
+          "target": "中年道姑",
+          "name": "师妹关系"
+        },
+        {
+          "source": "龚光杰",
+          "target": "未出场的无量剑西宗双清门下男女弟子们",
+          "name": "师徒关系"
+        },
+        {
+          "source": "段誉",
+          "target": "马五德",
+          "name": "朋友关系"
+        },
+        {
+          "source": "左子穆",
+          "target": "干光豪",
+          "name": "师徒关系"
+        },
+        {
+          "source": "左子穆",
+          "target": "龚光杰",
+          "name": "师徒关系"
+        },
+        {
+          "source": "段誉",
+          "target": "梁上的少女",
+          "name": "未知"
+        },
+        {
+          "source": "少女",
+          "target": "她的父母",
+          "name": "师徒关系"
+        },
+        {
+          "source": "神农帮",
+          "target": "无量剑宗",
+          "name": "敌对"
+        },
+        {
+          "source": "无量剑门客",
+          "target": "无量剑掌门",
+          "name": "关系类型"
+        },
+        {
+          "source": "段誉",
+          "target": "少女",
+          "name": "朋友关系"
+        },
+        {
+          "source": "钟灵",
+          "target": "段誉",
+          "name": "帮助与被帮助关系"
+        },
+        {
+          "source": "段誉",
+          "target": "钟灵",
+          "name": "误会关系"
+        },
+        {
+          "source": "无量剑",
+          "target": "段誉",
+          "name": "求助关系"
+        },
+        {
+          "source": "钟灵",
+          "target": "段誉",
+          "name": "参与关系"
+        },
+        {
+          "source": "闪电貂",
+          "target": "司空玄和帮众",
+          "name": "敌对"
+        },
+        {
+          "source": "段誉",
+          "target": "钟灵",
+          "name": "保护关系"
+        },
+        {
+          "source": "段誉",
+          "target": "司空玄",
+          "name": "被威胁"
+        },
+        {
+          "source": "诸帮众",
+          "target": "司空玄",
+          "name": "救助与保护"
+        },
+        {
+          "source": "段誉",
+          "target": "钟灵",
+          "name": "爱情关系"
+        },
+        {
+          "source": "段誉",
+          "target": "钟灵",
+          "name": "友情关系"
+        },
+        {
+          "source": "干光豪",
+          "target": "葛师妹",
+          "name": "夫妻关系"
+        },
+        {
+          "source": "太师父",
+          "target": [
+            "干光豪",
+            "葛师妹"
+          ],
+          "name": "师徒关系"
+        },
+        {
+          "source": "沈师伯",
+          "target": "干光豪",
+          "name": "长辈-晚辈关系"
+        },
+        {
+          "source": "干光豪",
+          "target": "葛师妹",
+          "name": "恋人关系"
+        },
+        {
+          "source": "段誉",
+          "target": "松树",
+          "name": "救与被救"
+        },
+        {
+          "source": "钟灵",
+          "target": "段誉",
+          "name": "友情"
+        },
+        {
+          "source": "未知仙人",
+          "target": "段誉",
+          "name": "救援"
+        },
+        {
+          "source": "无量剑",
+          "target": "两人高人",
+          "name": "剑派与高人"
+        },
+        {
+          "source": "段姓人物",
+          "target": [
+            "无量剑成员",
+            "两人高人"
+          ],
+          "name": "发现者与观察者"
+        },
+        {
+          "source": "段举",
+          "target": "未知女子",
+          "name": "思念"
+        },
+        {
+          "source": "段举",
+          "target": "玉像",
+          "name": "误解"
+        },
+        {
+          "source": "段举",
+          "target": "出口",
+          "name": "发现关联"
+        },
+        {
+          "source": "玉像",
+          "target": "段誉",
+          "name": "被观察"
+        },
+        {
+          "source": "段誉",
+          "target": "钟家姑娘",
+          "name": "寻找钟家姑娘"
+        },
+        {
+          "source": "段誉",
+          "target": "玉像",
+          "name": "忠于玉像命令"
+        },
+        {
+          "source": "钟灵",
+          "target": "钟夫人",
+          "name": "母女关系"
+        },
+        {
+          "source": "段誉",
+          "target": "钟夫人",
+          "name": "拜见与被拜见的关系"
+        },
+        {
+          "source": "钟夫人",
+          "target": "钟谷主",
+          "name": "夫妻关系"
+        },
+        {
+          "source": "进喜儿",
+          "target": "钟谷主",
+          "name": "父子关系"
+        },
+        {
+          "source": "来福儿",
+          "target": "钟夫人",
+          "name": "从属关系"
+        },
+        {
+          "source": "钟万仇",
+          "target": "钟夫人",
+          "name": "夫妻关系"
+        },
+        {
+          "source": "钟万仇",
+          "target": "段姓主角",
+          "name": "情感纠葛"
+        },
+        {
+          "source": "段誉",
+          "target": "母亲",
+          "name": "家庭关系"
+        },
+        {
+          "source": "钟夫人",
+          "target": "丈夫",
+          "name": "夫妻关系"
+        },
+        {
+          "source": "甘宝宝",
+          "target": "钟万仇",
+          "name": "夫妇关系"
+        },
+        {
+          "source": "甘宝宝",
+          "target": "段公子",
+          "name": "求助关系"
+        },
+        {
+          "source": "段誉",
+          "target": "借马的小姐",
+          "name": "帮助与被帮助"
+        },
+        {
+          "source": "大汉1、大汉2",
+          "target": "段誉",
+          "name": "对抗关系"
+        },
+        {
+          "source": "瑞婆婆",
+          "target": "平婆婆",
+          "name": "亲属关系"
+        },
+        {
+          "source": "段誉",
+          "target": [
+            "瑞婆婆",
+            "黑衣女郎"
+          ],
+          "name": "问答关系"
+        },
+        {
+          "source": "瑞婆婆等",
+          "target": "段誉",
+          "name": "被围困与解救者"
+        },
+        {
+          "source": "段誉",
+          "target": "黑衣女子",
+          "name": "盟友"
+        },
+        {
+          "source": "瑞婆婆、平婆婆等",
+          "target": "黑衣女子",
+          "name": "敌对"
+        },
+        {
+          "source": "段誉",
+          "target": "女郎",
+          "name": "被救关系"
+        },
+        {
+          "source": "女魔头",
+          "target": "段誉",
+          "name": "对抗关系"
+        },
+        {
+          "source": "段誉",
+          "target": "黑玫瑰",
+          "name": "合作关系"
+        },
+        {
+          "source": "无量剑干光豪",
+          "target": "葛师妹",
+          "name": "夫妻关系"
+        },
+        {
+          "source": "黑衣女郎",
+          "target": [
+            "无量剑干光豪",
+            "葛师妹"
+          ],
+          "name": "恩怨关系"
+        },
+        {
+          "source": "段誉",
+          "target": "黑衣女郎",
+          "name": "帮助关系"
+        },
+        {
+          "source": "女郎",
+          "target": "段誉",
+          "name": "合作关系"
+        },
+        {
+          "source": "女郎",
+          "target": "段誉",
+          "name": "信任关系"
+        },
+        {
+          "source": "段誉",
+          "target": "神秘黑衣女郎",
+          "name": "合作关系"
+        },
+        {
+          "source": "木婉清",
+          "target": "神秘黑衣女郎",
+          "name": "被帮助关系"
+        },
+        {
+          "source": "段誉",
+          "target": "木婉清",
+          "name": "同盟关系"
+        },
+        {
+          "source": "高身材老者",
+          "target": "木婉清",
+          "name": "敌对关系"
+        },
+        {
+          "source": "黑玫瑰",
+          "target": "木婉清",
+          "name": "帮助与被帮助关系"
+        },
+        {
+          "source": "段誉",
+          "target": "木婉清",
+          "name": "关系"
+        },
+        {
+          "source": "木婉清",
+          "target": "段誉",
+          "name": "对话内容"
+        },
+        {
+          "source": "木婉清",
+          "target": "段誉",
+          "name": "情感交流"
+        },
+        {
+          "source": "木婉清",
+          "target": "段誉",
+          "name": "恩怨关联"
+        },
+        {
+          "source": "段誉",
+          "target": "木婉清",
+          "name": "感激/求助"
+        },
+        {
+          "source": "段誉",
+          "target": "木婉清",
+          "name": "帮助与被帮助"
+        },
+        {
+          "source": "段誉",
+          "target": "岳老二",
+          "name": "对话与理解"
+        },
+        {
+          "source": "南海鳄神",
+          "target": "木婉清",
+          "name": "询问与回答"
+        },
+        {
+          "source": "木婉清",
+          "target": "段誉",
+          "name": "对话关系"
+        },
+        {
+          "source": "南海鳄神",
+          "target": "段誉和木婉清",
+          "name": "对抗关系"
+        },
+        {
+          "source": "段誉",
+          "target": "木婉清",
+          "name": "婚姻"
+        },
+        {
+          "source": "木婉清",
+          "target": "师父",
+          "name": "师徒关系"
+        },
+        {
+          "source": "段誉",
+          "target": "木婉清",
+          "name": "夫妻关系"
+        },
+        {
+          "source": "甘宝宝",
+          "target": "钟灵",
+          "name": "母女关系"
+        },
+        {
+          "source": "段誉",
+          "target": "木婉清",
+          "name": "伴侣关系"
+        },
+        {
+          "source": "木婉清师父",
+          "target": "木婉清",
+          "name": "师徒关系"
+        },
+        {
+          "source": "木婉清",
+          "target": "未知男性",
+          "name": "夫妻关系"
+        },
+        {
+          "source": "南海鳄神",
+          "target": [
+            "木婉清",
+            "未知男性"
+          ],
+          "name": "师徒关系威胁"
+        },
+        {
+          "source": "南海鳄神",
+          "target": "叶二娘",
+          "name": "家族关系"
+        },
+        {
+          "source": "叶二娘",
+          "target": "小男孩",
+          "name": "母子"
+        },
+        {
+          "source": "南海鳄神",
+          "target": "老四",
+          "name": "师徒关系"
+        },
+        {
+          "source": "叶二娘",
+          "target": "南海鳄神",
+          "name": "上下属关系"
+        },
+        {
+          "source": "段郎",
+          "target": "木婉清",
+          "name": "丈夫与妻子关系"
+        },
+        {
+          "source": "南海鳄神",
+          "target": "段郎",
+          "name": "师徒关系"
+        },
+        {
+          "source": "段誉",
+          "target": "南海鳄神",
+          "name": "师徒关系"
+        },
+        {
+          "source": "南海鳄神",
+          "target": "云中鹤",
+          "name": "敌对关系"
+        },
+        {
+          "source": "木婉清",
+          "target": "南海鳄神",
+          "name": "帮助关系"
+        },
+        {
+          "source": "云中鹤",
+          "target": "南海鳄神",
+          "name": "对抗关系"
+        },
+        {
+          "source": "叶二娘",
+          "target": "木婉清",
+          "name": "关注关系"
+        },
+        {
+          "source": "叶二娘",
+          "target": "婴儿山山",
+          "name": "关注关系"
+        },
+        {
+          "source": "左子穆",
+          "target": "山山",
+          "name": "父子关系"
+        },
+        {
+          "source": "云中鹤",
+          "target": "南海鳄神",
+          "name": "江湖对手关系"
+        },
+        {
+          "source": "神仙姊姊",
+          "target": "段誉",
+          "name": "师徒关系"
+        },
+        {
+          "source": "司空玄等人",
+          "target": "段誉",
+          "name": "帮助关系"
+        },
+        {
+          "source": "司空玄",
+          "target": "符圣使",
+          "name": "隶属关系"
+        },
+        {
+          "source": "段誉",
+          "target": "辛双清和郁吴二人",
+          "name": "被带下山"
+        },
+        {
+          "source": "段誉",
+          "target": "左子穆、辛双清",
+          "name": "请求"
+        },
+        {
+          "source": "段誉",
+          "target": "不知姓名的神仙姐姐",
+          "name": "师徒关系"
+        },
+        {
+          "source": "段誉",
+          "target": "南海鳄神",
+          "name": "思考关系"
+        },
+        {
+          "source": "段誉",
+          "target": "郁光标",
+          "name": "对抗关系"
+        },
+        {
+          "source": "段誉",
+          "target": "仆人",
+          "name": "动作执行者与受动者"
+        },
+        {
+          "source": "郁光标",
+          "target": "吴光胜",
+          "name": "师兄弟关系"
+        },
+        {
+          "source": "闪电貂",
+          "target": "钟灵",
+          "name": "宠物与主人关系"
+        },
+        {
+          "source": "莽牯朱蛤",
+          "target": "段誉",
+          "name": "共生关系"
+        },
+        {
+          "source": "蜈蚣",
+          "target": "段誉",
+          "name": "共生关系"
+        },
+        {
+          "source": "用户",
+          "target": "朱丹臣",
+          "name": "朋友关系"
+        },
+        {
+          "source": "木婉清",
+          "target": "用户",
+          "name": "认识"
+        },
+        {
+          "source": [
+            "高叔叔",
+            "善阐侯"
+          ],
+          "target": "用户",
+          "name": "保护与被保护"
+        },
+        {
+          "source": "段誉",
+          "target": "木婉清",
+          "name": "友情/爱情"
+        },
+        {
+          "source": "朱丹臣",
+          "target": "用户",
+          "name": "敌对关系"
+        },
+        {
+          "source": "朱丹臣",
+          "target": "木婉清",
+          "name": "合作关系"
+        },
+        {
+          "source": "朱丹臣",
+          "target": "段誉",
+          "name": "合作关系"
+        },
+        {
+          "source": "木婉清",
+          "target": "段誉",
+          "name": "合作关系"
+        },
+        {
+          "source": "秦红棉",
+          "target": "段誉",
+          "name": "母子"
+        },
+        {
+          "source": "木婉清",
+          "target": "段誉",
+          "name": "夫妻"
+        },
+        {
+          "source": "木婉清",
+          "target": "段誉",
+          "name": "救授"
+        },
+        {
+          "source": "木婉清",
+          "target": "幽谷客",
+          "name": "师徒关系"
+        },
+        {
+          "source": "木婉清",
+          "target": "玉虚散人",
+          "name": "血缘关系"
+        },
+        {
+          "source": "傅思归",
+          "target": "王妃",
+          "name": "身份称呼"
+        },
+        {
+          "source": "紫袍人",
+          "target": "段誉",
+          "name": "父与子关系"
+        },
+        {
+          "source": "玉虚散人",
+          "target": "段誉",
+          "name": "母与子关系"
+        },
+        {
+          "source": "紫袍人",
+          "target": "木婉清",
+          "name": "公婆与儿媳关系"
+        },
+        {
+          "source": "木婉清",
+          "target": "保定帝",
+          "name": "亲密关系"
+        },
+        {
+          "source": "南海鳄神",
+          "target": "段誉",
+          "name": "师徒关系"
+        },
+        {
+          "source": "南海鳄神",
+          "target": "段誉",
+          "name": "师徒关系"
+        },
+        {
+          "source": "段誉",
+          "target": "南海鳄神",
+          "name": "比武决斗"
+        },
+        {
+          "source": "段正淳",
+          "target": "无量剑七名弟子",
+          "name": "父子关系"
+        },
+        {
+          "source": "木婉清",
+          "target": "南海鳄神",
+          "name": "师徒关系"
+        },
+        {
+          "source": "玉虚散人",
+          "target": "南海鳄神",
+          "name": "观众与表演者关系"
+        },
+        {
+          "source": "高升泰",
+          "target": "南海鳄神",
+          "name": "观众与表演者关系"
+        },
+        {
+          "source": "南海鳄神",
+          "target": "段正淳",
+          "name": "挑战者与被挑战者关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "段誉",
+          "name": "父子关系"
+        },
+        {
+          "source": "段誉",
+          "target": "岳老三（南海鳄神）",
+          "name": "师徒关系"
+        },
+        {
+          "source": "玉虚散人",
+          "target": "段正淳",
+          "name": "夫妻关系"
+        },
+        {
+          "source": "木婉清",
+          "target": "玉虚散人",
+          "name": "师徒关系"
+        },
+        {
+          "source": "段誉",
+          "target": "木婉清",
+          "name": "恋人关系"
+        },
+        {
+          "source": "木婉清",
+          "target": "段正淳",
+          "name": "师徒关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "木婉清",
+          "name": "夫妻关系"
+        },
+        {
+          "source": "段誉",
+          "target": "木婉清",
+          "name": "兄妹关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "段誉",
+          "name": "父子关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "段誉",
+          "name": "父子关系"
+        },
+        {
+          "source": "木婉清",
+          "target": "段誉",
+          "name": "兄妹关系"
+        },
+        {
+          "source": "甘宝宝",
+          "target": "木婉清",
+          "name": "师徒关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "秦红棉",
+          "name": "爱情关系"
+        },
+        {
+          "source": "甘宝宝",
+          "target": "丈夫",
+          "name": "婚姻关系"
+        },
+        {
+          "source": "钟万仇",
+          "target": "钟夫人",
+          "name": "夫妻关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "誉儿",
+          "name": "父子关系"
+        },
+        {
+          "source": "母亲",
+          "target": "木婉清",
+          "name": "抚养关系"
+        },
+        {
+          "source": "镇南王",
+          "target": "刀白凤",
+          "name": "夫妻关系"
+        },
+        {
+          "source": "木婉清",
+          "target": "镇南王",
+          "name": "父母关系"
+        },
+        {
+          "source": "木婉清",
+          "target": "青袍客",
+          "name": "互动"
+        },
+        {
+          "source": "木婉清",
+          "target": "青袍客",
+          "name": "询问和回答"
+        },
+        {
+          "source": "木婉清",
+          "target": "段誉",
+          "name": "兄妹关系"
+        },
+        {
+          "source": "段誉",
+          "target": "木婉清",
+          "name": "兄妹"
+        },
+        {
+          "source": "段誉",
+          "target": "木婉清",
+          "name": "情侣关系"
+        },
+        {
+          "source": "段誉",
+          "target": "木婉清",
+          "name": "兄妹关系"
+        },
+        {
+          "source": "段誉",
+          "target": "木婉清",
+          "name": "教授与学习关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "南海鳄神",
+          "name": "师父与徒弟关系"
+        },
+        {
+          "source": "傅思归",
+          "target": [
+            "角色A",
+            "角色B"
+          ],
+          "name": "对话参与者"
+        },
+        {
+          "source": "保定帝",
+          "target": "那少女",
+          "name": "询问与被询问关系"
+        },
+        {
+          "source": "钟万仇",
+          "target": "钟灵",
+          "name": "父女关系"
+        },
+        {
+          "source": "保定帝",
+          "target": "众随从",
+          "name": "领导与追随者"
+        },
+        {
+          "source": "青袍客",
+          "target": "保定帝",
+          "name": "师徒关系"
+        },
+        {
+          "source": "钟灵",
+          "target": "青袍客",
+          "name": "被挟持者与施害者关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "保定帝",
+          "name": "兄长关系"
+        },
+        {
+          "source": "秦红棉",
+          "target": "甘宝宝",
+          "name": "师妹关系"
+        },
+        {
+          "source": "上德帝段廉义",
+          "target": "延庆太子",
+          "name": "父子关系"
+        },
+        {
+          "source": "上明帝段寿辉",
+          "target": "保定帝",
+          "name": "兄弟关系"
+        },
+        {
+          "source": "保定帝",
+          "target": [
+            "高智升",
+            "高升泰",
+            "巴天石",
+            "段正淳"
+          ],
+          "name": "君臣关系"
+        },
+        {
+          "source": "杨义贞",
+          "target": [
+            "上德帝段廉义",
+            "延庆太子"
+          ],
+          "name": "敌对关系"
+        },
+        {
+          "source": "黄眉和尚",
+          "target": "段正明",
+          "name": "师徒关系"
+        },
+        {
+          "source": "两名中年和尚",
+          "target": "黄眉僧",
+          "name": "从属关系"
+        },
+        {
+          "source": "段正明",
+          "target": "段誉",
+          "name": "亲属关系"
+        },
+        {
+          "source": "黄眉僧",
+          "target": "破疑和尚",
+          "name": "师生关系"
+        },
+        {
+          "source": "黄眉僧",
+          "target": "破嗔和尚",
+          "name": "师生关系"
+        },
+        {
+          "source": "保定帝",
+          "target": "段正淳夫妇",
+          "name": "君臣关系"
+        },
+        {
+          "source": "南海鳄神",
+          "target": "徒弟",
+          "name": "师徒关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "钟万仇",
+          "name": "父子关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "木婉清",
+          "name": "父女关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "钟灵",
+          "name": "关系类型"
+        },
+        {
+          "source": "南海鳄神",
+          "target": "师娘",
+          "name": "关系类型"
+        },
+        {
+          "source": "段正淳",
+          "target": "钟灵",
+          "name": "父女关系"
+        },
+        {
+          "source": "柯百岁",
+          "target": "过彦之",
+          "name": "师徒关系"
+        },
+        {
+          "source": "甘宝宝",
+          "target": [
+            "钟万仇",
+            "段正离"
+          ],
+          "name": "情感纠葛"
+        },
+        {
+          "source": "段正淳",
+          "target": "崔百泉",
+          "name": "接纳关系"
+        },
+        {
+          "source": "五叶方丈",
+          "target": "少林派弟子",
+          "name": "师徒关系"
+        },
+        {
+          "source": "慕容家人物",
+          "target": "玄悲大师",
+          "name": "报信关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "大理国臣民",
+          "name": "王与臣关系"
+        },
+        {
+          "source": "慧真",
+          "target": "慧观",
+          "name": "师兄弟关系"
+        },
+        {
+          "source": "黄眉僧",
+          "target": [
+            "保定帝",
+            "段正淳",
+            "崔百泉",
+            "过彦之"
+          ],
+          "name": "对话参与者"
+        },
+        {
+          "source": "少年慕容博",
+          "target": "黄眉僧",
+          "name": "关系"
+        },
+        {
+          "source": "崔百泉",
+          "target": "黄眉僧",
+          "name": "询问"
+        },
+        {
+          "source": "未知男子和未知女子",
+          "target": "崔百泉",
+          "name": "恩怨关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "保定帝",
+          "name": "君臣关系"
+        },
+        {
+          "source": "黄眉僧",
+          "target": "崔百泉, 过彦之",
+          "name": "师兄弟关系"
+        },
+        {
+          "source": "段誉的妈妈",
+          "target": "秦红棉",
+          "name": "亲情关系"
+        },
+        {
+          "source": "木婉清",
+          "target": "秦红棉",
+          "name": "朋友关系"
+        },
+        {
+          "source": "南海鳄神",
+          "target": "钟灵",
+          "name": "师徒关系"
+        },
+        {
+          "source": "钟万仇",
+          "target": "甘宝宝",
+          "name": "夫妻关系"
+        },
+        {
+          "source": "段誉",
+          "target": "钟夫人",
+          "name": "夫妻关系"
+        },
+        {
+          "source": "段誉",
+          "target": "钟灵",
+          "name": "兄妹关系"
+        },
+        {
+          "source": "叶二娘",
+          "target": "钟夫人",
+          "name": "母女关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "钟夫人",
+          "name": "夫妻关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "段誉",
+          "name": "父子关系"
+        },
+        {
+          "source": "秦红棉",
+          "target": "木婉清",
+          "name": "母子关系"
+        },
+        {
+          "source": "保定帝",
+          "target": "段誉",
+          "name": "父子关系"
+        },
+        {
+          "source": "丁春秋",
+          "target": "延庆太子",
+          "name": "师徒关系"
+        },
+        {
+          "source": "延庆太子",
+          "target": "段誉",
+          "name": "影响关系"
+        },
+        {
+          "source": "本观",
+          "target": "本因方丈",
+          "name": "师徒关系"
+        },
+        {
+          "source": "本观",
+          "target": "本相",
+          "name": "师兄弟关系"
+        },
+        {
+          "source": "本观",
+          "target": "本参",
+          "name": "师兄弟关系"
+        },
+        {
+          "source": "保定帝",
+          "target": "段誉",
+          "name": "师兄弟关系"
+        },
+        {
+          "source": "枯荣大师",
+          "target": "保定帝",
+          "name": "师徒关系"
+        },
+        {
+          "source": "本因方丈",
+          "target": "保定帝",
+          "name": "叔侄关系"
+        },
+        {
+          "source": "段誉",
+          "target": "保定帝",
+          "name": "师徒关系"
+        },
+        {
+          "source": "段誉",
+          "target": "本观、本相、本因、本参",
+          "name": "师兄弟关系"
+        },
+        {
+          "source": "慕容先生",
+          "target": "鸠摩智",
+          "name": "知己"
+        },
+        {
+          "source": "段誉",
+          "target": "大轮明王",
+          "name": "尊敬"
+        },
+        {
+          "source": "极乐世界",
+          "target": "慕容先生",
+          "name": "礼佛"
+        },
+        {
+          "source": "user",
+          "target": "牟尼堂中人",
+          "name": "对话关系"
+        },
+        {
+          "source": "枯荣大师",
+          "target": "段誉",
+          "name": "指导关系"
+        },
+        {
+          "source": "中冲大师、本观大师、本参大师",
+          "target": "段誉",
+          "name": "展示关系"
+        },
+        {
+          "source": "慕容先生",
+          "target": "六脉神剑",
+          "name": "钦佩与被钦佩关系"
+        },
+        {
+          "source": "明王",
+          "target": "天龙寺方丈",
+          "name": "比武关系"
+        },
+        {
+          "source": "枯荣大师",
+          "target": "明王",
+          "name": "防御与攻击关系"
+        },
+        {
+          "source": "保定帝",
+          "target": "段誉",
+          "name": "盟友关系"
+        },
+        {
+          "source": "鸠摩智",
+          "target": "段誉",
+          "name": "竞争关系"
+        },
+        {
+          "source": "鸠摩智",
+          "target": "用户",
+          "name": "擒获关系"
+        },
+        {
+          "source": "用户",
+          "target": "木婉清",
+          "name": "对比关系"
+        },
+        {
+          "source": "阿碧",
+          "target": "过彦之",
+          "name": "帮忙关系"
+        },
+        {
+          "source": "阿碧",
+          "target": "师叔",
+          "name": "帮忙关系"
+        },
+        {
+          "source": "阿碧",
+          "target": "崔百泉",
+          "name": "帮忙关系"
+        },
+        {
+          "source": "阿碧",
+          "target": "鸠摩智",
+          "name": "帮忙关系"
+        },
+        {
+          "source": "阿碧",
+          "target": "段誉",
+          "name": "帮忙关系"
+        },
+        {
+          "source": "阿碧",
+          "target": "慕容公子",
+          "name": "仆人与主人关系"
+        },
+        {
+          "source": "崔百泉",
+          "target": "霍大爷",
+          "name": "帮助关系"
+        },
+        {
+          "source": "过彦之",
+          "target": "柯百岁",
+          "name": "师徒关系"
+        },
+        {
+          "source": "老人",
+          "target": "慕容家",
+          "name": "仆主关系"
+        },
+        {
+          "source": "鸠摩智",
+          "target": "柯百岁",
+          "name": "朋友关系"
+        },
+        {
+          "source": "木婉清",
+          "target": "孙三",
+          "name": "恩怨"
+        },
+        {
+          "source": "段誉和鸠摩智",
+          "target": "已故老爷",
+          "name": "友谊"
+        },
+        {
+          "source": "孙三",
+          "target": "管家角色",
+          "name": "伪装"
+        },
+        {
+          "source": "阿碧",
+          "target": "阿朱",
+          "name": "朋友"
+        },
+        {
+          "source": "阿朱(老太太)",
+          "target": "鸠摩智",
+          "name": "对手"
+        },
+        {
+          "source": "阿朱",
+          "target": "阿碧",
+          "name": "对话关系"
+        },
+        {
+          "source": "阿碧",
+          "target": "段誉",
+          "name": "对话关系"
+        },
+        {
+          "source": "阿朱",
+          "target": "鸠摩智",
+          "name": "对话关系"
+        },
+        {
+          "source": "鸠摩智",
+          "target": "段誉",
+          "name": "敌对关系"
+        },
+        {
+          "source": "鸠摩智",
+          "target": "阿碧",
+          "name": "敌对关系"
+        },
+        {
+          "source": "段誉",
+          "target": "崔百泉和过彦之",
+          "name": "朋友关系"
+        },
+        {
+          "source": "鸠摩智",
+          "target": "段誉, 阿朱与阿碧",
+          "name": "敌对关系"
+        },
+        {
+          "source": "阿朱",
+          "target": "阿碧",
+          "name": "姐妹情谊"
+        },
+        {
+          "source": "段誉",
+          "target": [
+            "阿朱",
+            "阿碧"
+          ],
+          "name": "友情互助"
+        },
+        {
+          "source": "阿朱",
+          "target": "女子",
+          "name": "仆从与主人关系"
+        },
+        {
+          "source": "阿碧",
+          "target": "女子",
+          "name": "仆从与主人关系"
+        },
+        {
+          "source": "王夫人",
+          "target": "唐光雄, 清秀男子及其妻子, 苗姑娘",
+          "name": "主从关系"
+        },
+        {
+          "source": "王夫人",
+          "target": "小翠",
+          "name": "命令与执行者关系"
+        },
+        {
+          "source": "清秀男子",
+          "target": "王夫人",
+          "name": "请求与拒绝或接受关系"
+        },
+        {
+          "source": "王夫人",
+          "target": "段誉",
+          "name": "尊敬与改变态度"
+        },
+        {
+          "source": "段誉",
+          "target": "王夫人",
+          "name": "对话关系"
+        },
+        {
+          "source": "王夫人",
+          "target": "段誉",
+          "name": "对立关系"
+        },
+        {
+          "source": "王夫人",
+          "target": "段誉",
+          "name": "命令与执行关系"
+        },
+        {
+          "source": "段誉",
+          "target": "身穿藕色衫子的姑娘",
+          "name": "探寻与遇见关系"
+        },
+        {
+          "source": "王夫人",
+          "target": "小姐（未知身份）",
+          "name": "母女关系"
+        },
+        {
+          "source": "小茗",
+          "target": "小姐（未知身份）",
+          "name": "仆人和主人关系"
+        },
+        {
+          "source": "王语嫣",
+          "target": "慕容公子",
+          "name": "侍主关系"
+        },
+        {
+          "source": "段誉",
+          "target": "王语嫣",
+          "name": "相识"
+        },
+        {
+          "source": "王夫人",
+          "target": "王语嫣",
+          "name": "母女关系"
+        },
+        {
+          "source": "王语嫣",
+          "target": "阿朱和阿碧",
+          "name": "主仆关系"
+        },
+        {
+          "source": "柯百岁所属派系",
+          "target": "慕容公子",
+          "name": "恩怨关系"
+        },
+        {
+          "source": "王语嫣",
+          "target": "王夫人",
+          "name": "母女关系"
+        },
+        {
+          "source": "段誉",
+          "target": "慕容复",
+          "name": "表兄弟关系"
+        },
+        {
+          "source": "阿碧",
+          "target": "王语嫣",
+          "name": "关系类型"
+        },
+        {
+          "source": "四川客",
+          "target": "大厅中众人",
+          "name": "关系类型"
+        },
+        {
+          "source": "大汉1",
+          "target": "大厅中众人",
+          "name": "关系类型"
+        },
+        {
+          "source": "诸保昆",
+          "target": "王语嫣",
+          "name": "感激"
+        },
+        {
+          "source": "诸保昆",
+          "target": "段誉",
+          "name": "警告"
+        },
+        {
+          "source": "都灵子",
+          "target": "诸保昆",
+          "name": "师徒关系"
+        },
+        {
+          "source": "司马卫",
+          "target": "诸保昆",
+          "name": "师徒关系"
+        },
+        {
+          "source": "人物1",
+          "target": "人物2",
+          "name": "关系类型"
+        },
+        {
+          "source": "人物3",
+          "target": "人物4",
+          "name": "关系类型"
+        },
+        {
+          "source": "王语嫣",
+          "target": "诸保昆",
+          "name": "指导关系"
+        },
+        {
+          "source": "王语嫣",
+          "target": "众人",
+          "name": "命令关系"
+        },
+        {
+          "source": "司马林",
+          "target": "王语嫣",
+          "name": "冲突"
+        },
+        {
+          "source": "姚伯当",
+          "target": "王语嫣",
+          "name": "同盟"
+        },
+        {
+          "source": "姚伯当",
+          "target": "司马林",
+          "name": "嫉妒"
+        },
+        {
+          "source": "秦家寨",
+          "target": "蓬莱派",
+          "name": "同盟关系"
+        },
+        {
+          "source": "青城派掌门",
+          "target": "云州秦家寨首领",
+          "name": "利益冲突"
+        },
+        {
+          "source": "包三先生",
+          "target": "司马林",
+          "name": "对话关系"
+        },
+        {
+          "source": "诸保昆",
+          "target": "司马卫",
+          "name": "师徒关系"
+        },
+        {
+          "source": "包不同",
+          "target": "阿碧",
+          "name": "兄妹关系"
+        },
+        {
+          "source": "阿碧",
+          "target": "段誉",
+          "name": "关怀"
+        },
+        {
+          "source": "阿朱和阿碧",
+          "target": "段誉",
+          "name": "道歉"
+        },
+        {
+          "source": "段誉",
+          "target": "燕赵大汉",
+          "name": "朋友关系"
+        },
+        {
+          "source": "跛足汉子, 愁眉老者",
+          "target": "燕赵大汉",
+          "name": "信息分享"
+        },
+        {
+          "source": "未知",
+          "target": "未知",
+          "name": "对手关系"
+        },
+        {
+          "source": "松鹤楼人员",
+          "target": [
+            "未知",
+            "未知"
+          ],
+          "name": "观众关系"
+        },
+        {
+          "source": "乔峰",
+          "target": "段誉",
+          "name": "金兰兄弟"
+        },
+        {
+          "source": "段誉",
+          "target": "王语嫣",
+          "name": "恋爱关系"
+        },
+        {
+          "source": "乔峰",
+          "target": "慕容公子",
+          "name": "朋友关系"
+        },
+        {
+          "source": "乔峰",
+          "target": "段誉",
+          "name": "结义兄弟"
+        },
+        {
+          "source": [
+            "乔峰",
+            "段誉"
+          ],
+          "target": "风波恶",
+          "name": "救治关系"
+        },
+        {
+          "source": "全冠清",
+          "target": "乔峰",
+          "name": "下属关系"
+        },
+        {
+          "source": "王语嫣",
+          "target": "慕容复",
+          "name": "身份关系"
+        },
+        {
+          "source": "乔峰",
+          "target": "段誉",
+          "name": "结拜兄弟"
+        },
+        {
+          "source": "李春来",
+          "target": "全冠清",
+          "name": "下属与上司关系"
+        },
+        {
+          "source": "白世镜",
+          "target": "参与事件中的反派",
+          "name": "执法与被执法关系"
+        },
+        {
+          "source": "段誉",
+          "target": "乔峰",
+          "name": "金兰之谊"
+        },
+        {
+          "source": [
+            "王语嫣",
+            "阿朱",
+            "阿碧"
+          ],
+          "target": "乔峰",
+          "name": "感激"
+        },
+        {
+          "source": "吴长风",
+          "target": "乔峰",
+          "name": "质疑关系"
+        },
+        {
+          "source": "王语嫣",
+          "target": "乔峰",
+          "name": "同情或支持关系"
+        },
+        {
+          "source": "全冠清、段誉等人",
+          "target": "乔峰",
+          "name": "怀疑或不信任关系"
+        },
+        {
+          "source": "乔峰",
+          "target": "奚长老",
+          "name": "师徒关系"
+        },
+        {
+          "source": "汪帮主",
+          "target": [
+            "陈长老"
+          ],
+          "name": "盟友关系"
+        },
+        {
+          "source": "赵钱孙",
+          "target": "双歪",
+          "name": "关系"
+        },
+        {
+          "source": "王语嫣、阿朱、阿碧",
+          "target": [
+            "未亡人马门温氏"
+          ],
+          "name": "关系"
+        },
+        {
+          "source": "单正",
+          "target": [
+            "执法长老白世镜"
+          ],
+          "name": "关系"
+        },
+        {
+          "source": "双歪",
+          "target": [
+            "铁面判官单正"
+          ],
+          "name": "关系"
+        },
+        {
+          "source": "未亡人马门温氏",
+          "target": [
+            "帮主乔峰"
+          ],
+          "name": "关系"
+        },
+        {
+          "source": "赵钱孙",
+          "target": "谭婆",
+          "name": "师兄弟关系"
+        },
+        {
+          "source": "徐长老",
+          "target": "赵钱孙",
+          "name": "朋友关系"
+        },
+        {
+          "source": "智光大师",
+          "target": "赵钱孙",
+          "name": "同事/同行"
+        },
+        {
+          "source": "智光大师",
+          "target": "一批人",
+          "name": "参与同一行动者"
+        },
+        {
+          "source": "智光",
+          "target": "带头大哥",
+          "name": "尊敬关系"
+        },
+        {
+          "source": "赵钱孙",
+          "target": "辽人",
+          "name": "战斗合作关系"
+        },
+        {
+          "source": "赵钱孙李,周吴郑王",
+          "target": "智光",
+          "name": "合作关系"
+        },
+        {
+          "source": "赵钱孙李,周吴郑王",
+          "target": "剑通兄",
+          "name": "合作关系"
+        },
+        {
+          "source": "单季山",
+          "target": "乔峰",
+          "name": "父子关系"
+        },
+        {
+          "source": "智光大师",
+          "target": "乔峰",
+          "name": "敌对关系"
+        },
+        {
+          "source": "单正",
+          "target": "单伯山, 单小山",
+          "name": "家族关联"
+        },
+        {
+          "source": "乔峰",
+          "target": "单氏五虎",
+          "name": "对抗关系"
+        },
+        {
+          "source": "汪帮主",
+          "target": "乔峰",
+          "name": "师徒关系"
+        },
+        {
+          "source": "智光大师",
+          "target": "乔峰",
+          "name": "信任与被信任关系"
+        },
+        {
+          "source": "全冠清",
+          "target": "徐长老",
+          "name": "师徒关系"
+        },
+        {
+          "source": "宋奚陈吴四大长老",
+          "target": "乔峰",
+          "name": "恩怨关系"
+        },
+        {
+          "source": [
+            "智光大师",
+            "马夫人"
+          ],
+          "target": "乔峰",
+          "name": "信任与背叛关系"
+        },
+        {
+          "source": "汪剑通",
+          "target": "乔峰",
+          "name": "恩师与学生"
+        },
+        {
+          "source": "马夫人",
+          "target": "马大元",
+          "name": "妻子与丈夫"
+        },
+        {
+          "source": "宋长老",
+          "target": "徐长老",
+          "name": "长老间关系"
+        },
+        {
+          "source": "丐帮成员",
+          "target": "乔峰",
+          "name": "信任关系"
+        },
+        {
+          "source": "宋长老等",
+          "target": "全冠清",
+          "name": "支持关系"
+        },
+        {
+          "source": "吴长老和陈长老",
+          "target": "奚长老",
+          "name": "对立关系"
+        },
+        {
+          "source": "段誉",
+          "target": "三位年轻姑娘",
+          "name": "支持"
+        },
+        {
+          "source": "徐长老",
+          "target": [
+            "对头",
+            "蒋舵主",
+            "方舵主"
+          ],
+          "name": "询问"
+        },
+        {
+          "source": "执法长老",
+          "target": "蒋舵主",
+          "name": "确认"
+        },
+        {
+          "source": "徐老",
+          "target": "帮主",
+          "name": "代理关系"
+        },
+        {
+          "source": "西夏国征东大将军",
+          "target": "丐帮兄弟",
+          "name": "挑战与被挑战"
+        },
+        {
+          "source": "云中鹤",
+          "target": "王语嫣",
+          "name": "恋爱意向"
+        },
+        {
+          "source": "段公子",
+          "target": "奚长老",
+          "name": "师徒关系"
+        },
+        {
+          "source": "云中鹤",
+          "target": "矮胖老头",
+          "name": "同盟关系"
+        },
+        {
+          "source": "段誉",
+          "target": "王语嫣",
+          "name": "爱情关系"
+        },
+        {
+          "source": "阿朱, 阿碧",
+          "target": "王语嫣",
+          "name": "辅助关系"
+        },
+        {
+          "source": "段誉",
+          "target": "王语嫣",
+          "name": "爱情关系"
+        },
+        {
+          "source": "段誉",
+          "target": "农女",
+          "name": "友情关系"
+        },
+        {
+          "source": "段誉",
+          "target": "小伙子",
+          "name": "同情关系"
+        },
+        {
+          "source": "段誉",
+          "target": "王语嫣",
+          "name": "情人关系"
+        },
+        {
+          "source": "段誉",
+          "target": "西夏众武士, 晋南虎爪门弟子",
+          "name": "对抗关系"
+        },
+        {
+          "source": "王语嫣",
+          "target": "段誉",
+          "name": "关注关系"
+        },
+        {
+          "source": "王语嫣",
+          "target": "段公子",
+          "name": "师徒关系"
+        },
+        {
+          "source": "段公子",
+          "target": "农家女",
+          "name": "恩情回报"
+        },
+        {
+          "source": "段誉",
+          "target": "王语嫣",
+          "name": "亲密关系"
+        },
+        {
+          "source": "王语嫣",
+          "target": "李延宗",
+          "name": "威胁与报复"
+        },
+        {
+          "source": "慕容公子",
+          "target": "武林高手",
+          "name": "崇拜与尊敬"
+        },
+        {
+          "source": "段誉",
+          "target": "王语嫣",
+          "name": "盟友关系"
+        },
+        {
+          "source": "李延宗",
+          "target": [
+            "段誉"
+          ],
+          "name": "敌人关系"
+        },
+        {
+          "source": "段誉",
+          "target": "王语嫣",
+          "name": "保护关系"
+        },
+        {
+          "source": "李延宗",
+          "target": "段誉",
+          "name": "威胁与被威胁关系"
+        },
+        {
+          "source": "段誉",
+          "target": "王语嫣",
+          "name": "帮助关系"
+        },
+        {
+          "source": "段誉",
+          "target": "李延宗",
+          "name": "对抗关系"
+        },
+        {
+          "source": "慕容复",
+          "target": "王语嫣",
+          "name": "表亲关系"
+        },
+        {
+          "source": "段誉",
+          "target": "王语嫣",
+          "name": "伴侣关系"
+        },
+        {
+          "source": "段誉",
+          "target": "王语嫣",
+          "name": "友情"
+        },
+        {
+          "source": "阿朱",
+          "target": "阿碧",
+          "name": "女性关系"
+        },
+        {
+          "source": "阿朱",
+          "target": "王语嫣",
+          "name": "关系"
+        },
+        {
+          "source": "段誉",
+          "target": "王语嫣",
+          "name": "关系"
+        },
+        {
+          "source": "阿碧",
+          "target": "王语嫣",
+          "name": "关系"
+        },
+        {
+          "source": "王语嫣",
+          "target": "段誉（表哥）",
+          "name": "爱情"
+        },
+        {
+          "source": "阿朱",
+          "target": [
+            "乔峰",
+            "段誉"
+          ],
+          "name": "合作"
+        },
+        {
+          "source": "慕容",
+          "target": "乔帮主",
+          "name": "合作关系"
+        },
+        {
+          "source": "吴长老",
+          "target": "丐帮",
+          "name": "从属关系"
+        },
+        {
+          "source": "宋长老",
+          "target": "丐帮",
+          "name": "从属关系"
+        },
+        {
+          "source": "乔峰",
+          "target": "段誉",
+          "name": "兄长关系"
+        },
+        {
+          "source": "乔峰",
+          "target": "阿朱",
+          "name": "盟友关系"
+        },
+        {
+          "source": "吴长老等",
+          "target": "徐长老",
+          "name": "内部管理关系"
+        },
+        {
+          "source": "玄苦大师",
+          "target": "乔峰",
+          "name": "师徒关系"
+        },
+        {
+          "source": "三槐公",
+          "target": "乔峰",
+          "name": "父子关系？"
+        },
+        {
+          "source": "乔峰",
+          "target": "玄苦大师",
+          "name": "师徒关系"
+        },
+        {
+          "source": "乔峰",
+          "target": "乔三槐夫妇",
+          "name": "父子关系"
+        },
+        {
+          "source": "玄苦大师",
+          "target": "乔峰",
+          "name": "师徒关系"
+        },
+        {
+          "source": "玄慈大师",
+          "target": "众僧",
+          "name": "领导与被领导关系"
+        },
+        {
+          "source": "未知",
+          "target": "佳客",
+          "name": "未知"
+        },
+        {
+          "source": "乔峰",
+          "target": "玄苦大师",
+          "name": "师徒关系"
+        },
+        {
+          "source": "青松",
+          "target": "玄苦大师",
+          "name": "师生关系"
+        },
+        {
+          "source": "玄难大师",
+          "target": "乔峰",
+          "name": "师徒关系"
+        },
+        {
+          "source": "青松",
+          "target": "群僧",
+          "name": "帮助"
+        },
+        {
+          "source": "乔峰",
+          "target": "守律僧",
+          "name": "对抗"
+        },
+        {
+          "source": "止清",
+          "target": "被踢倒的三名少林僧",
+          "name": "战斗关系"
+        },
+        {
+          "source": "乔峰",
+          "target": [
+            "止清",
+            "被踢倒的三名少林僧"
+          ],
+          "name": "观察与分析关系"
+        },
+        {
+          "source": "玄慈方丈",
+          "target": "未命名角色1",
+          "name": "师徒关系"
+        },
+        {
+          "source": "止湛",
+          "target": "止渊",
+          "name": "同门关系"
+        },
+        {
+          "source": "玄难大师",
+          "target": "未命名角色2",
+          "name": "对峙关系"
+        },
+        {
+          "source": "乔峰",
+          "target": "阿朱",
+          "name": "恩人与被救者关系"
+        },
+        {
+          "source": "止清和尚",
+          "target": "阿朱",
+          "name": "冲突与解决"
+        },
+        {
+          "source": "乔峰",
+          "target": "阿朱",
+          "name": "朋友"
+        },
+        {
+          "source": "乔峰",
+          "target": "阿朱",
+          "name": "友谊与帮助"
+        },
+        {
+          "source": "乔三槐夫妇",
+          "target": "乔峰",
+          "name": "养父女关系"
+        },
+        {
+          "source": "玄苦大师",
+          "target": "乔峰",
+          "name": "师生关系"
+        },
+        {
+          "source": "汪帮主",
+          "target": "乔峰",
+          "name": "可能的资助者与被资助者关系"
+        },
+        {
+          "source": "鲍千灵",
+          "target": "赵老三",
+          "name": "商业合作关系"
+        },
+        {
+          "source": "向望海、祁六",
+          "target": "鲍千灵",
+          "name": "亲密关系"
+        },
+        {
+          "source": "乔峰",
+          "target": "玄苦大师",
+          "name": "师徒关系"
+        },
+        {
+          "source": "鲍千灵",
+          "target": [
+            "祁六",
+            "向望海"
+          ],
+          "name": "共谋"
+        },
+        {
+          "source": [
+            "乔峰"
+          ],
+          "target": [
+            "鲍千灵"
+          ],
+          "name": "协作"
+        },
+        {
+          "source": "玄难、玄寂二僧",
+          "target": "游氏兄弟",
+          "name": "师徒关系"
+        },
+        {
+          "source": "薛神医",
+          "target": "群豪",
+          "name": "医者与求医者"
+        },
+        {
+          "source": "乔峰",
+          "target": "中原豪杰",
+          "name": "江湖地位"
+        },
+        {
+          "source": "玄慈大师",
+          "target": "玄难、玄寂",
+          "name": "师生关系"
+        },
+        {
+          "source": "玄慈大师",
+          "target": "玄难、玄寂",
+          "name": "师兄弟关系"
+        },
+        {
+          "source": "乔峰",
+          "target": "已故玄苦大师",
+          "name": "恩师关系"
+        },
+        {
+          "source": "乔峰",
+          "target": "少林僧人",
+          "name": "掳人事件"
+        },
+        {
+          "source": "青年公子",
+          "target": "阿朱",
+          "name": "对话关系"
+        },
+        {
+          "source": "薛神医",
+          "target": "受伤者阿朱",
+          "name": "医者与患者关系"
+        },
+        {
+          "source": "马大元",
+          "target": "马夫人",
+          "name": "夫妻关系"
+        },
+        {
+          "source": "赵钱孙李",
+          "target": "谭婆",
+          "name": "合作关系"
+        },
+        {
+          "source": "传功长老",
+          "target": [
+            "徐长老",
+            "陈长老"
+          ],
+          "name": "家族关系"
+        },
+        {
+          "source": "快刀祁六",
+          "target": "乔峰",
+          "name": "敌对关系"
+        },
+        {
+          "source": "玄苦大师",
+          "target": "乔峰",
+          "name": "师徒关系"
+        },
+        {
+          "source": "玄寂",
+          "target": "玄苦大师",
+          "name": "同门关系"
+        },
+        {
+          "source": "赵钱孙和直镥孙",
+          "target": "乔峰",
+          "name": "身份关系"
+        },
+        {
+          "source": "玄苦大师",
+          "target": "玄寂",
+          "name": "师徒关系"
+        },
+        {
+          "source": "乔峰",
+          "target": "丐帮吴长老、白世镜",
+          "name": "同门关系"
+        },
+        {
+          "source": "乔峰",
+          "target": "阿朱",
+          "name": "救助关系"
+        },
+        {
+          "source": "乔峰",
+          "target": "汉人和契丹人",
+          "name": "身份对立"
+        },
+        {
+          "source": "乔峰",
+          "target": "阿朱",
+          "name": "朋友关系"
+        },
+        {
+          "source": "薛神医",
+          "target": "阿朱",
+          "name": "医患关系"
+        },
+        {
+          "source": "丐帮成员",
+          "target": "阿朱",
+          "name": "感激与被感激"
+        },
+        {
+          "source": "阿朱",
+          "target": "乔帮主",
+          "name": "解救人命"
+        },
+        {
+          "source": "乔峰",
+          "target": "阿朱",
+          "name": "信任建立"
+        },
+        {
+          "source": "乔峰",
+          "target": "阿朱",
+          "name": "同伴关系"
+        },
+        {
+          "source": "大宋官兵",
+          "target": "契丹妇女和婴儿",
+          "name": "敌对关系"
+        },
+        {
+          "source": "乔峰",
+          "target": "阿朱",
+          "name": "同行"
+        },
+        {
+          "source": "乔峰",
+          "target": "阿朱",
+          "name": "承诺"
+        },
+        {
+          "source": "丐帮帮众",
+          "target": "乔峰",
+          "name": "敌对关系"
+        },
+        {
+          "source": "乔峰",
+          "target": "谭婆、赵钱孙",
+          "name": "寻找"
+        },
+        {
+          "source": "乔峰",
+          "target": "阿朱",
+          "name": "伙伴关系"
+        },
+        {
+          "source": "单正",
+          "target": "铁面判官",
+          "name": "家族关系"
+        },
+        {
+          "source": "乔峰",
+          "target": "阿朱",
+          "name": "朋友与伙伴关系"
+        },
+        {
+          "source": "智光大师",
+          "target": "乔峰",
+          "name": "师徒关系"
+        },
+        {
+          "source": "智光大师",
+          "target": "乔峰",
+          "name": "师徒关系"
+        },
+        {
+          "source": "阿朱",
+          "target": "乔峰",
+          "name": "助手关系"
+        },
+        {
+          "source": "阿朱",
+          "target": "萧峰",
+          "name": "友情"
+        },
+        {
+          "source": "阿朱",
+          "target": "萧峰",
+          "name": "恋爱关系"
+        },
+        {
+          "source": "阿朱",
+          "target": "马夫人",
+          "name": "合作关系"
+        },
+        {
+          "source": "马夫人",
+          "target": "已故的丈夫",
+          "name": "情感关系"
+        },
+        {
+          "source": "假白长老（阿朱）",
+          "target": "马夫人",
+          "name": "上司与下属关系"
+        },
+        {
+          "source": "赵钱孙",
+          "target": "阿朱",
+          "name": "知情者与信息提供者关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "大理国皇帝",
+          "name": "亲戚关系"
+        },
+        {
+          "source": "阿朱",
+          "target": "萧峰",
+          "name": "合作关系"
+        },
+        {
+          "source": "阿朱",
+          "target": "慕容公子",
+          "name": "礼物赠送"
+        },
+        {
+          "source": "萧峰",
+          "target": "姑苏慕容氏",
+          "name": "友情"
+        },
+        {
+          "source": "萧峰",
+          "target": "阿朱",
+          "name": "朋友关系"
+        },
+        {
+          "source": "疯子",
+          "target": "萧峰",
+          "name": "救命之恩"
+        },
+        {
+          "source": "农夫傅某",
+          "target": "萧峰",
+          "name": "求助关系"
+        },
+        {
+          "source": "萧峰",
+          "target": "农夫傅某",
+          "name": "询问与告知信息关系"
+        },
+        {
+          "source": "年轻女子",
+          "target": "阿朱",
+          "name": "友谊建立"
+        },
+        {
+          "source": "渔人",
+          "target": "年轻女子",
+          "name": "冲突与和解"
+        },
+        {
+          "source": "少女",
+          "target": "中年人",
+          "name": "挑战与制服关系"
+        },
+        {
+          "source": "美妇",
+          "target": "紫衫少女",
+          "name": "救助关系"
+        },
+        {
+          "source": "中年人",
+          "target": "紫衫少女",
+          "name": "关心与疑虑"
+        },
+        {
+          "source": "乔峰/萧峰",
+          "target": "中年人",
+          "name": "介绍与指引"
+        },
+        {
+          "source": "萧峰",
+          "target": "少女",
+          "name": "救护关系"
+        },
+        {
+          "source": "美妇人",
+          "target": "少女",
+          "name": "母女关系"
+        },
+        {
+          "source": "皇太弟段正淳",
+          "target": "大理段家臣子",
+          "name": "君臣关系"
+        },
+        {
+          "source": "岳老三",
+          "target": "大理段家臣子",
+          "name": "对话关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "段延庆",
+          "name": "父子关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "天龙寺众高僧",
+          "name": "君臣关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "阿紫",
+          "name": "父女关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "褚万里",
+          "name": "养父子关系"
+        },
+        {
+          "source": "阿紫",
+          "target": "未知",
+          "name": "敌对关系"
+        },
+        {
+          "source": "朱丹臣",
+          "target": "褚万里",
+          "name": "朋友关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "范骅",
+          "name": "臣主关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "褚万里",
+          "name": "并肩作战"
+        },
+        {
+          "source": "阮星竹",
+          "target": "阿紫",
+          "name": "母女关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "段延庆",
+          "name": "父子关系"
+        },
+        {
+          "source": "萧峰",
+          "target": "段正淳",
+          "name": "恩怨关系"
+        },
+        {
+          "source": "萧峰",
+          "target": "段正淳",
+          "name": "对立关系"
+        },
+        {
+          "source": "萧峰",
+          "target": "段正淳",
+          "name": "救授关系"
+        },
+        {
+          "source": "阮星竹",
+          "target": "阿紫",
+          "name": "父女关系"
+        },
+        {
+          "source": "阮星竹",
+          "target": "阿朱",
+          "name": "姐妹关系"
+        },
+        {
+          "source": "未知男子",
+          "target": "阮星竹",
+          "name": "夫妻关系"
+        },
+        {
+          "source": "阿朱",
+          "target": "萧峰",
+          "name": "爱情关系"
+        },
+        {
+          "source": "阿紫",
+          "target": "阿朱",
+          "name": "亲情关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "阿朱",
+          "name": "父子关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "阿紫",
+          "name": "夫妻关系"
+        },
+        {
+          "source": "阿朱的父母",
+          "target": "阿朱",
+          "name": "父母与女儿"
+        },
+        {
+          "source": "萧峰",
+          "target": "段正淳",
+          "name": "仇人"
+        },
+        {
+          "source": "马夫人",
+          "target": "阮星竹",
+          "name": "母女关系"
+        },
+        {
+          "source": "智光大师",
+          "target": "徐长老",
+          "name": "师徒或长老-弟子关系"
+        },
+        {
+          "source": "萧峰",
+          "target": "阿紫、阮星竹",
+          "name": "未知"
+        },
+        {
+          "source": "阮星竹",
+          "target": "阿朱",
+          "name": "母女关系"
+        },
+        {
+          "source": "阮星竹",
+          "target": "阿紫",
+          "name": "送人养"
+        },
+        {
+          "source": "段正淳",
+          "target": "阮星竹",
+          "name": "对话对象"
+        },
+        {
+          "source": "秦红棉",
+          "target": "木婉清",
+          "name": "母女关系"
+        },
+        {
+          "source": "秦红棉",
+          "target": "阮星竹",
+          "name": "恩怨关系"
+        },
+        {
+          "source": "段正淳",
+          "target": [
+            "阮星竹",
+            "修罗刀秦红棉"
+          ],
+          "name": "爱情关系"
+        },
+        {
+          "source": "少女1",
+          "target": [
+            "阮星竹"
+          ],
+          "name": "仇视关系"
+        },
+        {
+          "source": "阮星竹",
+          "target": "阿紫",
+          "name": "母女关系"
+        },
+        {
+          "source": "秦红棉",
+          "target": "阮星竹",
+          "name": "亲密伙伴"
+        },
+        {
+          "source": "阮星竹",
+          "target": "阿紫",
+          "name": "母女关系"
+        },
+        {
+          "source": "秦红棉",
+          "target": "阮星竹",
+          "name": "师徒/合作关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "马夫人",
+          "name": "情侣关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "秦红棉, 阮星竹",
+          "name": "情人关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "马夫人",
+          "name": "关系类型未知"
+        },
+        {
+          "source": "段正淳",
+          "target": "马夫人",
+          "name": "夫妻关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "未知奸贼",
+          "name": "合作关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "马夫人",
+          "name": "前世关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "马夫人",
+          "name": "情侣关系"
+        },
+        {
+          "source": "萧峰",
+          "target": "秦红棉和阮星竹",
+          "name": "旁观者与参与者关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "小康",
+          "name": "情感关系"
+        },
+        {
+          "source": "白世镜",
+          "target": "马夫人",
+          "name": "对立关系"
+        },
+        {
+          "source": "白世镜",
+          "target": "马大元",
+          "name": "交情"
+        },
+        {
+          "source": "白世镜",
+          "target": "僵尸",
+          "name": "关注"
+        },
+        {
+          "source": "阿紫",
+          "target": "其母",
+          "name": "女儿与母亲"
+        },
+        {
+          "source": "段正淳",
+          "target": "马夫人",
+          "name": "妻子"
+        },
+        {
+          "source": "乔峰",
+          "target": "阿紫的姐姐",
+          "name": "情感纠葛"
+        },
+        {
+          "source": "乔峰",
+          "target": "马夫人",
+          "name": "敌对关系"
+        },
+        {
+          "source": "段姑娘",
+          "target": "乔峰",
+          "name": "恋人关系"
+        },
+        {
+          "source": "全冠清",
+          "target": "徐长老",
+          "name": "合作"
+        },
+        {
+          "source": "白世镜",
+          "target": "乔峰",
+          "name": "背叛"
+        },
+        {
+          "source": "萧峰",
+          "target": "阿紫",
+          "name": "朋友关系"
+        },
+        {
+          "source": "萧峰",
+          "target": "阿紫",
+          "name": "同行关系"
+        },
+        {
+          "source": "阿紫",
+          "target": "那人",
+          "name": "对话关系"
+        },
+        {
+          "source": "萧峰",
+          "target": "阿紫和酒保的行为",
+          "name": "旁观与被旁观关系"
+        },
+        {
+          "source": "用户",
+          "target": "阿紫",
+          "name": "联盟"
+        },
+        {
+          "source": "萧峰",
+          "target": "阿紫",
+          "name": "爱情"
+        },
+        {
+          "source": "Vox",
+          "target": "Sister Vox",
+          "name": "血缘关系"
+        },
+        {
+          "source": "Brother Vox",
+          "target": "Vox",
+          "name": "师兄弟关系"
+        },
+        {
+          "source": "三师哥、四师哥、七师哥",
+          "target": "八师哥",
+          "name": "师兄弟关系"
+        },
+        {
+          "source": "阿紫",
+          "target": [
+            "三师哥、四师哥、七师哥、八师哥"
+          ],
+          "name": "师姐妹关系"
+        },
+        {
+          "source": "星宿派成员",
+          "target": "星宿派成员",
+          "name": "门派内部冲突"
+        },
+        {
+          "source": "阿紫",
+          "target": "用户",
+          "name": "身份关系"
+        },
+        {
+          "source": "八师哥",
+          "target": "阿紫",
+          "name": "关系类型"
+        },
+        {
+          "source": "萧峰",
+          "target": "出尘子",
+          "name": "帮助与指导"
+        },
+        {
+          "source": "阿紫",
+          "target": [
+            "出尘子",
+            "萧峰"
+          ],
+          "name": "对话交流"
+        },
+        {
+          "source": "大师兄",
+          "target": "三师弟",
+          "name": "师兄弟关系"
+        },
+        {
+          "source": "大师兄",
+          "target": "出尘子",
+          "name": "上下级关系"
+        },
+        {
+          "source": "摘星子",
+          "target": "出尘子",
+          "name": "师徒关系"
+        },
+        {
+          "source": "阿紫",
+          "target": "乔峰",
+          "name": "夫妻关系"
+        },
+        {
+          "source": "摘星子",
+          "target": "阿紫",
+          "name": "师徒关系"
+        },
+        {
+          "source": "萧峰",
+          "target": "阿紫",
+          "name": "同盟关系"
+        },
+        {
+          "source": "摘星子",
+          "target": "阿紫",
+          "name": "威胁与被威胁"
+        },
+        {
+          "source": "萧峰",
+          "target": "阿紫",
+          "name": "关系类型"
+        },
+        {
+          "source": "萧峰",
+          "target": "阿紫",
+          "name": "师徒关系"
+        },
+        {
+          "source": "阿紫",
+          "target": "摘星子",
+          "name": "合作关系"
+        },
+        {
+          "source": "星宿派",
+          "target": "阿紫",
+          "name": "师徒关系"
+        },
+        {
+          "source": "萧峰",
+          "target": "阿紫",
+          "name": "情感关系"
+        },
+        {
+          "source": "暗算事件",
+          "target": "受伤治疗",
+          "name": "因果关系"
+        },
+        {
+          "source": "萧峰",
+          "target": "阿紫",
+          "name": "兄妹关系"
+        },
+        {
+          "source": "王通治",
+          "target": "萧峰",
+          "name": "医患关系"
+        },
+        {
+          "source": "猎人",
+          "target": "萧峰",
+          "name": "合作"
+        },
+        {
+          "source": "萧峰",
+          "target": "阿紫",
+          "name": "夫妻关系"
+        },
+        {
+          "source": "萧峰",
+          "target": "耶律基",
+          "name": "兄弟"
+        },
+        {
+          "source": "阿紫",
+          "target": "萧峰",
+          "name": "随行关系"
+        },
+        {
+          "source": "阿紫",
+          "target": "星宿老人",
+          "name": "门徒与师父关系"
+        },
+        {
+          "source": "耶律洪基",
+          "target": "萧峰",
+          "name": "赏识与被赏识关系"
+        },
+        {
+          "source": "耶律洪基",
+          "target": "萧峰",
+          "name": "兄弟情谊"
+        },
+        {
+          "source": "阿紫",
+          "target": "萧峰",
+          "name": "母女关系"
+        },
+        {
+          "source": "耶律洪基",
+          "target": "御营军",
+          "name": "领导关系"
+        },
+        {
+          "source": "叛军",
+          "target": [
+            "耶律洪基",
+            "御营军"
+          ],
+          "name": "对抗关系"
+        },
+        {
+          "source": "御营官兵",
+          "target": "家属",
+          "name": "父母亲子关系"
+        },
+        {
+          "source": "御营官兵",
+          "target": "耶律洪基",
+          "name": "忠诚与背叛关系"
+        },
+        {
+          "source": "楚王",
+          "target": "皇太主",
+          "name": "权力斗争关系"
+        },
+        {
+          "source": "御营官兵",
+          "target": "洪基",
+          "name": "忠诚与背叛"
+        },
+        {
+          "source": "阿紫",
+          "target": "萧峰",
+          "name": "爱情"
+        },
+        {
+          "source": "萧峰",
+          "target": "楚王",
+          "name": "同盟关系"
+        },
+        {
+          "source": "耶律洪基",
+          "target": "萧峰",
+          "name": "封赏关系"
+        },
+        {
+          "source": "南院诸部属",
+          "target": "萧峰",
+          "name": "隶属关系"
+        },
+        {
+          "source": "辽帝",
+          "target": "阿紫",
+          "name": "父女关系"
+        },
+        {
+          "source": "丐帮",
+          "target": "萧峰",
+          "name": "师徒关系"
+        },
+        {
+          "source": "辽国官兵",
+          "target": "萧峰",
+          "name": "同盟关系"
+        },
+        {
+          "source": "耶律洪基",
+          "target": "萧峰",
+          "name": "君臣关系"
+        },
+        {
+          "source": "阿紫",
+          "target": "萧峰",
+          "name": "夫妻或伴侣关系"
+        },
+        {
+          "source": "辽国官兵",
+          "target": "萧峰",
+          "name": "命令或请求"
+        },
+        {
+          "source": "随从",
+          "target": "辽国官兵",
+          "name": "回答和反馈"
+        },
+        {
+          "source": "萧峰",
+          "target": [
+            "俘虏",
+            "辽国官兵"
+          ],
+          "name": "询问和告知"
+        },
+        {
+          "source": "阿紫",
+          "target": "随从",
+          "name": "关系类型"
+        },
+        {
+          "source": "阿紫",
+          "target": "契丹兵",
+          "name": "关系类型"
+        },
+        {
+          "source": "阿紫",
+          "target": "游坦之",
+          "name": "关系类型"
+        },
+        {
+          "source": "阿紫",
+          "target": "游坦之",
+          "name": "情感关系"
+        },
+        {
+          "source": "铁匠",
+          "target": "面具",
+          "name": "物理关系"
+        },
+        {
+          "source": "阿紫",
+          "target": [
+            "室里队长",
+            "耶洪基",
+            "萧峰",
+            "游坦之"
+          ],
+          "name": "命令与服从"
+        },
+        {
+          "source": "阿紫",
+          "target": "室里队长",
+          "name": "关系"
+        },
+        {
+          "source": "室里队长",
+          "target": "游坦之",
+          "name": "关系"
+        },
+        {
+          "source": "阿紫",
+          "target": "游坦之",
+          "name": "从属关系"
+        },
+        {
+          "source": "室里",
+          "target": "阿紫",
+          "name": "从属关系"
+        },
+        {
+          "source": "游坦之",
+          "target": "阿紫",
+          "name": "爱慕关系"
+        },
+        {
+          "source": "阿紫",
+          "target": "游坦之",
+          "name": "责罚关系"
+        },
+        {
+          "source": "阿紫",
+          "target": "游坦之",
+          "name": "师徒关系"
+        },
+        {
+          "source": "游坦之",
+          "target": "阿紫",
+          "name": "求助与被求助"
+        },
+        {
+          "source": "阿朱与萧峰",
+          "target": "游坦之",
+          "name": "求助关系"
+        },
+        {
+          "source": "阿紫",
+          "target": "游坦之",
+          "name": "合作关系"
+        },
+        {
+          "source": "游坦之",
+          "target": "蚕虫",
+          "name": "寻物关系"
+        },
+        {
+          "source": "阿紫",
+          "target": "叙述者",
+          "name": "角色关系"
+        },
+        {
+          "source": "阿紫",
+          "target": "游坦之",
+          "name": "主从关系"
+        },
+        {
+          "source": "阿紫",
+          "target": "冰蚕",
+          "name": "利用与被利用"
+        },
+        {
+          "source": "游坦之",
+          "target": "阿紫",
+          "name": "忠诚关系"
+        },
+        {
+          "source": "阿紫",
+          "target": "游坦之",
+          "name": "帮助与被帮助关系"
+        },
+        {
+          "source": "游坦之",
+          "target": "三名丐帮弟子",
+          "name": "跟从关系"
+        },
+        {
+          "source": "老汪",
+          "target": "小毕",
+          "name": "讨论合作"
+        },
+        {
+          "source": "全冠清",
+          "target": "段誉",
+          "name": "领舵主与被邀请者的关系"
+        },
+        {
+          "source": "段誉",
+          "target": "朱丹臣",
+          "name": "被邀请者间的关系"
+        },
+        {
+          "source": "两名丐帮帮众",
+          "target": [
+            "段誉",
+            "全冠清"
+          ],
+          "name": "名帖传递关系"
+        },
+        {
+          "source": "段誉",
+          "target": "全冠清",
+          "name": "敌对关系"
+        },
+        {
+          "source": "星宿派人物",
+          "target": "段誉",
+          "name": "认同与支持关系"
+        },
+        {
+          "source": "全冠清",
+          "target": "群丐",
+          "name": "领导与被领导关系"
+        },
+        {
+          "source": "全冠清, 群丐",
+          "target": "天狼子",
+          "name": "对抗关系"
+        },
+        {
+          "source": "游坦之",
+          "target": [
+            "全冠清, 天狼子"
+          ],
+          "name": "潜在观察者与目标对象关系"
+        },
+        {
+          "source": "丁春秋",
+          "target": "摘星子",
+          "name": "师徒关系"
+        },
+        {
+          "source": "丁春秋",
+          "target": "聋哑老人",
+          "name": "敌对关系"
+        },
+        {
+          "source": "丁春秋",
+          "target": "全冠清",
+          "name": "敌对关系"
+        },
+        {
+          "source": "丁春秋",
+          "target": "巨蟒",
+          "name": "师徒关系"
+        },
+        {
+          "source": "被缠住的星宿派弟子",
+          "target": "丁春秋",
+          "name": "求助关系"
+        },
+        {
+          "source": "群弟子",
+          "target": "丁春秋",
+          "name": "对峙关系"
+        },
+        {
+          "source": "玄慈住持",
+          "target": "虚竹",
+          "name": "师徒关系"
+        },
+        {
+          "source": "黄衣汉子",
+          "target": "虚竹",
+          "name": "挑战与被挑战"
+        },
+        {
+          "source": "慕容氏",
+          "target": "未具体描述",
+          "name": "角色关系"
+        },
+        {
+          "source": "玄难",
+          "target": "玄痛",
+          "name": "师徒关系"
+        },
+        {
+          "source": "少林寺",
+          "target": "慕容公子",
+          "name": "邀请与被邀请的关系"
+        },
+        {
+          "source": "风波恶",
+          "target": "丁春秋",
+          "name": "挑战与应战"
+        },
+        {
+          "source": "丁春秋",
+          "target": "游坦之",
+          "name": "师徒关系"
+        },
+        {
+          "source": "玄难",
+          "target": "玄痛",
+          "name": "师兄弟关系"
+        },
+        {
+          "source": "包不同",
+          "target": "风波恶",
+          "name": "陪伴"
+        },
+        {
+          "source": "公冶乾",
+          "target": "风波恶",
+          "name": "陪同"
+        },
+        {
+          "source": "包不同",
+          "target": "玄难",
+          "name": "对话交流"
+        },
+        {
+          "source": "黑须老者",
+          "target": "五哥",
+          "name": "指令与执行者关系"
+        },
+        {
+          "source": "萧峰",
+          "target": "公冶乾",
+          "name": "尊重"
+        },
+        {
+          "source": "玄难",
+          "target": "玄痛",
+          "name": "师祖关系"
+        },
+        {
+          "source": "薛慕华",
+          "target": "众受伤者",
+          "name": "医患关系"
+        },
+        {
+          "source": "书呆子等一伙人",
+          "target": "玄难",
+          "name": "身份关系"
+        },
+        {
+          "source": "琴师",
+          "target": "玄苦大师",
+          "name": "师兄弟关系"
+        },
+        {
+          "source": "包不同,风波恶",
+          "target": "棋盘人",
+          "name": "组织内部关系"
+        },
+        {
+          "source": "包不同, 风波恶",
+          "target": "弹琴老者",
+          "name": "被制住的关系"
+        },
+        {
+          "source": "众人",
+          "target": "弹琴老者",
+          "name": "进入屋内避险的关系"
+        },
+        {
+          "source": "师父",
+          "target": "函谷八友",
+          "name": "师生关系"
+        },
+        {
+          "source": "函谷八友",
+          "target": "组合名",
+          "name": "组合关系"
+        },
+        {
+          "source": "李傀儡",
+          "target": "包不同",
+          "name": "模仿关系"
+        },
+        {
+          "source": "薛神医",
+          "target": "铁头人",
+          "name": "身份关系"
+        },
+        {
+          "source": "包不同",
+          "target": "康广陵",
+          "name": "身份关系"
+        },
+        {
+          "source": "苏星河",
+          "target": "康广陵、范百龄等人",
+          "name": "徒弟关系"
+        },
+        {
+          "source": "李傀儡",
+          "target": "丁春秋",
+          "name": "母子关系"
+        },
+        {
+          "source": "薛慕华",
+          "target": "同门师兄",
+          "name": "师兄弟关系"
+        },
+        {
+          "source": "李傀儡",
+          "target": "薛五哥",
+          "name": "对话交流"
+        },
+        {
+          "source": "丁春秋",
+          "target": "薛慕华",
+          "name": "对峙关系"
+        },
+        {
+          "source": "薛慕华",
+          "target": "受伤众人",
+          "name": "合作关系"
+        },
+        {
+          "source": "十名车夫",
+          "target": "丁春秋",
+          "name": "从属关系"
+        },
+        {
+          "source": "包不同",
+          "target": "unknown1",
+          "name": "对话关系"
+        },
+        {
+          "source": "康广陵等函谷八友",
+          "target": "聪辩先生",
+          "name": "师徒关系"
+        },
+        {
+          "source": "聪辩先生",
+          "target": "丁春秋",
+          "name": "竞争关系"
+        },
+        {
+          "source": "聪辩先生",
+          "target": "苏星河",
+          "name": "师徒关系"
+        },
+        {
+          "source": "丁春秋",
+          "target": "苏星河",
+          "name": "师门背叛"
+        },
+        {
+          "source": "松树后的人",
+          "target": [
+            "苏星河",
+            "段誉"
+          ],
+          "name": "合作解棋局"
+        },
+        {
+          "source": "慕容复",
+          "target": "王语嫣",
+          "name": "爱情关系"
+        },
+        {
+          "source": "段誉",
+          "target": "未知",
+          "name": "师徒关系"
+        },
+        {
+          "source": "邓百川",
+          "target": "慕容复",
+          "name": "友情关系"
+        },
+        {
+          "source": "公冶乾",
+          "target": "慕容复",
+          "name": "指导关系"
+        },
+        {
+          "source": "段延庆",
+          "target": "虚竹",
+          "name": "师徒关系"
+        },
+        {
+          "source": "南海鳄神",
+          "target": "其他少林寺和尚",
+          "name": "师兄弟关系"
+        },
+        {
+          "source": "段誉",
+          "target": [
+            "段延庆",
+            "慕容复",
+            "玄难",
+            "虚竹",
+            "南海鳄神"
+          ],
+          "name": "叙述者与事件参与者"
+        },
+        {
+          "source": "虚竹",
+          "target": "段延庆",
+          "name": "挑战"
+        },
+        {
+          "source": "丁春秋",
+          "target": "虚竹",
+          "name": "对抗"
+        },
+        {
+          "source": "苏星河",
+          "target": "虚竹",
+          "name": "帮助"
+        },
+        {
+          "source": "恶贯满盈",
+          "target": "虚竹",
+          "name": "指导关系"
+        },
+        {
+          "source": "段延庆",
+          "target": "丁春秋, 鸠摩智, 慕容复, 段誉, 虚竹",
+          "name": "交流关系"
+        },
+        {
+          "source": "段延庆",
+          "target": "虚竹",
+          "name": "指导关系"
+        },
+        {
+          "source": "苏星河",
+          "target": "虚竹",
+          "name": "感激关系"
+        },
+        {
+          "source": "丁春秋",
+          "target": "虚竹",
+          "name": "挑战与反挑战关系"
+        },
+        {
+          "source": "虚竹",
+          "target": "老人",
+          "name": "师徒"
+        },
+        {
+          "source": "老人",
+          "target": "虚竹",
+          "name": "赞赏"
+        },
+        {
+          "source": "老者",
+          "target": "虚竹",
+          "name": "师徒关系"
+        },
+        {
+          "source": "老者",
+          "target": "虚竹",
+          "name": "力量提升与觉醒"
+        },
+        {
+          "source": "老人",
+          "target": "虚竹",
+          "name": "师徒关系"
+        },
+        {
+          "source": "苏星河",
+          "target": "老人",
+          "name": "命运关联"
+        },
+        {
+          "source": "师父",
+          "target": "虚竹",
+          "name": "师徒关系"
+        },
+        {
+          "source": "苏星河",
+          "target": "虚竹",
+          "name": "同盟/合作"
+        },
+        {
+          "source": "玄难大师",
+          "target": "虚竹",
+          "name": "师徒关系"
+        },
+        {
+          "source": "玄难",
+          "target": "用户",
+          "name": "师徒关系"
+        },
+        {
+          "source": "薛慕华",
+          "target": "慧方",
+          "name": "医患关系"
+        },
+        {
+          "source": "苏星河",
+          "target": "用户",
+          "name": "指导与被指导关系"
+        },
+        {
+          "source": "丁春秋",
+          "target": "少年相公",
+          "name": "师徒关系"
+        },
+        {
+          "source": "丁春秋",
+          "target": [
+            "虚竹",
+            "慧净"
+          ],
+          "name": "对立关系"
+        },
+        {
+          "source": "星宿派",
+          "target": "少林派",
+          "name": "门派关系"
+        },
+        {
+          "source": "丁春秋",
+          "target": "阿紫",
+          "name": "权力操控"
+        },
+        {
+          "source": "慕容复",
+          "target": "丁春秋",
+          "name": "对立关系"
+        },
+        {
+          "source": "阿紫",
+          "target": "丁春秋",
+          "name": "师徒关系"
+        },
+        {
+          "source": "慕容复",
+          "target": "丁春秋",
+          "name": "敌对关系"
+        },
+        {
+          "source": "星宿派弟子",
+          "target": "慕容复",
+          "name": "影响与被影响"
+        },
+        {
+          "source": "丁春秋",
+          "target": "阿紫",
+          "name": "恩怨关系"
+        },
+        {
+          "source": "慕容复",
+          "target": "阿紫",
+          "name": "救助关系"
+        },
+        {
+          "source": "段誉",
+          "target": "慕容复",
+          "name": "朋友/盟友"
+        },
+        {
+          "source": "段誉",
+          "target": "王语嫣",
+          "name": "追求者"
+        },
+        {
+          "source": "包不同",
+          "target": "段誉",
+          "name": "阻止"
+        },
+        {
+          "source": "慕容复",
+          "target": "王语嫣",
+          "name": "兄妹关系"
+        },
+        {
+          "source": "黎夫人",
+          "target": "端木元",
+          "name": "同盟/合作"
+        },
+        {
+          "source": "黎夫人",
+          "target": "慕容复",
+          "name": "对抗"
+        },
+        {
+          "source": "慕容复",
+          "target": [
+            "邓百川",
+            "包不同"
+          ],
+          "name": "联手与冲突"
+        },
+        {
+          "source": "邓百川",
+          "target": "包不同",
+          "name": "对立关系"
+        },
+        {
+          "source": "慕容复",
+          "target": "桑土公",
+          "name": "敌对关系"
+        },
+        {
+          "source": "慕容复",
+          "target": "对方七八个人",
+          "name": "竞争"
+        },
+        {
+          "source": "黑衣人",
+          "target": "桑土公",
+          "name": "救援"
+        },
+        {
+          "source": "段誉",
+          "target": "王语嫣",
+          "name": "表兄妹关系"
+        },
+        {
+          "source": "慕容复",
+          "target": "头陀",
+          "name": "对立关系"
+        },
+        {
+          "source": "段誉",
+          "target": "王语嫣",
+          "name": "爱情关系"
+        },
+        {
+          "source": "王语嫣",
+          "target": "慕容复(她的表哥)",
+          "name": "亲情"
+        },
+        {
+          "source": "不平道人",
+          "target": [
+            "剑神卓先生",
+            "芙蓉仙子"
+          ],
+          "name": "合作"
+        },
+        {
+          "source": [
+            "邓百川",
+            "慕容复"
+          ],
+          "target": "乌老大",
+          "name": "求助"
+        },
+        {
+          "source": [
+            "不平道人",
+            "剑神卓先生",
+            "芙蓉仙子"
+          ],
+          "target": [
+            "邓百川",
+            "慕容复"
+          ],
+          "name": "相互猜疑"
+        },
+        {
+          "source": "慕容复",
+          "target": [
+            "段誉",
+            "王语嫣"
+          ],
+          "name": "盟友关系"
+        },
+        {
+          "source": "王语嫣",
+          "target": "段誉",
+          "name": "互动关系"
+        },
+        {
+          "source": "不平道人",
+          "target": "慕容复",
+          "name": "关注关系"
+        },
+        {
+          "source": "天山童姥",
+          "target": "乌老大",
+          "name": "身份关系"
+        },
+        {
+          "source": "段誉",
+          "target": "慕容复",
+          "name": "身份关系"
+        },
+        {
+          "source": "安洞主",
+          "target": "乌老大",
+          "name": "身份关系"
+        },
+        {
+          "source": "钦岛主",
+          "target": "乌老大",
+          "name": "身份关系"
+        },
+        {
+          "source": "三十六洞洞主、七十二岛岛主",
+          "target": "王语嫣",
+          "name": "关系类型（询问与解释）"
+        },
+        {
+          "source": [
+            "乌老大"
+          ],
+          "target": "王语嫣",
+          "name": "敬佩与感激"
+        },
+        {
+          "source": "包不同",
+          "target": "乌老大",
+          "name": "讨论合作"
+        },
+        {
+          "source": "段公子",
+          "target": "乌老大",
+          "name": "揭示真相"
+        },
+        {
+          "source": "不平道人",
+          "target": "乌老大",
+          "name": "支持与尊重"
+        },
+        {
+          "source": "乌老大",
+          "target": [
+            "各洞主、岛主"
+          ],
+          "name": "引见关系"
+        },
+        {
+          "source": "神秘声音",
+          "target": "虚竹",
+          "name": "对话关系"
+        },
+        {
+          "source": "虚竹",
+          "target": "神秘声音",
+          "name": "求助与被帮助关系"
+        },
+        {
+          "source": "无崖子",
+          "target": "聪辩先生苏星河",
+          "name": "师徒关系"
+        },
+        {
+          "source": "玄慈方丈",
+          "target": [
+            "玄悲",
+            "玄苦",
+            "玄难"
+          ],
+          "name": "弟子关系"
+        },
+        {
+          "source": "虚竹",
+          "target": [
+            "玄慈方丈",
+            "玄悲",
+            "玄苦",
+            "玄难"
+          ],
+          "name": "门派关系"
+        },
+        {
+          "source": "女童",
+          "target": "虚竹",
+          "name": "询问与回答关系"
+        },
+        {
+          "source": "无崖子老先生",
+          "target": "小和尚",
+          "name": "师徒关系"
+        },
+        {
+          "source": "那女童",
+          "target": "小和尚",
+          "name": "传授与学习关系"
+        },
+        {
+          "source": "未知女童",
+          "target": "虚竹",
+          "name": "仇恨"
+        },
+        {
+          "source": "未知女童",
+          "target": "虚竹",
+          "name": "求助"
+        },
+        {
+          "source": "无崖子",
+          "target": "女童",
+          "name": "师徒关系"
+        },
+        {
+          "source": "女童",
+          "target": "无崖子",
+          "name": "指导与被指导关系"
+        },
+        {
+          "source": "姥姥",
+          "target": "小和尚",
+          "name": "师徒关系"
+        },
+        {
+          "source": "乌老大",
+          "target": "未知",
+          "name": "恩怨关系"
+        },
+        {
+          "source": "小和尚",
+          "target": "乌老大",
+          "name": "救助关系"
+        },
+        {
+          "source": "未知女童",
+          "target": "乌老大",
+          "name": "控制关系"
+        },
+        {
+          "source": "乌老大",
+          "target": "女童",
+          "name": "服从"
+        },
+        {
+          "source": "虚竹",
+          "target": "女童",
+          "name": "劝阻与接受"
+        },
+        {
+          "source": "天山童姥",
+          "target": "无崖子",
+          "name": "师姐关系"
+        },
+        {
+          "source": "虚竹",
+          "target": "天山童姥",
+          "name": "救命之恩"
+        },
+        {
+          "source": "童姥",
+          "target": "虚竹",
+          "name": "师徒关系"
+        },
+        {
+          "source": "乌老大",
+          "target": "童姥",
+          "name": "下属关系"
+        },
+        {
+          "source": "童姥",
+          "target": "虚竹",
+          "name": "敌对"
+        },
+        {
+          "source": "白衫人",
+          "target": "未知身份的女性",
+          "name": "温和"
+        },
+        {
+          "source": "白衫人",
+          "target": "童姥",
+          "name": "帮助"
+        },
+        {
+          "source": "童姥",
+          "target": "李秋水",
+          "name": "仇怨"
+        },
+        {
+          "source": "李秋水",
+          "target": "未知",
+          "name": "报仇"
+        },
+        {
+          "source": "小和尚",
+          "target": "李秋水",
+          "name": "同盟"
+        },
+        {
+          "source": "主人公",
+          "target": "童姥",
+          "name": "跟随关系"
+        },
+        {
+          "source": "李秋水",
+          "target": "被躲避的主角群体",
+          "name": "追逐关系"
+        },
+        {
+          "source": "童姥",
+          "target": "虚竹",
+          "name": "师徒关系"
+        },
+        {
+          "source": "童姥",
+          "target": "无崖子和李秋水",
+          "name": "情感纠葛"
+        },
+        {
+          "source": "童姥",
+          "target": "虚竹",
+          "name": "师徒关系"
+        },
+        {
+          "source": "李秋水",
+          "target": "未知身份人物（皇太妃）",
+          "name": "未知关系"
+        },
+        {
+          "source": "童姥",
+          "target": "虚竹",
+          "name": "师徒关系"
+        },
+        {
+          "source": "童姥",
+          "target": "李秋水",
+          "name": "敌对关系"
+        },
+        {
+          "source": "童姥",
+          "target": "虚竹",
+          "name": "师徒关系"
+        },
+        {
+          "source": "童姥",
+          "target": "虚竹",
+          "name": "被迫进食关系"
+        },
+        {
+          "source": "虚竹",
+          "target": "少女",
+          "name": "情感关系"
+        },
+        {
+          "source": "童姥",
+          "target": [
+            "少女",
+            "虚竹"
+          ],
+          "name": "师徒关系"
+        },
+        {
+          "source": "天山童姥",
+          "target": "虚竹",
+          "name": "惩罚与奖励关系"
+        },
+        {
+          "source": "天山童姥",
+          "target": "虚竹",
+          "name": "相处与认知关系"
+        },
+        {
+          "source": "无崖子",
+          "target": "虚竹",
+          "name": "师徒关系"
+        },
+        {
+          "source": "童姥",
+          "target": "师妹",
+          "name": "师姐弟关系"
+        },
+        {
+          "source": "李秋水",
+          "target": "童姥",
+          "name": "对手关系"
+        },
+        {
+          "source": "无崖子",
+          "target": "李秋水",
+          "name": "情感纽带"
+        },
+        {
+          "source": "无崖子前辈",
+          "target": "丑和尚",
+          "name": "师徒关系"
+        },
+        {
+          "source": "童姥",
+          "target": "李秋水",
+          "name": "师姐妹关系"
+        },
+        {
+          "source": "李秋水",
+          "target": "童姥",
+          "name": "师承关系"
+        },
+        {
+          "source": "虚竹",
+          "target": "童姥/李秋水",
+          "name": "师徒关系"
+        },
+        {
+          "source": "李秋水",
+          "target": "童姥",
+          "name": "情感关系"
+        },
+        {
+          "source": "无崖子",
+          "target": "虚竹",
+          "name": "师徒关系"
+        },
+        {
+          "source": "童姥",
+          "target": "李秋水",
+          "name": "师姐妹关系"
+        },
+        {
+          "source": "虚竹",
+          "target": [
+            "朱天部诸女",
+            "阳天部诸女",
+            "赤天、阳天、玄天、幽天、成天五部众女"
+          ],
+          "name": "领导与被领导关系"
+        },
+        {
+          "source": [
+            "朱天部的哨骑",
+            "绿衣女子"
+          ],
+          "target": "昊天部、朱天部",
+          "name": "隶属关系"
+        },
+        {
+          "source": "阳天部另一哨骑",
+          "target": "程姊妹",
+          "name": "参与事件与事件参与者关系"
+        },
+        {
+          "source": "虚竹",
+          "target": "余婆",
+          "name": "部属与领导者关系"
+        },
+        {
+          "source": "虚竹",
+          "target": "石嫂",
+          "name": "部属与领导者关系"
+        },
+        {
+          "source": "虚竹",
+          "target": "符敏仪",
+          "name": "部属与领导者关系"
+        },
+        {
+          "source": "虚竹",
+          "target": "大理段公子",
+          "name": "钦佩"
+        },
+        {
+          "source": "碧石岛主",
+          "target": [
+            "众兄弟"
+          ],
+          "name": "对话"
+        },
+        {
+          "source": "乌老大",
+          "target": "虚竹",
+          "name": "扣脉门关系"
+        },
+        {
+          "source": "均天部的女子",
+          "target": "虚竹",
+          "name": "求助与感谢关系"
+        },
+        {
+          "source": "虚竹",
+          "target": "前辈先生",
+          "name": "尊敬"
+        },
+        {
+          "source": "珠崖大怪",
+          "target": "老贼婆",
+          "name": "斥骂"
+        },
+        {
+          "source": "王语嫣",
+          "target": "段誉",
+          "name": "情感关系"
+        },
+        {
+          "source": "虚竹",
+          "target": "段誉",
+          "name": "救助关系"
+        },
+        {
+          "source": "卓不凡",
+          "target": [
+            "段誉",
+            "王语嫣"
+          ],
+          "name": "对立关系"
+        },
+        {
+          "source": "卓不凡",
+          "target": "崔绿华",
+          "name": "同盟关系"
+        },
+        {
+          "source": "崔绿华",
+          "target": "虚竹",
+          "name": "冲突关系"
+        },
+        {
+          "source": "卓不凡",
+          "target": "用户",
+          "name": "潜在同盟"
+        },
+        {
+          "source": "梅剑",
+          "target": "虚竹",
+          "name": "同盟关系"
+        },
+        {
+          "source": "哈大霸",
+          "target": "菊剑",
+          "name": "对抗"
+        },
+        {
+          "source": "梅剑",
+          "target": "哈大霸",
+          "name": "保护与被保护"
+        },
+        {
+          "source": "段誉",
+          "target": "王语嫣",
+          "name": "感情"
+        },
+        {
+          "source": "虚竹",
+          "target": "段誉",
+          "name": "亲近"
+        },
+        {
+          "source": "兰剑, 菊剑",
+          "target": "虚竹",
+          "name": "服务关系"
+        },
+        {
+          "source": "虚竹",
+          "target": "段誉",
+          "name": "询问回答关系"
+        },
+        {
+          "source": "慧轮",
+          "target": "虚竹",
+          "name": "师徒关系"
+        },
+        {
+          "source": "四姝",
+          "target": "虚竹",
+          "name": "侍从关系"
+        },
+        {
+          "source": "缘根",
+          "target": "虚竹",
+          "name": "管理与被管理关系"
+        },
+        {
+          "source": "缘根",
+          "target": "虚竹",
+          "name": "惩罚与受罚关系"
+        },
+        {
+          "source": "本寺僧众",
+          "target": "神山上人",
+          "name": "尊敬"
+        },
+        {
+          "source": "玄慈大师",
+          "target": "众僧",
+          "name": "领导"
+        },
+        {
+          "source": "玄慈",
+          "target": "全体参与的僧众",
+          "name": "身份介绍"
+        },
+        {
+          "source": "哲罗星大师",
+          "target": "波罗星大师",
+          "name": "师徒关系"
+        },
+        {
+          "source": "戒律院首座玄寂大师",
+          "target": "方丈(玄慈)",
+          "name": "从属关系"
+        },
+        {
+          "source": "天竺胡僧哲罗星",
+          "target": "上人",
+          "name": "参与事件"
+        },
+        {
+          "source": "哲罗星",
+          "target": "波罗星",
+          "name": "师弟关系"
+        },
+        {
+          "source": "灵门禅师",
+          "target": "神山",
+          "name": "师徒关系"
+        },
+        {
+          "source": "元元大师",
+          "target": "第八代方丈",
+          "name": "师徒关系"
+        },
+        {
+          "source": "七指头陀",
+          "target": "在本寺挂单四十年的僧人",
+          "name": "挂单关系"
+        },
+        {
+          "source": "玄生",
+          "target": "哲罗星",
+          "name": "挑战"
+        },
+        {
+          "source": "哲罗星",
+          "target": "所有少林寺高僧",
+          "name": "质疑"
+        },
+        {
+          "source": "无崖子",
+          "target": "虚竹",
+          "name": "师徒关系"
+        },
+        {
+          "source": "李秋水",
+          "target": "天山童姥",
+          "name": "师姐弟关系"
+        },
+        {
+          "source": "少林寺",
+          "target": "鸠摩智",
+          "name": "被征服与征服者关系"
+        },
+        {
+          "source": "虚竹",
+          "target": "慧轮",
+          "name": "师徒关系"
+        },
+        {
+          "source": "玄慈方丈",
+          "target": "虚竹",
+          "name": "师徒关系"
+        },
+        {
+          "source": "鸠摩智",
+          "target": "少林寺",
+          "name": "敌对关系"
+        },
+        {
+          "source": "虚竹",
+          "target": "段誉",
+          "name": "师兄弟关系"
+        },
+        {
+          "source": "虚竹",
+          "target": "鸠摩智",
+          "name": "对抗关系"
+        },
+        {
+          "source": "观心等",
+          "target": "四名僧人首领",
+          "name": "帮助关系"
+        },
+        {
+          "source": "玄慈",
+          "target": "虚竹",
+          "name": "管理与被管理关系"
+        },
+        {
+          "source": "普渡寺道清大师",
+          "target": "玄慈",
+          "name": "参与惩罚决策者-参与决策者关系"
+        },
+        {
+          "source": "大理段氏",
+          "target": "少林寺",
+          "name": "朋友关系"
+        },
+        {
+          "source": "鸠摩智",
+          "target": "段誉",
+          "name": "师生关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "段誉",
+          "name": "父子关系"
+        },
+        {
+          "source": "慕容复",
+          "target": "吴长老",
+          "name": "上下级关系"
+        },
+        {
+          "source": "邓百川",
+          "target": "易大彪",
+          "name": "信任与帮助"
+        },
+        {
+          "source": "公冶乾",
+          "target": "易大彪",
+          "name": "信任与协助"
+        },
+        {
+          "source": "慕容复, 王语嫣",
+          "target": "爱人",
+          "name": "情感关系"
+        },
+        {
+          "source": "慕容复",
+          "target": "公冶乾",
+          "name": "对话对象关系"
+        },
+        {
+          "source": "全冠清",
+          "target": "揭露真相",
+          "name": "师徒关系"
+        },
+        {
+          "source": "游坦之",
+          "target": "丁春秋",
+          "name": "插手与被插手关系"
+        },
+        {
+          "source": "丁老怪",
+          "target": "游坦之",
+          "name": "敌人关系"
+        },
+        {
+          "source": "玄慈、观心、道清等高僧及各路英雄的侠义之士",
+          "target": [
+            "阿紫"
+          ],
+          "name": "援助关系"
+        },
+        {
+          "source": "丁春秋",
+          "target": "游坦之",
+          "name": "师徒关系"
+        },
+        {
+          "source": "阿紫",
+          "target": "游坦之",
+          "name": "求助与被救关系"
+        },
+        {
+          "source": "契丹人萧峰",
+          "target": "南院军政事务",
+          "name": "隶属关系"
+        },
+        {
+          "source": "南院枢密使耶律莫哥",
+          "target": "辽帝",
+          "name": "代拆代行"
+        },
+        {
+          "source": "萧峰",
+          "target": "阿紫",
+          "name": "救援联系"
+        },
+        {
+          "source": "乔峰",
+          "target": "阿紫",
+          "name": "亲情关系"
+        },
+        {
+          "source": "乔峰",
+          "target": "丁春秋",
+          "name": "掌击关系"
+        },
+        {
+          "source": "乔峰",
+          "target": "游坦之",
+          "name": "帮助关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "阿紫",
+          "name": "父女关系"
+        },
+        {
+          "source": "公冶乾",
+          "target": "萧峰",
+          "name": "盟友"
+        },
+        {
+          "source": "包不同",
+          "target": "萧峰",
+          "name": "盟友"
+        },
+        {
+          "source": "风波恶",
+          "target": "萧峰",
+          "name": "盟友"
+        },
+        {
+          "source": "段正游",
+          "target": "慕容复",
+          "name": "支持者"
+        },
+        {
+          "source": "邓百川",
+          "target": "慕容复",
+          "name": "盟友"
+        },
+        {
+          "source": "段延庆",
+          "target": "段正淳",
+          "name": "父子关系"
+        },
+        {
+          "source": "南海鳄神",
+          "target": "岳老二",
+          "name": "徒弟与师父关系"
+        },
+        {
+          "source": "岳老二",
+          "target": "南海鳄神",
+          "name": "师徒关系"
+        },
+        {
+          "source": "萧峰",
+          "target": "慕容复",
+          "name": "恩人与被救者关系"
+        },
+        {
+          "source": "王语嫣",
+          "target": "慕容复",
+          "name": "表亲关系"
+        },
+        {
+          "source": "未知高僧1/2",
+          "target": "慕容复",
+          "name": "认识"
+        },
+        {
+          "source": "未知高僧",
+          "target": "聚贤庄众人",
+          "name": "钦佩"
+        },
+        {
+          "source": "虚竹",
+          "target": "丁春秋",
+          "name": "对抗关系"
+        },
+        {
+          "source": "李傀儡",
+          "target": "群雄",
+          "name": "崇拜与嘲笑关系"
+        },
+        {
+          "source": "吐蕃国师鸠摩智",
+          "target": "少林寺众僧",
+          "name": "支持与反对关系"
+        },
+        {
+          "source": "虚竹",
+          "target": [
+            "少林寺戒律院首坐",
+            "星宿派门人"
+          ],
+          "name": "惩罚接受者与施予者关系"
+        },
+        {
+          "source": "余婆婆",
+          "target": "星宿派门人",
+          "name": "警告与被警告关系"
+        },
+        {
+          "source": "叶二娘",
+          "target": "虚竹",
+          "name": "母子关系"
+        },
+        {
+          "source": "岳老二",
+          "target": "叶二娘",
+          "name": "义妹-义兄"
+        },
+        {
+          "source": "萧远山",
+          "target": "萧峰",
+          "name": "父子关系"
+        },
+        {
+          "source": "智光和尚",
+          "target": "未知身份人士",
+          "name": "师徒关系"
+        },
+        {
+          "source": "萧远山",
+          "target": "虚竹",
+          "name": "父子关系"
+        },
+        {
+          "source": "叶二娘",
+          "target": "虚竹",
+          "name": "养育关系"
+        },
+        {
+          "source": "玄慈",
+          "target": "慕容博",
+          "name": "故人之谊"
+        },
+        {
+          "source": "玄悲",
+          "target": "慕容博",
+          "name": "师命执行"
+        },
+        {
+          "source": "玄慈",
+          "target": "虚竹",
+          "name": "师徒关系"
+        },
+        {
+          "source": "叶二娘",
+          "target": "未知",
+          "name": "非直接关系"
+        },
+        {
+          "source": "庄帮主",
+          "target": "丁春秋",
+          "name": "师徒关系"
+        },
+        {
+          "source": "萧峰",
+          "target": "庄帮主",
+          "name": "恩怨关系"
+        },
+        {
+          "source": "包不同",
+          "target": "宋长老",
+          "name": "同盟关系"
+        },
+        {
+          "source": "包不同",
+          "target": "吴长老",
+          "name": "同盟关系"
+        },
+        {
+          "source": "全冠清",
+          "target": "包不同",
+          "name": "同盟关系"
+        },
+        {
+          "source": "王语嫣",
+          "target": "段誉",
+          "name": "爱情关系"
+        },
+        {
+          "source": "慕容复",
+          "target": "段誉和萧远山",
+          "name": "敌对关系"
+        },
+        {
+          "source": "萧远山",
+          "target": "萧峰",
+          "name": "父子关系"
+        },
+        {
+          "source": "慕容博",
+          "target": "萧氏父子",
+          "name": "敌对关系"
+        },
+        {
+          "source": "萧远山",
+          "target": "萧峰",
+          "name": "父子关系"
+        },
+        {
+          "source": "慕容博",
+          "target": "玄慈方丈",
+          "name": "朋友关系"
+        },
+        {
+          "source": "萧远山",
+          "target": "萧峰",
+          "name": "父子关系"
+        },
+        {
+          "source": "老僧",
+          "target": "慕容博",
+          "name": "师徒关系"
+        },
+        {
+          "source": "老僧",
+          "target": [
+            "萧远山",
+            "慕容博"
+          ],
+          "name": "知识传递"
+        },
+        {
+          "source": "玄生和玄灭",
+          "target": "老僧",
+          "name": "请求帮助"
+        },
+        {
+          "source": "各人物",
+          "target": "各人物",
+          "name": "对话互动"
+        },
+        {
+          "source": "老僧",
+          "target": "道清大师, 玄生, 玄灭",
+          "name": "传授知识"
+        },
+        {
+          "source": "萧远山",
+          "target": "萧峰",
+          "name": "父子关系"
+        },
+        {
+          "source": "老僧",
+          "target": [
+            "慕容博",
+            "乔三槐夫妇"
+          ],
+          "name": "师徒/信徒关系"
+        },
+        {
+          "source": "萧远山",
+          "target": "慕容博",
+          "name": "父子关系"
+        },
+        {
+          "source": "慕容博",
+          "target": "老僧",
+          "name": "师徒或传承关系"
+        },
+        {
+          "source": "萧远山",
+          "target": "段正淳",
+          "name": "父子关系"
+        },
+        {
+          "source": "钟万仇",
+          "target": "段正淳",
+          "name": "仇人关系"
+        },
+        {
+          "source": "段誉",
+          "target": "钟灵",
+          "name": "相遇"
+        },
+        {
+          "source": "钟灵",
+          "target": "段誉",
+          "name": "情感关系"
+        },
+        {
+          "source": "岳老三",
+          "target": "段誉",
+          "name": "师徒关系"
+        },
+        {
+          "source": "段誉",
+          "target": "钟灵",
+          "name": "血缘关系"
+        },
+        {
+          "source": "父亲",
+          "target": "阿紫",
+          "name": "父女关系"
+        },
+        {
+          "source": "段誉",
+          "target": "钟灵",
+          "name": "兄妹关系"
+        },
+        {
+          "source": "段誉",
+          "target": "阿紫",
+          "name": "妹妹"
+        },
+        {
+          "source": "钟灵",
+          "target": "段誉",
+          "name": "朋友"
+        },
+        {
+          "source": "段誉",
+          "target": "萧峰",
+          "name": "兄弟关系"
+        },
+        {
+          "source": "钟灵",
+          "target": "岳老三",
+          "name": "情人关系"
+        },
+        {
+          "source": "阿紫",
+          "target": "虚竹",
+          "name": "师徒关系"
+        },
+        {
+          "source": "钟灵",
+          "target": "小哥哥",
+          "name": "情感"
+        },
+        {
+          "source": "阿紫",
+          "target": [
+            "用户"
+          ],
+          "name": "嫉妒与反应"
+        },
+        {
+          "source": "钟灵",
+          "target": "受伤的自己",
+          "name": "关心"
+        },
+        {
+          "source": "萧峰",
+          "target": "阿紫",
+          "name": "夫妻关系"
+        },
+        {
+          "source": "天山童姥",
+          "target": "四剑",
+          "name": "主从关系"
+        },
+        {
+          "source": "段誉",
+          "target": "南海鳄神",
+          "name": "师徒关系"
+        },
+        {
+          "source": "叶二娘",
+          "target": "南海鳄神",
+          "name": "母子关系"
+        },
+        {
+          "source": "镇南王",
+          "target": "木婉清",
+          "name": "父子关系"
+        },
+        {
+          "source": "段延庆",
+          "target": "虚竹",
+          "name": "父子关系"
+        },
+        {
+          "source": "虚竹",
+          "target": "段延庆",
+          "name": "师徒关系"
+        },
+        {
+          "source": "段誉",
+          "target": "王语嫣",
+          "name": "夫妻关系"
+        },
+        {
+          "source": "南海鳄神",
+          "target": "未知角色",
+          "name": "师徒关系"
+        },
+        {
+          "source": "南海鳄神, 云中鹤",
+          "target": "王语嫣",
+          "name": "救援关系"
+        },
+        {
+          "source": "钟灵",
+          "target": "南海鳄神, 王语嫣",
+          "name": "互动关系"
+        },
+        {
+          "source": "段誉",
+          "target": "王语嫣",
+          "name": "感情关系"
+        },
+        {
+          "source": "段誉",
+          "target": "王语嫣",
+          "name": "救援关系"
+        },
+        {
+          "source": "段誉",
+          "target": "王语嫣",
+          "name": "情感关系"
+        },
+        {
+          "source": "段誉",
+          "target": "慕容公子",
+          "name": "竞争关系"
+        },
+        {
+          "source": "王语嫣",
+          "target": "段誉",
+          "name": "情愫"
+        },
+        {
+          "source": "巴天石",
+          "target": "萧峰",
+          "name": "尊敬"
+        },
+        {
+          "source": "粗壮大汉",
+          "target": "段誉",
+          "name": "责骂"
+        },
+        {
+          "source": "慕容复",
+          "target": "王姑娘",
+          "name": "表亲关系"
+        },
+        {
+          "source": "王语嫣",
+          "target": "段公子",
+          "name": "情感关系"
+        },
+        {
+          "source": "王语嫣",
+          "target": "慕容复",
+          "name": "情感关系"
+        },
+        {
+          "source": "慕容复",
+          "target": "王语嫣",
+          "name": "青梅竹马"
+        },
+        {
+          "source": "慕容复",
+          "target": "未提及的西夏公主",
+          "name": "恋人"
+        },
+        {
+          "source": "鸠摩智",
+          "target": "慕容复",
+          "name": "敌对"
+        },
+        {
+          "source": "吐蕃武士",
+          "target": "鸠摩智",
+          "name": "帮助"
+        },
+        {
+          "source": "慕容博",
+          "target": "鸠摩智",
+          "name": "师徒关系"
+        },
+        {
+          "source": "慕容博",
+          "target": "鸠摩智",
+          "name": "因果报应"
+        },
+        {
+          "source": "段誉",
+          "target": "王语嫣",
+          "name": "爱情关系"
+        },
+        {
+          "source": "段誉和王语嫣",
+          "target": "井中",
+          "name": "生死共处关系"
+        },
+        {
+          "source": "段誉",
+          "target": "王语嫣",
+          "name": "爱情关系"
+        },
+        {
+          "source": "段誉",
+          "target": "慕容复",
+          "name": "竞争关系"
+        },
+        {
+          "source": "段誉",
+          "target": "慕容复",
+          "name": "血缘关系"
+        },
+        {
+          "source": "段誉",
+          "target": "王语嫣",
+          "name": "情人关系"
+        },
+        {
+          "source": "段誉",
+          "target": "木婉清",
+          "name": "情人关系"
+        },
+        {
+          "source": "段誉",
+          "target": "木婉清",
+          "name": "兄弟关系"
+        },
+        {
+          "source": "巴天石",
+          "target": "萧峰",
+          "name": "好友关系"
+        },
+        {
+          "source": "朱丹臣",
+          "target": "钟灵",
+          "name": "好友关系"
+        },
+        {
+          "source": "木婉清",
+          "target": "萧峰",
+          "name": "互动关系"
+        },
+        {
+          "source": "木婉清",
+          "target": "段誉",
+          "name": "母子关系"
+        },
+        {
+          "source": "王语嫣",
+          "target": "段誉",
+          "name": "情侣关系"
+        },
+        {
+          "source": "王语嫣",
+          "target": "段誉",
+          "name": "情侣关系"
+        },
+        {
+          "source": "段誉",
+          "target": "鸠摩智",
+          "name": "救与被救关系"
+        },
+        {
+          "source": "段誉",
+          "target": "王语嫣",
+          "name": "情侣关系"
+        },
+        {
+          "source": "慕容复",
+          "target": "段誉",
+          "name": "竞争对手关系"
+        },
+        {
+          "source": "段誉",
+          "target": "虚竹",
+          "name": "兄弟关系"
+        },
+        {
+          "source": "绿杉宫女",
+          "target": "西夏公主",
+          "name": "身份关联"
+        },
+        {
+          "source": "包不同",
+          "target": "中原人士",
+          "name": "身份关联"
+        },
+        {
+          "source": "西夏公主",
+          "target": "萧峰",
+          "name": "君臣关系"
+        },
+        {
+          "source": "宫女",
+          "target": [
+            "萧峰",
+            "包不同"
+          ],
+          "name": "互动关系"
+        },
+        {
+          "source": "段誉",
+          "target": "王语嫣",
+          "name": "关系类型"
+        },
+        {
+          "source": "段誉",
+          "target": "木婉清",
+          "name": "关系类型"
+        },
+        {
+          "source": "宗赞王子",
+          "target": "那宫女",
+          "name": "身份关系"
+        },
+        {
+          "source": "慕容复",
+          "target": "那宫女",
+          "name": "身份关系"
+        },
+        {
+          "source": "萧峰",
+          "target": "那宫女",
+          "name": "身份关系"
+        },
+        {
+          "source": "段誉",
+          "target": "虚竹",
+          "name": "兄弟关系"
+        },
+        {
+          "source": "宗赞王子",
+          "target": "段誉",
+          "name": "竞争关系"
+        },
+        {
+          "source": "段誉",
+          "target": "木婉清",
+          "name": "兄妹关系"
+        },
+        {
+          "source": "段誉",
+          "target": "钟灵",
+          "name": "兄妹关系"
+        },
+        {
+          "source": "朱丹臣",
+          "target": "贾老者",
+          "name": "求助与帮助"
+        },
+        {
+          "source": "巴天石",
+          "target": "朱丹臣",
+          "name": "合作关系"
+        },
+        {
+          "source": "木婉清",
+          "target": "巴天石",
+          "name": "合作关系"
+        },
+        {
+          "source": "巴天石",
+          "target": "段誉",
+          "name": "合作关系"
+        },
+        {
+          "source": "朱丹臣",
+          "target": "钟灵",
+          "name": "配合"
+        },
+        {
+          "source": "王语嫣",
+          "target": "段誉",
+          "name": "互动"
+        },
+        {
+          "source": "王夫人",
+          "target": "慕容复",
+          "name": "母子关系"
+        },
+        {
+          "source": "王夫人",
+          "target": "段誉",
+          "name": "旧情人关系"
+        },
+        {
+          "source": "慕容复",
+          "target": "王夫人",
+          "name": "合作关系"
+        },
+        {
+          "source": "段誉",
+          "target": "王夫人和慕容复",
+          "name": "关系未明"
+        },
+        {
+          "source": "王夫人",
+          "target": "慕容复",
+          "name": "母子关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "段延庆",
+          "name": "被擒与擒住者关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "段誉",
+          "name": "亲缘关系"
+        },
+        {
+          "source": "王夫人",
+          "target": "慕容复",
+          "name": "母子关系"
+        },
+        {
+          "source": "王夫人",
+          "target": "段正淳",
+          "name": "亲情"
+        },
+        {
+          "source": "慕容复等",
+          "target": "段延庆",
+          "name": "敌对"
+        },
+        {
+          "source": "慕容复",
+          "target": "段延庆",
+          "name": "合作"
+        },
+        {
+          "source": "王夫人",
+          "target": "段延庆",
+          "name": "交换条件"
+        },
+        {
+          "source": "南海鳄神",
+          "target": "王夫人",
+          "name": "师徒关系"
+        },
+        {
+          "source": "云中鹤",
+          "target": "南海鳄神",
+          "name": "敌对关系"
+        },
+        {
+          "source": "皇帝",
+          "target": "观世音菩萨",
+          "name": "误会"
+        },
+        {
+          "source": "白衣女子",
+          "target": "化子（皇帝）",
+          "name": "拯救"
+        },
+        {
+          "source": "段夫人",
+          "target": "段誉",
+          "name": "亲子关系"
+        },
+        {
+          "source": "段延庆",
+          "target": "段夫人",
+          "name": "夫妻关系"
+        },
+        {
+          "source": "王语嫣",
+          "target": "段夫人刀白凤",
+          "name": "母女关系"
+        },
+        {
+          "source": "慕容复",
+          "target": "王语嫣",
+          "name": "情人关系"
+        },
+        {
+          "source": "段延庆",
+          "target": "段誉",
+          "name": "父子关系"
+        },
+        {
+          "source": "慕容复",
+          "target": "包不同",
+          "name": "关系类型"
+        },
+        {
+          "source": "邓百川",
+          "target": "慕容复",
+          "name": "关系类型"
+        },
+        {
+          "source": "公冶乾",
+          "target": "慕容复",
+          "name": "关系类型"
+        },
+        {
+          "source": "风波恶",
+          "target": "包不同",
+          "name": "关系类型"
+        },
+        {
+          "source": "慕容复",
+          "target": "段延庆",
+          "name": "敌对"
+        },
+        {
+          "source": "段夫人",
+          "target": "段誉",
+          "name": "亲情"
+        },
+        {
+          "source": "段正淳",
+          "target": "阮星竹",
+          "name": "情敌关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "秦红棉",
+          "name": "情敌关系"
+        },
+        {
+          "source": "慕容复",
+          "target": [
+            "段正淳",
+            "甘宝宝"
+          ],
+          "name": "威胁与反威胁"
+        },
+        {
+          "source": "段正淳",
+          "target": "段延庆",
+          "name": "父子关系"
+        },
+        {
+          "source": "段正淳",
+          "target": "王夫人",
+          "name": "夫妻关系"
+        },
+        {
+          "source": "慕容复",
+          "target": "段誉",
+          "name": "父子关系"
+        },
+        {
+          "source": "段夫人",
+          "target": "段正淳",
+          "name": "夫妻关系"
+        },
+        {
+          "source": "虚竹、灵鹫宫四女",
+          "target": "段誉",
+          "name": "救援关系"
+        },
+        {
+          "source": "段正淳夫妇",
+          "target": "段誉",
+          "name": "亲情关系"
+        },
+        {
+          "source": "太皇太后",
+          "target": "赵煦",
+          "name": "权力关系"
+        },
+        {
+          "source": "王安石",
+          "target": "太皇太后",
+          "name": "支持与被支持关系"
+        },
+        {
+          "source": "司马光、吕公著、苏轼",
+          "target": "王安石",
+          "name": "反对与被反对关系"
+        },
+        {
+          "source": "刘娥",
+          "target": "赵煦",
+          "name": "母子关系"
+        },
+        {
+          "source": "赵煦",
+          "target": "刘娥",
+          "name": "君臣关系"
+        },
+        {
+          "source": "赵煦",
+          "target": "苏轼",
+          "name": "君臣关系"
+        },
+        {
+          "source": "赵煦",
+          "target": "范祖禹",
+          "name": "君臣关系"
+        },
+        {
+          "source": "萧峰",
+          "target": "阿紫",
+          "name": "夫妻关系"
+        },
+        {
+          "source": "耶律洪基",
+          "target": "阿紫",
+          "name": "母女关系（推断）"
+        },
+        {
+          "source": "耶律洪基",
+          "target": "萧峰",
+          "name": "君臣关系"
+        },
+        {
+          "source": "萧峰",
+          "target": "耶律洪基",
+          "name": "劝阻关系"
+        },
+        {
+          "source": "皇上",
+          "target": "萧峰",
+          "name": "师徒关系"
+        },
+        {
+          "source": "阿朱",
+          "target": "阿紫",
+          "name": "亲情关系"
+        },
+        {
+          "source": "阿紫",
+          "target": "萧峰",
+          "name": "情感关系"
+        },
+        {
+          "source": "萧峰",
+          "target": "阿紫",
+          "name": "感情纠葛"
+        },
+        {
+          "source": "萧峰",
+          "target": "游坦之",
+          "name": "友情"
+        },
+        {
+          "source": "耶律洪基",
+          "target": "平南公主",
+          "name": "亲情"
+        },
+        {
+          "source": "阿紫",
+          "target": "萧峰",
+          "name": "爱慕关系"
+        },
+        {
+          "source": "穆贵妃",
+          "target": "耶律洪基",
+          "name": "权谋协助"
+        },
+        {
+          "source": "阿紫",
+          "target": "萧峰",
+          "name": "配偶关系"
+        },
+        {
+          "source": "中原武林各路英雄",
+          "target": "萧峰",
+          "name": "盟友关系"
+        },
+        {
+          "source": "阿紫",
+          "target": "段誉",
+          "name": "爱情或亲情"
+        },
+        {
+          "source": "萧峰",
+          "target": "阿紫、木婉清、钟灵",
+          "name": "关心"
+        },
+        {
+          "source": "辽兵",
+          "target": "中原豪杰",
+          "name": "围攻"
+        },
+        {
+          "source": "萧峰",
+          "target": "耶律洪基",
+          "name": "领导关系"
+        },
+        {
+          "source": "范骅",
+          "target": "萧峰",
+          "name": "询问关系"
+        },
+        {
+          "source": "范骅",
+          "target": "玄渡",
+          "name": "领导与被领导关系"
+        },
+        {
+          "source": "范骅",
+          "target": "群雄",
+          "name": "决策参与关系"
+        },
+        {
+          "source": "吴长风",
+          "target": "群雄",
+          "name": "战术执行关系"
+        },
+        {
+          "source": "段誉",
+          "target": "萧峰",
+          "name": "联盟关系"
+        },
+        {
+          "source": "吴长风",
+          "target": "军官",
+          "name": "支援关系"
+        },
+        {
+          "source": "耶律洪基",
+          "target": "萧峰",
+          "name": "兄弟结义"
+        },
+        {
+          "source": [
+            "虚竹",
+            "段誉"
+          ],
+          "target": "萧峰",
+          "name": "哀悼和敬重"
+        },
+        {
+          "source": "古印度人",
+          "target": "龙",
+          "name": "尊敬关系"
+        },
+        {
+          "source": "夜叉八大将",
+          "target": "众生",
+          "name": "维护众生界"
+        },
+        {
+          "source": "段正淳",
+          "target": "萧峰",
+          "name": "父子关系"
+        },
+        {
+          "source": "虚竹",
+          "target": "段正淳",
+          "name": "师徒关系"
+        }
+      ];
+        
+        var option = {
+            title: { text: '小说知识图谱可视化' },
+            tooltip: {
+                formatter: function(params) {
+                    if (params.dataType === 'edge') {
+                        return params.data.source + ' ' + params.data.name + ' ' + params.data.target;
+                    }
+                    return params.data.name;
+                }
+            },
+            legend: { data: ['人物', '事件'] },
+            series: [{
+                type: 'graph',
+                layout: 'force',
+                data: nodes,
+                links: links,
+                categories: [{ name: '人物' }, { name: '事件' }],
+                roam: true,
+                label: {
+                    show: true,
+                    position: 'right'
+                },
+                lineStyle: {
+                    color: 'source',
+                    curveness: 0.3
+                },
+                emphasis: {
+                    focus: 'adjacency',
+                    lineStyle: {
+                        width: 5
+                    }
+                },
+                force: { 
+                    repulsion: 200,
+                    edgeLength: 120
+                }
+            }]
+        };
+        chart.setOption(option);
+    </script>
+</body>
+</html>

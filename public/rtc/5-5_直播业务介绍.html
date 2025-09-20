@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5-5 直播业务介绍</title>
+    <link rel="stylesheet" href="rtc_styles.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 高亮当前活动的导航项
+            const currentHash = window.location.hash || '#live-overview';
+            const activeLink = document.querySelector(`a[href="${currentHash}"]`);
+            if (activeLink) activeLink.classList.add('active');
+            
+            // 点击导航项时添加高亮
+            const navLinks = document.querySelectorAll('.nav a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <nav class="nav">
+        <h2>直播业务介绍</h2>
+        <ul>
+            <li><a href="#live-overview">业务概述</a></li>
+            <li><a href="#push-streaming">推流</a></li>
+            <li><a href="#pull-stream">拉流/播放</a></li>
+            <li><a href="#source-finding">回源</a></li>
+            <li><a href="#recording">录制</a></li>
+            <li><a href="#time-shift">时移</a></li>
+            <li><a href="#transcoding">转码</a></li>
+            <li><a href="#cdn-delivery">CDN分发</a></li>
+            <li><a href="#cdn-speed-up">CDN加速</a></li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <section id="live-overview">
+            <h1>直播业务概述</h1>
+            <p>直播的业务一般包括：<span class="key-terms">推流、拉流/播放、回源、录制、时移、转码</span>等多个环节，每个环节都有其特定的功能和技术要求。</p>
+        </section>
+        
+        <section id="push-streaming">
+            <h1>推流</h1>
+            <p>直播推流是指通过使用 <span class="key-terms">RTMP 或 WebRTC 协议</span>，将音视频数据推送到CDN的服务器。推流端需要将音视频数据封装为 <span class="key-terms">FLV 格式或 RTP 格式的数据</span>。</p>
+            <p>推流端需选择最近的一个节点进行推送操作，以减少传输延迟和提高传输质量。</p>
+        </section>
+        
+        <section id="pull-stream">
+            <h1>拉流/播放</h1>
+            <p><span class="key-terms">服务器之间读取实时流数据进行回源</span>，而客户端则读取实时流数据进行播放。拉流和播放可以使用服务器支持的不同协议，服务器会根据使用的协议返回相应数据。</p>
+            <p>选择最优节点进行读取是关键步骤之一，这直接影响到用户的观看体验。</p>
+        </section>
+        
+        <section id="source-finding">
+            <h1>回源</h1>
+            <p>客户端请求流时，服务器有该流则直接返回数据。若服务器没有所需流，则需向中心服务器请求此流的数据，这一过程即为回源。</p>
+            <p>回源可能涉及多级与多协议支持，是CDN分发系统中的重要环节。</p>
+        </section>
+        
+        <section id="recording">
+            <h1>录制</h1>
+            <p>在直播过程中，将产生的音视频数据保存下来是录制的过程。录制完成后可以进行回放，为用户提供点播服务。</p>
+            <p>常见的录制文件格式有 <code>HLS</code>、<code>FLV</code> 和 <code>MP4</code>，不同格式适用于不同的应用场景。</p>
+        </section>
+        
+        <section id="time-shift">
+            <h1>时移</h1>
+            <p>在直播过程中，可以通过时移来查看前面一段时间的数据或从特定时间点开始观看。时移功能通过结合录制产生的切片信息实现，并通常使用HLS协议。</p>
+            <p>时移的播放方式包含：</p>
+            <ul>
+                <li>播放过去的一段时间</li>
+                <li>从过去的某个时间点一直往后播放，直到结束</li>
+            </ul>
+        </section>
+        
+        <section id="transcoding">
+            <h1>转码</h1>
+            <p>在拉流/播放过程中，服务器遇到编码请求不符或分辨率不同等情况时会触发转码。转码通过程序将不符合要求的流转换为符合要求的流。</p>
+            <p>通常使用 <code>ffmpeg</code> 进行转码，并可能结合显卡进行硬件加速，以提高转码效率。</p>
+        </section>
+        
+        <section id="cdn-delivery">
+            <h1>CDN分发</h1>
+            <p>主播推流通常只推送到一个服务器，但播放则是在全国多地，因而需要CDN将流传递到各地的服务器。这就是CDN分发的过程。</p>
+            <p>CDN分发通常是被动响应访问需求进行回源；也可以主动预热内容，提前将内容分发到各节点。</p>
+        </section>
+        
+        <section id="cdn-speed-up">
+            <h1>CDN加速</h1>
+            <p>CDN加速通过以下方式优化客户端体验：</p>
+            <ul>
+                <li>减少访问服务器的距离</li>
+                <li>提供大带宽服务</li>
+                <li>选择相同的运营商</li>
+                <li>选择延时低的流媒体协议</li>
+            </ul>
+            <p class="highlight">这些优化措施共同作用，能够显著提升用户的直播观看体验，减少卡顿和延迟。</p>
+        </section>
+    </div>
+</body>
+</html>
+    
