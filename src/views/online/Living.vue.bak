@@ -1,0 +1,317 @@
+<template>
+    <Layout class="landing-layout">
+    <HeroSearch @search="handleSearch" />
+
+    <CharacterGallery />
+    <div class="living-container">
+        <!-- 左侧播放列表 -->
+        <div class="playlist">
+        <div
+            v-for="(stream, index) in streams"
+            :key="index"
+            class="playlist-item"
+            :class="{ active: currentStreamIndex === index }"
+            @click="selectStream(index)"
+        >
+            <div class="thumbnail">
+            <!-- 使用video.js播放器作为缩略图 -->
+            <video-player
+                :options="getPlayerOptions(stream, true)"
+                class="mini-player"
+            />
+            </div>
+            <div class="stream-info">
+            <h3>{{ stream.title }}</h3>
+            <p>{{ stream.description }}</p>
+            </div>
+        </div>
+        </div>
+
+        <!-- 右侧主播放区域 -->
+        <div class="main-player-container">
+        <video-player
+            v-if="currentStream"
+            :options="getPlayerOptions(currentStream, false)"
+            class="main-player"
+        />
+        <div class="stream-details" v-if="currentStream">
+            <h2>{{ currentStream.title }}</h2>
+            <p>{{ currentStream.description }}</p>
+        </div>
+        </div>
+    </div>
+    </Layout>
+</template>
+
+<script setup lang="ts">
+import { ref, onMounted, computed } from 'vue'
+import { Layout, Button, Input, Card, message } from 'ant-design-vue'
+import VideoPlayer from '../../components/VideoPlayer.vue'
+
+import HeroSearch from '../../components/HeroSearch.vue'
+import CharacterGallery from '../../components/CharacterGallery.vue'
+
+// 定义流媒体数据结构
+interface Stream {
+  title: string
+  description: string
+  url: string
+  type: string
+}
+
+// 模拟直播流数据
+const streams = ref<Stream[]>([
+//   {
+//     title: '直播间 1',
+//     description: '这是第一个直播间的描述',
+//     url: 'rtmp://47.98.62.98:1935/live/stream',
+//     type: 'rtmp/mp4'
+//   },
+  {
+    title: '直播间 2',
+    description: '李白',
+    url: '/stream/hls/stream.m3u8',
+    type: 'application/x-mpegURL'
+  },
+//   {
+//     title: '直播间 3',
+//     description: '这是第三个直播间的描述',
+//     url: 'rtmp://47.98.62.98:1935/live/test',
+//     type: 'rtmp/mp4'
+//   },
+//   {
+//     title: '直播间 4',
+//     description: '春丽',
+//     url: 'http://alphago.ltd:8080/hls/test.m3u8',
+//     type: 'application/x-mpegURL'
+//   },
+    {
+     title: '史诗级纪录片 Doplin',
+     description: 'Doplin',
+     url: '/static/uploads/online/playlist.m3u8',
+     type: 'application/x-mpegURL'
+   },
+    {
+     title: '斑马英语A',
+     description: 'About A',
+     url: '/static/uploads/online/banma_1.m3u8',
+     type: 'application/x-mpegURL'
+   },
+    {
+     title: '美国儿童英语启蒙A',
+     description: '美国儿童英语启蒙A',
+     url: '/static/uploads/online/ln_1.m3u8',
+     type: 'application/x-mpegURL'
+   },
+    {
+     title: '美国儿童英语启蒙A',
+     description: '美国儿童英语启蒙B',
+     url: '/static/uploads/online/ln_2.m3u8',
+     type: 'application/x-mpegURL'
+   },
+    {
+     title: '梁静茹',
+     description: '梁静茹',
+     url: '/static/uploads/online/liang_jing_ru.m3u8',
+     type: 'application/x-mpegURL'
+   },
+    {
+     title: '街霸',
+     description: '春丽',
+     url: '/static/uploads/online/jieba_chunli.m3u8',
+     type: 'application/x-mpegURL'
+   },
+    {
+     title: '史诗',
+     description: '超燃热血踩点-2',
+     url: '/static/uploads/online/cai_dian_2.m3u8',
+     type: 'application/x-mpegURL'
+   },
+    {
+     title: '史诗',
+     description: '超燃热血踩点-4',
+     url: '/static/uploads/online/cai_dian_4.m3u8',
+     type: 'application/x-mpegURL'
+   }
+])
+
+// 当前选中的流媒体索引
+const currentStreamIndex = ref(0)
+
+// 当前选中的流媒体
+const currentStream = computed(() => streams.value[currentStreamIndex.value])
+
+// 选择流媒体
+const selectStream = (index: number) => {
+  currentStreamIndex.value = index
+}
+
+// 获取播放器配置
+const getPlayerOptions = (stream: Stream, isMini: boolean) => {
+  return {
+    autoplay: !isMini, // 只有主播放器自动播放
+    controls: !isMini,
+    source: {
+      src: stream.url,
+      type: stream.type
+    },
+    fluid: true,
+    aspectRatio: '16:9',
+    muted: isMini, // 小播放器默认静音
+    loop: !isMini, // 只有主播放器循环播放
+    poster: isMini ? '/img/def/video-thumbnail.jpg' : undefined // 小播放器使用静态缩略图
+  }
+}
+</script>
+
+<style scoped>
+.living-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  min-height: calc(100vh - 200px);
+  background-color: #f5f5f5;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.playlist {
+  width: 300px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding-right: 10px;
+  max-height: calc(100vh - 240px);
+  scrollbar-width: thin;
+  scrollbar-color: #1890ff #f0f0f0;
+}
+
+.playlist::-webkit-scrollbar {
+  width: 6px;
+}
+
+.playlist::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 10px;
+}
+
+.playlist::-webkit-scrollbar-thumb {
+  background-color: #1890ff;
+  border-radius: 10px;
+}
+.playlist-item {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
+}
+
+.main-player-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.playlist-item:hover {
+  transform: translateY(-2px);
+}
+
+.playlist-item.active {
+  border: 2px solid #1890ff;
+}
+
+.thumbnail {
+  width: 100%;
+  height: 120px;
+  overflow: hidden;
+  position: relative;
+}
+
+.mini-player {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.stream-info {
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  position: relative;
+}
+
+.stream-info h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stream-info p {
+  margin: 5px 0 0;
+  font-size: 14px;
+  color: #666;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-height: 40px;
+}
+
+.main-player {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #000;
+  overflow: hidden;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-player-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.stream-details {
+  margin-top: 20px;
+}
+
+.stream-details h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.stream-details p {
+  margin: 10px 0 0;
+  font-size: 16px;
+  color: #666;
+}
